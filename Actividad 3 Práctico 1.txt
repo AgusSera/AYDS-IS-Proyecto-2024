@@ -1,0 +1,51 @@
+3) Teniendo en cuenta el problema planteado en el taller de la asignatura se solicita lo siguiente:
+
+a) Escriban una narrativa con toda la información relevante que han recabado hasta el momento sobre la situación planteada.
+
+"Road to Senior" es un proyecto de software que tiene como objetivo principal ayudar a los usuarios a mejorar y avanzar en sus habilidades de programación en el lenguaje Python. El proyecto incluye un sistema de preguntas y respuestas estructuradas en diferentes etapas de dificultad.
+
+b) Expliciten a partir de la narrativa:
+
+"Road to Senior" resuelve el problema de proporcionar una experiencia de aprendizaje interactiva, estructurada y motivadora para aquellos que desean mejorar sus habilidades en Python y avanzar en su camino hacia niveles más avanzados de dominio en programación.
+
+• ¿Cuál es el contexto en el que se sitúa ese problema?
+
+Los estudiantes y entusiastas de la programación enfrentan desafíos al intentar aprender y mejorar sus habilidades en este lenguaje, como la falta de recursos, la necesidad de práctica activa y retroalimentación, la dificultad para evaluar el progreso y la motivación para comprometerse con el aprendizaje continuo.
+
+• Construyan un glosario, en el que definan el vocabulario relevante del contexto que como desarrolladores debemos conocer.
+
+- Trivia : sistema que emplea diversas técnicas de validación de preguntas.
+- Etapa : nivel específico de habilidad y comprensión en Python que los usuarios pueden alcanzar a medida que avanzan en su aprendizaje.
+- Progreso : sistema de etapas y logros.
+- Ranking : tabla comparativa del progreso de los usuarios de la aplicación.
+
+• ¿Quiénes son los usuario/actores que van a interactuar con el sistema?
+
+Los usuarios que van a interactuar con el sistema incluye tanto a principiantes como aquellos con experiencia previa en programación
+
+• ¿Cómo y para qué van a usar el sistema estos usuarios/actores?
+
+Los usuarios el sistema como una plataforma para explorar y aprender sobre Python de manera autodidacta y a su propio ritmo. Participarán en la trivia y las lecciones ofrecidas en el sistema como una forma de divertirse mientras mejoran sus habilidades de programación.
+
+c) A partir de la información que disponen realicen un listado de los requerimientos funcionales del sistema que se necesita desarrollar.
+
+- Gestión de Usuario
+- Sistema de Trivia
+- Sistema de Reportes
+- Seguimiento del Progreso
+- Seguimiento de Logros
+- Visualización de Ranking
+
+d) A partir de la información que disponen listen los requerimientos no funcionales o restricciones (de desempeño, seguridad, estabilidad, atributos de calidad) del sistema a desarrollar.
+
+- Interfaz simple e intuitiva
+- Disponibilidad 24/7
+- Facilidad de uso
+- Seguridad
+- Mantenibilidad
+
+e) Propongan al menos 2 o 3 preguntas que ustedes como parte del equipo de desarrollo desean realizar en una próxima reunión a los docentes del taller, para poder completar o ampliar los puntos anteriores, o aclarar inquietudes y así poder avanzar en la comprensión del problema a resolver.
+
+¿Debería ser accesible desde navegadores web en computadoras de escritorio, dispositivos móviles o ambos?
+
+¿Tiene preferencia sobre alguna tecnología en particular para el desarrollo del sistema?
