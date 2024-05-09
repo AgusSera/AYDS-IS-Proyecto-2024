@@ -1,10 +1,20 @@
-require 'sinatra'
+require 'sinatra/base'
 
-get '/login' do
-  erb :login
-end
+class App < Sinatra::Application
+  def initialize(app = nil)
+    super()
+  end
 
-post '/login' do
-  username = params['uname']
-  "Hola #{username}."
+  get '/' do
+    'Welcome'
+  end
+
+  get '/login' do
+    erb :login
+  end
+
+  post '/login' do
+    username = params['uname']
+    "Hola #{username}."
+  end
 end
