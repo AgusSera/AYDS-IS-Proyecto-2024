@@ -6,7 +6,7 @@ class App < Sinatra::Application
   end
 
   get '/' do
-    'Welcome'
+    erb :menu
   end
 
   get '/login' do
@@ -16,5 +16,9 @@ class App < Sinatra::Application
   post '/login' do
     username = params['uname']
     "Hola #{username}."
+  end
+
+  post '/login_redirect' do
+    redirect '/login'
   end
 end
