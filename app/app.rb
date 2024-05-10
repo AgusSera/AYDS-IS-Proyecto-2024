@@ -4,6 +4,7 @@ require 'sinatra/activerecord'
 set :database_file, './config/database.yml'
 
 require './models/user'
+require './models/question'
 
 class App < Sinatra::Application
   def initialize(app = nil)
@@ -36,12 +37,21 @@ class App < Sinatra::Application
     user = User.find_by(username: params[:username])
     if user
       response = "<p>Username: #{user.username}</p>"
-    response += "<p>Name: #{user.names}</p>"
-    response += "<p>E-mail: #{user.email}</p>"
+      response += "<p>E-mail: #{user.email}</p>"
       response
     else
       status 404 
       "User not found"
     end
   end
+
+  get '/question/:id' do
+    question = Question.find_by(id: params[:id])
+    if question
+      "#{question.description}"
+    else
+      "Question not found"
+    end
+  end
+
 end

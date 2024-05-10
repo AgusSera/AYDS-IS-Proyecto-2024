@@ -1,8 +1,7 @@
 class CreateUsersTable < ActiveRecord::Migration[5.0]
   def change
     create_table :users do |t|
-      t.string :names
-      t.string :username
+      t.string :username, primary_key: true
       t.string :email
       t.string :password
 
