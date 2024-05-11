@@ -20,6 +20,13 @@ progresses = [
     { numberOfCorrectAnswers: 1, numberOfAchivements: 0, progressLevel: 'Malardo' }
 ]
 
+options = [
+  { id: 11, description: 'Opcion 1', correct: true},
+  { id: 12, description: 'Opcion 2', correct: false},
+  { id: 13, description: 'Opcion 3', correct: false},
+  { id: 14, description: 'Opcion 4', correct: false},
+]
+
 progresses.each do |p|
     Progress.create(p)
 end
@@ -30,4 +37,8 @@ end
 
 questions.each do |q|
   Question.create(q)
+end
+
+options.each do |o|
+  Option.create(o)
 end

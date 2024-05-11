@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_10_191925) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_11_182356) do
+  create_table "options", id: false, force: :cascade do |t|
+    t.integer "id"
+    t.string "description"
+    t.boolean "correct"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "progresses", force: :cascade do |t|
     t.integer "numberOfCorrectAnswers"
     t.integer "numberOfAchivements"
