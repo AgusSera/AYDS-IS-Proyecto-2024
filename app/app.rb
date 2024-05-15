@@ -45,13 +45,19 @@ class App < Sinatra::Application
     password = params['password']
     email = params['email']
 
-    if User.exists?(username: username)
-      return "El nombre de usuario ya está en uso"
+    if User.exists?(username: username) || User.exists?(email: email)
+      @error_message = "Usuario ya existente."
+      erb :register
+    else
+      new_user = User.new(username: username, password: password, email: email)
+      if new_user.save
+        session[:username] = new_user.username
+        redirect '/dashboard'
+      else
+        @error_message = "Hubo un error al intentar crear la cuenta."
+        erb :register
+      end
     end
-
-    new_user = User.new(username: username, password: password, email: email)
-
-    redirect './dashboard'
   end
 
   get '/users' do
