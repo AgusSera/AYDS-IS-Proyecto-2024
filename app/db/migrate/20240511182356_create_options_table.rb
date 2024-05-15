@@ -1,7 +1,6 @@
 class CreateOptionsTable < ActiveRecord::Migration[7.1]
   def change
-    create_table :options, id: false do |t|
-      t.integer :id
+    create_table :options do |t|
       t.string :description
       t.boolean :correct
 

@@ -11,8 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_05_11_182356) do
-  create_table "options", id: false, force: :cascade do |t|
-    t.integer "id"
+  create_table "options", force: :cascade do |t|
     t.string "description"
     t.boolean "correct"
     t.datetime "created_at"
@@ -27,15 +26,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_11_182356) do
     t.datetime "updated_at"
   end
 
-  create_table "questions", id: false, force: :cascade do |t|
-    t.integer "id"
+  create_table "questions", force: :cascade do |t|
     t.string "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "names"
     t.string "username"
     t.string "email"
     t.string "password"
