@@ -1,15 +1,14 @@
-<h2>Sign in</h2>
+<h2>Registrtrr</h2>
 
-<form action="/login" method="post">
+<form action="/register" method="post">
      <label for="username"><b>Username</b></label>
      <input type="text" placeholder="Enter Username" name="username" required>
 
      <label for="password"><b>Password</b></label>
      <input type="password" placeholder="Enter Password" name="password" required>
 
-     <button type="submit">Login</button>
+     <label for="email"><b>Email</b></label>
+     <input type="email" placeholder="Enter E-mail" name="email" required>
 
+     <button type="submit">Register</button>
 </form>
-<% if @error_message %>
-  <p><%= @error_message %></p>
-<% end %>

@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+enable :sessions
 
 set :database_file, './config/database.yml'
 
@@ -16,16 +17,41 @@ class App < Sinatra::Application
   end
 
   get '/login' do
-    erb :login
+    erb :login, locals: { error_message: nil }
   end
-
+  
   post '/login' do
-    username = params['uname']
-    "Hola #{username}."
+    user = User.find_by(username: params[:username], password: params[:password])
+    if user
+      session[:username] = user.username
+      redirect '/dashboard'
+    else
+      @error_message = "Usuario o contraseña incorrectos."
+      erb :login, locals: { error_message: @error_message }
+    end
+  end  
+
+  post '/logout' do
+    session.clear
+    redirect '/login'
+  end
+  
+  get '/register' do
+    erb :register
   end
 
-  post '/login_redirect' do
-    redirect '/login'
+  post '/register' do
+    username = params['username']
+    password = params['password']
+    email = params['email']
+
+    if User.exists?(username: username)
+      return "El nombre de usuario ya está en uso"
+    end
+
+    new_user = User.new(username: username, password: password, email: email)
+
+    redirect './dashboard'
   end
 
   get '/users' do
@@ -54,6 +80,24 @@ class App < Sinatra::Application
     end
   end
 
-  # TODO get '/progress/:id?'
+  get '/dashboard' do
+    if session[:username]
+      @user = User.find_by(username: session[:username])
+      erb :dashboard
+    else
+      redirect '/login'
+    end
+  end
+  
+  get '/progress/:id?' do
+    progress = Progress.find_by(id: params[:id])
+    if progress
+      "#{progress.numberOfCorrectAnswers}"
+      "#{progress.numberOfAchivements}"
+      "#{progress.progressLevel}"
+    else
+      "Progress not found"
+    end
+  end
 
 end

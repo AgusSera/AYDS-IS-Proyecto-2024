@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Bienvenido, <%= @user.username %>!</h1>
+  <p>Nombre de usuario: <%= @user.username %></p>
+  <p>Correo electrónico: <%= @user.email %></p>
+  
+  <form action="/logout" method="post">
+    <input type="submit" value="Cerrar sesión">
+  </form>
+</body>
+</html>

@@ -1,6 +1,8 @@
 # db/seeds.rb
 require_relative '../models/user'
 require_relative '../models/question'
+require_relative '../models/option'
+require_relative '../models/progress'
 
 users = [
   { username: 'jondoe', email: 'jon@doe.com', password: 'abc' },
@@ -14,7 +16,6 @@ questions = [
 ]
 
 # Falta relacionarlo con atributo del usuario
-require_relative '../models/progress'
 progresses = [
     { numberOfCorrectAnswers: 20, numberOfAchivements: 5, progressLevel: 'Capo' },
     { numberOfCorrectAnswers: 1, numberOfAchivements: 0, progressLevel: 'Malardo' }
@@ -27,18 +28,27 @@ options = [
   { id: 14, description: 'Opcion 4', correct: false},
 ]
 
+# Crear usuarios
+users.each do |u|
+  unless User.exists?(u[:email])
+    User.create(u)
+  end
+end
+
+#HACER: modificar para que verifique existencia
 progresses.each do |p|
     Progress.create(p)
 end
 
-users.each do |u|
-  User.create(u)
-end
-
+# Crear preguntas
 questions.each do |q|
-  Question.create(q)
+  unless Question.exists?(q[:id])
+    Question.create(q)
+  end
 end
 
 options.each do |o|
-  Option.create(o)
+  unless Option.exists?(o[:id])
+    Option.create(o)
+  end
 end
