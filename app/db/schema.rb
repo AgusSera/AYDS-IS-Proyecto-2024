@@ -39,10 +39,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
     t.integer "numberOfCorrectAnswers"
     t.integer "numberOfAchivements"
     t.string "progressLevel"
-    t.integer "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["user_id"], name: "index_progresses_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -76,16 +74,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
     t.string "email"
     t.string "password"
     t.integer "remaining_life_points"
+    t.integer "progress_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["progress_id"], name: "index_users_on_progress_id"
   end
 
   add_foreign_key "achievements", "users"
   add_foreign_key "options", "questions"
-  add_foreign_key "progresses", "users"
   add_foreign_key "questions", "lessons"
   add_foreign_key "user_lessons", "lessons"
   add_foreign_key "user_lessons", "users"
   add_foreign_key "user_questions", "questions"
   add_foreign_key "user_questions", "users"
+  add_foreign_key "users", "progresses"
 end
