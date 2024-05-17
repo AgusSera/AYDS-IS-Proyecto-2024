@@ -11,12 +11,12 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
-  create_table "achivements", force: :cascade do |t|
+  create_table "achievements", force: :cascade do |t|
     t.string "description"
     t.integer "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["user_id"], name: "index_achivements_on_user_id"
+    t.index ["user_id"], name: "index_achievements_on_user_id"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -80,7 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
     t.datetime "updated_at"
   end
 
-  add_foreign_key "achivements", "users"
+  add_foreign_key "achievements", "users"
   add_foreign_key "options", "questions"
   add_foreign_key "progresses", "users"
   add_foreign_key "questions", "lessons"

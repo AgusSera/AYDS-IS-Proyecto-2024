@@ -1,5 +1,5 @@
 class UserQuestion < ActiveRecord::Base
   # referencia a la relacion N a N entre User y Question
-  belong_to :user
-  belong_to :question
+  belongs_to :user
+  belongs_to :question
 end
