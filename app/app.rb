@@ -6,6 +6,7 @@ set :database_file, './config/database.yml'
 
 require './models/user'
 require './models/question'
+require './models/option'
 
 class App < Sinatra::Application
   def initialize(app = nil)
@@ -78,9 +79,10 @@ class App < Sinatra::Application
   end
 
   get '/question/:id' do
-    question = Question.find_by(id: params[:id])
-    if question
-      "#{question.description}"
+    @question = Question.find_by(id: params[:id])
+    if @question
+      @options = @question.options
+      erb :question
     else
       "Question not found"
     end

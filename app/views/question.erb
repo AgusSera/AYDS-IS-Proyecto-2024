@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Question</title>
+</head>
+<body>
+  <h2><%= @question.description %></h2>
+  <ul>
+    <% @options.each do |option| %>
+      <li><%= option.description %></li>
+    <% end %>
+  </ul>
+</body>
+</html>
