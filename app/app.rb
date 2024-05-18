@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 enable :sessions
 
 set :database_file, './config/database.yml'
+set :public_folder, 'assets'
 
 require './models/user'
 require './models/question'
