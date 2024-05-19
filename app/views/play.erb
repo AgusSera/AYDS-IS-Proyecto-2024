@@ -1,0 +1,20 @@
+<!-- views/play.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jugar <%= @lesson.name %></title>
+</head>
+<body>
+  <h1>Jugar <%= @lesson.name %></h1>
+  <% if params[:error] == 'wrong_answer' %>
+    <p style="color: red;">Respuesta incorrecta. Inténtalo de nuevo.</p>
+  <% end %>
+  <p><%= @question.description %></p>
+  <form action="/lesson/<%= @lesson.id %>/submit_answer" method="post">
+    <% @question.options.each do |option| %>
+      <input type="radio" name="answer" value="<%= option.id %>"> <%= option.description %><br>
+    <% end %>
+    <input type="submit" value="Enviar">
+  </form>
+</body>
+</html>

@@ -106,6 +106,50 @@ class App < Sinatra::Application
     erb :content
   end
 
+  get '/lesson/:id/play' do
+    @lesson = Lesson.find(params[:id])
+    @user = User.find_by(username: session[:username])
+    progress = @user.progress 
+
+    if @lesson.id < progress.current_lesson
+      erb :lesson_completed
+    elsif @lesson.id == progress.current_lesson
+      session[:answered_questions] ||= []
+      unanswered_questions = @lesson.questions.where.not(id: session[:answered_questions])
+
+      if unanswered_questions.empty?
+        progress.update(current_lesson: progress.current_lesson + 1)
+        erb :lesson_completed
+      else
+        @question = unanswered_questions.sample
+        erb :play
+      end
+    else
+      erb :lesson_locked
+    end
+  end
+
+  post '/lesson/:id/submit_answer' do
+    @lesson = Lesson.find(params[:id])
+    @user = User.find_by(username: session[:username])
+    progress = @user.progress 
+
+    option_id = params[:answer].to_i
+    option = Option.find(option_id)
+    question_id = option.question.id
+    question = Question.find(question_id)
+    
+    if option.value
+      # Respuesta correcta
+      session[:answered_questions] << question_id
+      
+      redirect "/lesson/#{params[:id]}/play"
+    else
+      # Respuesta incorrecta
+      redirect "/lesson/#{params[:id]}/play?error=wrong_answer"
+    end
+  end
+
   get '/dashboard' do
     if session[:username]
       @user = User.find_by(username: session[:username])
