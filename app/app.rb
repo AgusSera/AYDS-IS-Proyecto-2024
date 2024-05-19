@@ -8,6 +8,8 @@ set :public_folder, 'assets'
 require './models/user'
 require './models/question'
 require './models/option'
+require './models/lesson'
+require './models/progress'
 
 class App < Sinatra::Application
   def initialize(app = nil)
@@ -51,7 +53,8 @@ class App < Sinatra::Application
       @error_message = "Usuario ya existente."
       erb :register
     else
-      new_user = User.new(username: username, password: password, email: email)
+      new_progress = Progress.create(current_lesson: 1)
+      new_user = User.new(username: username, password: password, email: email, remaining_life_points: 100, progress_id: new_progress.id)
       if new_user.save
         session[:username] = new_user.username
         redirect '/dashboard'
@@ -87,6 +90,20 @@ class App < Sinatra::Application
     else
       "Question not found"
     end
+  end
+
+  get '/lesson/:id' do
+    @lesson = Lesson.find(params[:id])
+    if session[:username]
+      erb :lesson
+    else
+      redirect '/login'
+    end
+  end
+
+  get '/lesson/:id/content' do
+    @lesson = Lesson.find(params[:id])
+    erb :content
   end
 
   get '/dashboard' do

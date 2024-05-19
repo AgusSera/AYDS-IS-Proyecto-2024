@@ -1,0 +1,12 @@
+<!-- views/lesson.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @lesson.name %></title>
+</head>
+<body>
+  <h1><%= @lesson.name %></h1>
+  <button onclick="window.location.href='/lesson/<%= @lesson.id %>/content'">Contenido</button>
+  <button onclick="window.location.href='/lesson/<%= @lesson.id %>/play'">Jugar</button>
+</body>
+</html>
