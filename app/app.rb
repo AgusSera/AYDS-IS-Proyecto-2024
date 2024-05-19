@@ -53,7 +53,7 @@ class App < Sinatra::Application
       @error_message = "Usuario ya existente."
       erb :register
     else
-      new_progress = Progress.create(current_lesson: 1)
+      new_progress = Progress.create(current_lesson: 1) # Progreso asociado al nuevo usuario
       new_user = User.new(username: username, password: password, email: email, remaining_life_points: 100, progress_id: new_progress.id)
       if new_user.save
         session[:username] = new_user.username
@@ -111,20 +111,22 @@ class App < Sinatra::Application
     @user = User.find_by(username: session[:username])
     progress = @user.progress 
 
+    # Acceder a una lección ya completada
     if @lesson.id < progress.current_lesson
       erb :lesson_completed
+    # Acceder a lección alcanzada por el usuario
     elsif @lesson.id == progress.current_lesson
       session[:answered_questions] ||= []
       unanswered_questions = @lesson.questions.where.not(id: session[:answered_questions])
 
-      if unanswered_questions.empty?
-        progress.update(current_lesson: progress.current_lesson + 1)
+      if unanswered_questions.empty? # No hay preguntas sin responder
+        progress.update(current_lesson: progress.current_lesson + 1) # El usuario avanza a la lección siguiente
         erb :lesson_completed
       else
-        @question = unanswered_questions.sample
+        @question = unanswered_questions.sample # Obtener pregunta aleatoria
         erb :play
       end
-    else
+    else # Acceder a lección no alcanzada
       erb :lesson_locked
     end
   end
@@ -142,7 +144,7 @@ class App < Sinatra::Application
     if option.value
       # Respuesta correcta
       session[:answered_questions] << question_id
-      
+      # Seguir respondiendo preguntas de la lección
       redirect "/lesson/#{params[:id]}/play"
     else
       # Respuesta incorrecta
