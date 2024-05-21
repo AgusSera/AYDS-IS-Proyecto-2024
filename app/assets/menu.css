@@ -1,12 +1,21 @@
-* {
-    margin: 0;
-    padding: 0;
-}
 
 body {
     font-family: 'Fira Code', monospace;
+    line-height: 1.7;
 }
 
+h1,h2,h3,h4,h5,h6,.display-4 {
+    color: white;
+}
+
+p {
+    color: rgb(158, 158, 158);
+}
+
+a {
+    color: rgb(158, 158, 158);
+    text-decoration: none;
+}
 #nav-bar {
     position: sticky;
     top: 0;
@@ -20,4 +29,11 @@ body {
 .navbar-brand img{
     height: 50px;
     padding-left: 30px;
+}
+
+.hero {
+    background-image: url(images/background.jpg);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
 }
