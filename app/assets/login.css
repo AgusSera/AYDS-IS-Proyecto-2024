@@ -36,6 +36,7 @@ body {
 .form-signin input[type="text"],
 .form-signin input[type="password"] {
     background-color: #394041;
+    color: white;
     border: 1px solid #ced4da;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
