@@ -1,19 +1,35 @@
-<h2>Register</h2>
-
-<form action="/register" method="post">
-     <label for="username"><b>Username</b></label>
-     <input type="text" placeholder="Enter Username" name="username" required>
-
-     <label for="password"><b>Password</b></label>
-     <input type="password" placeholder="Enter Password" name="password" required>
-
-     <label for="email"><b>Email</b></label>
-     <input type="email" placeholder="Enter E-mail" name="email" required>
-
-     <button type="submit">Register</button>
-</form>
-
-<a href="/">Volver al inicio</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Enlace a CSS de Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="register.css">
+    <!-- Fuente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form class="form-signin" action="/register" method="post">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Register</h1>
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <label for="email" class="sr-only">Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="E-mail" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <p class="mt-3 mb-3 text-center">Already have an account? <a href="/login">Log in</a></p>
+    </form>
+    <!-- Enlace a JS de Bootstrap y dependencias -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
 
 <% if @error_message %>
   <p><%= @error_message %></p>
