@@ -14,7 +14,7 @@ body {
     width: 100%;
     max-width: 330px;
     padding: 15px;
-    margin: auto;
+    margin: 0 auto;
     background: #212529; /* Fondo blanco con opacidad */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
@@ -38,12 +38,16 @@ body {
     background-color: #394041;
     color: white;
     border: 1px solid #ced4da;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+
 }
 
 .form-signin button {
     margin-top: 70px; /* Aumentar espacio superior al botón */
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
 }
 
 .form-signin h1 {
