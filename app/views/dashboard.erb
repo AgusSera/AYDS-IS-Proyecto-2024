@@ -4,17 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
+  <!-- Fuente -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-  <h1>Bienvenido, <%= @user.username %>!</h1>
-  <p>Nombre de usuario: <%= @user.username %></p>
-  <p>Correo electrónico: <%= @user.email %></p>
-  <h2>Para entrar al juego, vuelve atras y logeate</h2>
-  <form action="/" method="get">
-    <input type="submit" value="Volver atras">
-  </form>
-  <form action="/logout" method="post">
-    <input type="submit" value="Cerrar sesión">
-  </form>
+  <div class="content-wrapper">
+    <!-- Agrega la foto de perfil -->
+    <div class="profile-picture">
+      <img src="images/profile-picture.png" alt="Foto de perfil">
+    </div>
+    <!-- Mensaje de bienvenida y detalles del usuario -->
+    <h1 class="text-center">Welcome, <%= @user.username %>!</h1>
+    <p class="user-info"><strong> - Username:</strong> <%= @user.username %></p>
+    <p class="user-info"><strong> - E-mail:</strong> <%= @user.email %></p>
+    <!-- Botones -->
+    <div class="button-container">
+      <form action="/progress" method="get">
+        <input type="hidden" name="id" value="<%= @user.progress_id %>">
+        <button type="submit" class="btn btn-primary">Progress</button>
+      </form>
+      <form action="/logout" method="post">
+        <button type="submit" class="btn btn-danger">Close session</button>
+      </form>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

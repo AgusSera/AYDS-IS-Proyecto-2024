@@ -161,15 +161,18 @@ class App < Sinatra::Application
     end
   end
   
-  get '/progress/:id?' do
+  get '/progress' do
+    redirect "/progress/#{params[:id]}"
+  end
+  
+  get '/progress/:id' do
     progress = Progress.find_by(id: params[:id])
     if progress
-      "#{progress.numberOfCorrectAnswers}"
-      "#{progress.numberOfAchivements}"
-      "#{progress.progressLevel}"
+      erb :progress, locals: { progress: progress, error_message: nil }
     else
-      "Progress not found"
+      erb :progress, locals: { progress: nil, error_message: "Progress not found" }
     end
   end
+  
 
 end

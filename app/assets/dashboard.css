@@ -1,0 +1,78 @@
+body {
+    font-family: 'Fira Code', monospace;
+    display: flex;
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+    height: 100vh;
+    background-color: #212529; /* Fondo sólido */
+    margin: 0;
+  }
+  
+  .content-wrapper {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    background: #343a40; /* Fondo oscuro para el contenedor */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    color: white; /* Texto blanco */
+    text-align: center; /* Centrar el texto */
+  }
+  
+  .profile-picture img {
+    display: block; /* Para asegurar que la imagen se muestre como un bloque */
+    margin: 0 auto 20px; /* Margen inferior para separar la imagen del texto */
+    width: 150px; /* Ancho de la imagen */
+    height: 150px; /* Altura de la imagen */
+    border-radius: 50%; /* Hacer la imagen circular */
+    object-fit: cover; /* Ajustar la imagen para cubrir el contenedor */
+    object-position: center; /* Centrar la imagen */
+  }
+  
+  .content-wrapper h1 {
+    color: white;
+    margin-bottom: 30px !important;
+    font-size: xx-large;
+  }
+  
+  .user-info {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .user-info strong {
+    color: #ced4da; /* Texto ligeramente más claro para el strong */
+  }
+  
+  .button-container form {
+    margin-bottom: 15px;
+  }
+  
+  .btn {
+    width: 50%;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn:hover {
+    opacity: 0.8;
+  }
+  
+  /* Aplicar la fuente Fira Code a los botones */
+  .btn-primary, .btn-danger {
+    font-family: 'Fira Code', monospace;
+  }
+  
