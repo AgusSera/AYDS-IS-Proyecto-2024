@@ -9,7 +9,10 @@
   <h1>Bienvenido, <%= @user.username %>!</h1>
   <p>Nombre de usuario: <%= @user.username %></p>
   <p>Correo electrónico: <%= @user.email %></p>
-  
+  <h2>Para entrar al juego, vuelve atras y logeate</h2>
+  <form action="/" method="get">
+    <input type="submit" value="Volver atras">
+  </form>
   <form action="/logout" method="post">
     <input type="submit" value="Cerrar sesión">
   </form>
