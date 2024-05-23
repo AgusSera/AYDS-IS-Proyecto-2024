@@ -3,29 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Trivia App</title>
   <link rel="stylesheet" href="dashboard.css">
+  <!-- Add Bootstrap CSS link here -->
 </head>
 <body>
-  <div class="content-wrapper">
-    <!-- Agrega la foto de perfil -->
-    <div class="profile-picture">
-      <img src="images/profile-picture.png" alt="Foto de perfil">
+<!-------Nav Bar---------->
+<section id="nav-bar">
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="images/logo.png"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav ms-auto">
+                    <!-- For large screens, show buttons -->
+                    <li class="nav-item d-none d-lg-block">
+                    <form action="/progress" method="get">
+                      <input type="hidden" name="id" value="<%= @user.progress_id %>">
+                      <button type="submit" class="btn btn-dark border-0 me-2"">
+                        <i class="bi bi-bar-chart"></i>
+                      </button>
+                    </form>
+                    </li>
+                    <li class="nav-item d-none d-lg-block">
+                        <form action="/settings" method="get">
+                        
+                            <button type="submit" class="btn btn-dark border-0 me-2">
+                                <i class="bi bi-gear"></i>
+                            </button>
+                        </form>
+                    </li>
+                    <li class="nav-item d-none d-lg-block">
+                        <form action="/logout" method="post">
+                            <button type="submit" class="btn btn-danger border-0 me-2">Log out</button>
+                        </form>
+                    </li>
+                    <!-- For small screens, show plain text -->
+                    <li class="nav-item d-lg-none">
+                      <form id="progressForm" action="/progress" method="get">
+                        <input type="hidden" name="id" value="<%= @user.progress_id %>">
+                      </form>
+                      <a href="#" class ="nav-link" onclick="document.getElementById('progressForm').submit(); return false;">Stats</a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a href="/settings" class="nav-link">Settings</a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a href="/logout" class="nav-link">Log out</a>
+                    </li>
+                </ul>  
+            </div>
+        </div>
+    </nav>
+</section>
+
+  <div class="container pt-4 pb-4">
+        <div class="text-center">
+            <div class="profile-picture mb-4">
+                <img src="images/profile-picture.png" alt="Profile Picture">
+            </div>
+            <h1>Welcome, <%= @user.username %>!</h1>
+        </div>
+
+        <!-- Centered Play Button -->
+        <div class="d-flex justify-content-center align-items-center">
+            <button class="btn btn-primary play-button" id="play-button">
+                <i class="bi bi-play"></i> Play
+            </button>
+        </div>
+
+        <h2 class="mt-4">Available Lessons</h2>
+        <ul class="lesson-list list-group">
+            <% @lessons.reverse.each do |lesson| %>
+                <li class="lesson-item list-group-item">
+                    <%= lesson.name %>
+                </li>
+            <% end %>
+        </ul>
     </div>
-    <!-- Mensaje de bienvenida y detalles del usuario -->
-    <h1 class="text-center">Welcome, <%= @user.username %>!</h1>
-    <p class="user-info"><strong> - Username:</strong> <%= @user.username %></p>
-    <p class="user-info"><strong> - E-mail:</strong> <%= @user.email %></p>
-    <!-- Botones -->
-    <div class="button-container">
-      <form action="/progress" method="get">
-        <input type="hidden" name="id" value="<%= @user.progress_id %>">
-        <button type="submit" class="btn btn-primary">Progress</button>
-      </form>
-      <form action="/logout" method="post">
-        <button type="submit" class="btn btn-danger">Close session</button>
-      </form>
-    </div>
-  </div>
 </body>
 </html>

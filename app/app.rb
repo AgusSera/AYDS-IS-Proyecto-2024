@@ -155,6 +155,7 @@ class App < Sinatra::Application
   get '/dashboard' do
     if session[:username]
       @user = User.find_by(username: session[:username])
+      @lessons = Lesson.all
       erb :dashboard
     else
       redirect '/login'
