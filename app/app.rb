@@ -38,7 +38,11 @@ class App < Sinatra::Application
   end
 
   get '/' do
-    erb :menu
+    if session[:username]
+      redirect '/dashboard'
+    else
+      erb :menu
+    end
   end
 
   get '/login' do
@@ -135,31 +139,31 @@ class App < Sinatra::Application
     # Acceder a lección ya completada 
     if @lesson.id < progress.current_lesson
       erb :lesson_completed
-    end
-
-    # Acceder a lección bloqueada
-    if @lesson.id > progress.current_lesson
-      erb :lesson_locked
-    end
-
-    # Si no tiene vidas no puede acceder a la lección actual
-    if @user.remaining_life_points == 0
-        redirect '/dashboard'
-    end
-
-    # Acceder a la lección actual / alcanzada
-    if @lesson.id == progress.current_lesson
-      session[:answered_questions] ||= []
-      unanswered_questions = @lesson.questions.where.not(id: session[:answered_questions])
-
-      if unanswered_questions.empty? # No hay preguntas sin responder
-          progress.update(current_lesson: progress.current_lesson + 1) # El usuario avanza a la lección siguiente
-          erb :lesson_completed
+    else
+      # Acceder a lección bloqueada
+      if @lesson.id > progress.current_lesson
+        erb :lesson_locked
       else
-          @question = unanswered_questions.sample # Obtener pregunta aleatoria
-          erb :play
+        if @user.remaining_life_points == 0
+          redirect '/dashboard'
+        else
+          if @lesson.id == progress.current_lesson
+            session[:answered_questions] ||= []
+            unanswered_questions = @lesson.questions.where.not(id: session[:answered_questions])
+
+            if unanswered_questions.empty? # No hay preguntas sin responder
+                progress.update(current_lesson: progress.current_lesson + 1) # El usuario avanza a la lección siguiente
+                erb :lesson_completed
+            else
+                @question = unanswered_questions.sample # Obtener pregunta aleatoria
+                erb :play
+            end
+          else # Acceder a lección no alcanzada
+            erb :lesson_locked
+          end
+        end
       end
-    end        
+    end
   end
 
   post '/lesson/:id/submit_answer' do
