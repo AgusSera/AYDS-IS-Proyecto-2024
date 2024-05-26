@@ -1,8 +1,6 @@
-
 body {
   font-family: 'Fira Code', monospace;
   line-height: 1.7;
-  height: 100vh;
   background: url('./images/background.jpg') no-repeat center center fixed;
   background-size: cover;
   backdrop-filter: blur(10px); /* Aplica un difuminado al fondo */

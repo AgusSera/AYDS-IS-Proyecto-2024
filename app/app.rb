@@ -55,7 +55,7 @@ class App < Sinatra::Application
       session[:username] = user.username
       redirect '/dashboard'
     else
-      @error_message = "Incorrect username of password. Please try again."
+      @error_message = "Incorrect username or password. Please try again."
       erb :login, locals: { error_message: @error_message }
     end
   end  
@@ -75,7 +75,7 @@ class App < Sinatra::Application
     email = params['email']
 
     if User.exists?(username: username) || User.exists?(email: email)
-      @error_message = "A user with that username already exists."
+      @error_message = "This user already exists."
       erb :register
     else
       new_progress = Progress.create(current_lesson: 1) # Progreso asociado al nuevo usuario

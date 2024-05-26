@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trivia App</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
-  <!-- Add Bootstrap CSS link here -->
 </head>
 <body>
 <!-------Nav Bar---------->
@@ -51,7 +50,9 @@
                         <a href="/settings" class="nav-link">Settings</a>
                     </li>
                     <li class="nav-item d-lg-none">
-                        <a href="/logout" class="nav-link">Log out</a>
+                      <form id="logoutForm" action="/logout" method="post">
+                      </form>
+                      <a href="#" class ="nav-link" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
                     </li>
                 </ul>  
             </div>
