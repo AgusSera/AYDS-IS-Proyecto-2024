@@ -132,24 +132,34 @@ class App < Sinatra::Application
     @user = User.find_by(username: session[:username])
     progress = @user.progress 
 
-    # Acceder a una lección ya completada
+    # Acceder a lección ya completada 
     if @lesson.id < progress.current_lesson
       erb :lesson_completed
-    # Acceder a lección alcanzada por el usuario
-    elsif @lesson.id == progress.current_lesson
+    end
+
+    # Acceder a lección bloqueada
+    if @lesson.id > progress.current_lesson
+      erb :lesson_locked
+    end
+
+    # Si no tiene vidas no puede acceder a la lección actual
+    if @user.remaining_life_points == 0
+        redirect '/dashboard'
+    end
+
+    # Acceder a la lección actual / alcanzada
+    if @lesson.id == progress.current_lesson
       session[:answered_questions] ||= []
       unanswered_questions = @lesson.questions.where.not(id: session[:answered_questions])
 
       if unanswered_questions.empty? # No hay preguntas sin responder
-        progress.update(current_lesson: progress.current_lesson + 1) # El usuario avanza a la lección siguiente
-        erb :lesson_completed
+          progress.update(current_lesson: progress.current_lesson + 1) # El usuario avanza a la lección siguiente
+          erb :lesson_completed
       else
-        @question = unanswered_questions.sample # Obtener pregunta aleatoria
-        erb :play
+          @question = unanswered_questions.sample # Obtener pregunta aleatoria
+          erb :play
       end
-    else # Acceder a lección no alcanzada
-      erb :lesson_locked
-    end
+    end        
   end
 
   post '/lesson/:id/submit_answer' do
@@ -169,7 +179,15 @@ class App < Sinatra::Application
       redirect "/lesson/#{params[:id]}/play"
     else
       # Respuesta incorrecta
-      redirect "/lesson/#{params[:id]}/play?error=wrong_answer"
+      @user.subtract_life_point
+      if @user.remaining_life_points <= 0
+        # El usuario se queda sin vidas
+        session[:answered_questions] = []
+        redirect '/dashboard'
+      else
+        # El usuario todavía tiene vidas
+        redirect "/lesson/#{params[:id]}/play?error=wrong_answer"
+      end
     end
   end
 
