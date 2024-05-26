@@ -140,4 +140,4 @@ end
 progress = Progress.create(current_lesson: 1)
 
 # Crear usuario de ejemplo
-user = User.create(username: 'usuario', password: 'password', email: 'usuario@example.com', remaining_life_points: 100, progress_id: progress.id)
+user = User.create(username: 'usuario', password: 'password', email: 'usuario@example.com', remaining_life_points: 3, progress_id: progress.id)

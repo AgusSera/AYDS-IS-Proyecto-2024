@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
   belongs_to :progress
   # TODO? relacion con Ranking
   # TODO? relacion con ChosenOption
+  def subtract_life_point
+    self.remaining_life_points -= 1
+    save
+  end
 end
