@@ -1,6 +1,10 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'rufus-scheduler'
+require 'tzinfo'
 enable :sessions
+
+ENV['TZ'] = 'America/Argentina/Buenos_Aires'
 
 set :database_file, './config/database.yml'
 set :public_folder, 'assets'
@@ -12,8 +16,25 @@ require './models/lesson'
 require './models/progress'
 
 class App < Sinatra::Application
+  configure do
+    # Establecer la zona horaria
+    Time.zone = 'America/Argentina/Buenos_Aires'
+  end
+
   def initialize(app = nil)
     super()
+    start_scheduler
+  end
+
+  def start_scheduler
+    scheduler = Rufus::Scheduler.new
+    
+    scheduler.every '1s' do
+      users = User.where('remaining_life_points <= 0 AND updated_at <= ?', 1.minute.ago)
+      users.each do |user|
+        user.update(remaining_life_points: [user.remaining_life_points + 3, 0].max) # El usuario recupera las vidas.
+      end
+    end
   end
 
   get '/' do
@@ -54,7 +75,7 @@ class App < Sinatra::Application
       erb :register
     else
       new_progress = Progress.create(current_lesson: 1) # Progreso asociado al nuevo usuario
-      new_user = User.new(username: username, password: password, email: email, remaining_life_points: 100, progress_id: new_progress.id)
+      new_user = User.new(username: username, password: password, email: email, remaining_life_points: 3, progress_id: new_progress.id)
       if new_user.save
         session[:username] = new_user.username
         redirect '/dashboard'
