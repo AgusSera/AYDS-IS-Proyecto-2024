@@ -21,6 +21,11 @@
       border-radius: 10px;
       padding: 5px;
     }
+    .button-container {
+      display: flex;
+      justify-content: space-between; /* Ajuste para colocar los elementos uno al lado del otro */
+      align-items: center; /* Alinea los elementos verticalmente */
+    }
     .title-container {
       text-align: center;
       background-color: #394041;
@@ -34,11 +39,6 @@
     }
     .h3 {
       color: white;
-    }
-    .button-container {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
     }
   </style>
 </head>
@@ -62,13 +62,12 @@
           </label>
         </div>
       <% end %>
+      
+      <div class="button-container">
+        <input class="btn btn-primary" type="submit" value="Enviar">
+        <button class="btn btn-secondary" type="button" onclick="window.location.href='/';">Go back</button>
+      </div>
     </form>
-    <div class="button-container">
-      <input class="btn btn-primary" type="submit" value="Enviar">
-      <form action="/" method="get">
-        <button class="btn btn-secondary" type="submit">Go back</button>
-      </form>
-    </div>
   </div>
 </body>
 </html>
