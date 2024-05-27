@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lección Completada</title>
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #212529;
+      color: white;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 65%;
+      text-align: center;
+      background-color: #394041;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .btn {
+      margin-top: 20px;
+      width: 150px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h1>¡Lección Completada!</h1>
-  <p>Felicidades, has completado esta lección.</p>
-  <p>Puedes continuar a la siguiente lección o volver a la página de inicio.</p>
-  <!-- Agrega aquí enlaces o botones para continuar -->
+  <div class="container">
+    <h1>¡Lección Completada!</h1>
+    <p>Felicidades, has completado esta lección.</p>
+    <p>Puedes continuar a la siguiente lección o volver a la página de inicio.</p>
+    <div class="button-container">
+            <form action="/lesson/<%= @user.progress.current_lesson %>" method="get">
+                <button type="submit" class="btn btn-primary play-button" id="play-button"> Next lesson </button>
+            </form>
+            <form action="/" method="get">
+                <button type="submit" class="btn btn-secondary" id="go-back"> Go Back </button>
+            </form>
+        </div>
+  </div>
 </body>
 </html>

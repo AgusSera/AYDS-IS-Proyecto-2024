@@ -1,0 +1,32 @@
+body {
+    font-family: 'Fira Code', monospace;
+    display: flex;
+    background-color: #212529;
+}
+.container {
+    width: 65%;
+    margin: auto;
+}       
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+.content-container {
+    text-align: center; 
+    background-color: #394041;
+    border-radius: 10px;
+}
+.title-container {
+    text-align: right;
+    background-color: #394041;
+    border-radius: 10px;
+}
+.btn {
+    width: 120px;
+}
+.content-text {
+    color: #ced4da;
+}
+.h3 {
+    color: white;
+}

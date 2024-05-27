@@ -70,10 +70,13 @@
 
         <!-- Centered Play Button -->
         <div class="d-flex justify-content-center align-items-center">
-            <button class="btn btn-primary play-button" id="play-button">
-                <i class="bi bi-play"></i> Play
-            </button>
+            <form action="/lesson/<%= @user.progress.current_lesson %>" method="get">
+                <button type="submit" class="btn btn-primary play-button" id="play-button">
+                    <i class="bi bi-play"></i> Play
+                </button>
+            </form>
         </div>
+
 
         <h2 class="mt-4">Available Lessons</h2>
         <ul class="lesson-list list-group">

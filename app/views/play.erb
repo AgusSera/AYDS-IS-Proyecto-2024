@@ -1,20 +1,75 @@
-<!-- views/play.erb -->
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jugar <%= @lesson.name %></title>
+  <link rel="stylesheet" href="play.css">
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      display: flex;
+      background-color: #212529;
+    }
+    .container {
+      width: 65%;
+      margin: auto;
+    }       
+    .content-container {
+      text-align: left; 
+      background-color: #394041;
+      border-radius: 10px;
+      padding: 5px;
+    }
+    .title-container {
+      text-align: center;
+      background-color: #394041;
+      border-radius: 10px;
+    }
+    .btn {
+      width: 120px;
+    }
+    .content-text {
+      color: #ced4da;
+    }
+    .h3 {
+      color: white;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Jugar <%= @lesson.name %></h1>
-  <% if params[:error] == 'wrong_answer' %>
-    <p style="color: red;">Respuesta incorrecta. Inténtalo de nuevo.</p>
-  <% end %>
-  <p><%= @question.description %></p>
-  <form action="/lesson/<%= @lesson.id %>/submit_answer" method="post">
-    <% @question.options.each do |option| %>
-      <input type="radio" name="answer" value="<%= option.id %>"> <%= option.description %><br>
+  <div class="container mt-5">
+    <div class="title-container text-center">
+      <h1 class="h3 mb-3 font-weight-normal">Jugar <%= @lesson.name %></h1>
+    </div>
+    <% if params[:error] == 'wrong_answer' %>
+      <p style="color: red;">Respuesta incorrecta. Inténtalo de nuevo.</p>
     <% end %>
-    <input type="submit" value="Enviar">
-  </form>
+    <div class="content-container">
+      <p class="content-text"><%= @question.description %></p>
+    </div>
+    <form action="/lesson/<%= @lesson.id %>/submit_answer" method="post">
+      <% @question.options.each do |option| %>
+        <div class="form-check mb-3 mt-3">
+          <input class="form-check-input text-white" type="radio" name="answer" value="<%= option.id %>" checked> 
+          <label class="form-check-label text-white" for="exampleRadios1">
+            <%= option.description %>
+          </label>
+        </div>
+      <% end %>
+      
+      <div class="button-container">
+        <input class="btn btn-primary" type="submit" value="Enviar">
+        <form action="/" method="get">
+          <button class="btn btn-secondary" type="submit">Go back</button>
+        </form>
+      </div>
+    </form>
+  </div>
 </body>
 </html>

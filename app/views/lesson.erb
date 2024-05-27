@@ -1,12 +1,63 @@
-<!-- views/lesson.erb -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= @lesson.name %></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lesson.css">
+    <title><%= @lesson.name %></title>
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+            display: flex;
+            background-color: #212529;
+        }
+        .container {
+            width: 65%;
+            margin: auto;
+        }       
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .content-container {
+            text-align: left; 
+            background-color: #394041;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .title-container {
+            text-align: right;
+            background-color: #394041;
+            border-radius: 10px;
+        }
+        .btn {
+            width: 120px;
+        }
+        .content-text {
+            color: #ced4da;
+        }
+        .h3 {
+            color: white;
+        }
+    </style>
+
 </head>
 <body>
-  <h1><%= @lesson.name %></h1>
-  <button onclick="window.location.href='/lesson/<%= @lesson.id %>/content'">Contenido</button>
-  <button onclick="window.location.href='/lesson/<%= @lesson.id %>/play'">Jugar</button>
+    <div class="container mt-5">
+        <div class="title-container text-center">
+            <h1 class="h3 mb-3 font-weight-normal">Contenido de <%= @lesson.name %></h1>
+        </div>
+        <div class="content-container mb-3">
+            <p class="content-text"><%= @lesson.content %></p>
+        </div>
+        <div class="button-container">
+            <form action="/lesson/<%= @lesson.id %>/play" method="get">
+                <button type="submit" class="btn btn-primary" id="go-lesson"> Jugar </button>
+            </form>
+            <form action="/" method="get">
+                <button type="submit" class="btn btn-secondary" id="go-back"> Go Back </button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
