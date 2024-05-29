@@ -68,10 +68,26 @@
             <h1>Welcome, <%= @user.username %>!</h1>
         </div>
 
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="remaining-lives">
+                <% (1..3).each do |i| %> 
+                    <!-- 3 being the max. amount of lives a user can have -->
+                    <% if i <= @user.remaining_life_points %>
+                        <span class="heart">&#x2764;</span> <!-- Red heart -->
+                    <% else %>
+                        <span class="heart">&#x2661;</span> <!-- Heart outline -->
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+        <div id="countdown" class="text-center"></div>
+        
+        
+
         <!-- Centered Play Button -->
         <div class="d-flex justify-content-center align-items-center">
             <form action="/lesson/<%= @user.progress.current_lesson %>" method="get">
-                <button type="submit" class="btn btn-primary play-button" id="play-button">
+                <button type="submit" class="btn btn-primary play-button mt-4" id="play-button">
                     <i class="bi bi-play"></i> Play
                 </button>
             </form>
@@ -87,5 +103,48 @@
             <% end %>
         </ul>
     </div>
+
+    
+<script>
+// Function to calculate and update countdown
+function updateCountdown() {
+    // Get the updated_at timestamp from the server-side
+    var updatedAt = '<%= @user.updated_at %>';
+    var updatedDate = new Date(updatedAt);
+    updatedDate.setSeconds(updatedDate.getSeconds() + 60); // Add 60 seconds for the refill time
+
+    // Check if remaining life points are less than 3
+    var remainingLifePoints = <%= @user.remaining_life_points %>;
+    if (remainingLifePoints === 0) {
+        // Update countdown every second
+        var countdownElement = document.getElementById('countdown');
+        var countdownInterval = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = updatedDate - now;
+
+            // Calculate minutes and seconds
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the countdown
+            countdownElement.innerHTML = minutes + 'm ' + seconds + 's ';
+
+            // If the countdown is over, clear the interval
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                countdownElement.innerHTML = 'Your lives have been restored! You can play now.';
+                // Reload the remaining life points div
+                reloadRemainingLifePoints();
+            }
+        }, 1000);
+    } else {
+        // Hide the countdown timer if remaining life points are different than 0
+        document.getElementById('countdown').style.display = 'none';
+    }
+}
+// Call the updateCountdown function when the page loads
+updateCountdown();
+</script>
+
 </body>
 </html>

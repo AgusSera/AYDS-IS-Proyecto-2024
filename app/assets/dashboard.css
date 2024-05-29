@@ -9,6 +9,18 @@ body {
 h1,h2,h3,h4,h5,h6,.display-4 {
   color: white;
 }
+.remaining-lives .heart {
+  color: #fc3232; 
+  font-size: 1.5rem; 
+  margin-right: 5px;
+  text-shadow: 0 0 2px #000; /* Outline effect */
+  }
+
+#countdown {
+  color: white;
+  margin: 0;
+  padding: 0;
+}
 
 p {
   color: rgb(158, 158, 158);
@@ -44,7 +56,6 @@ a {
   overflow: hidden;
   font-size: 36px;
   padding: 12px 24px;
-  margin: 30px 0;
 }
 .play-button::after {
   content: "";
