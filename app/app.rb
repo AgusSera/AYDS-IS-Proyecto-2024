@@ -29,7 +29,7 @@ class App < Sinatra::Application
   def start_scheduler
     scheduler = Rufus::Scheduler.new
     
-    scheduler.every '1s' do
+    scheduler.every '5s' do
       users = User.where('remaining_life_points <= 0 AND updated_at <= ?', 1.minute.ago)
       users.each do |user|
         user.update(remaining_life_points: [user.remaining_life_points + 3, 0].max) # El usuario recupera las vidas.
@@ -44,7 +44,11 @@ class App < Sinatra::Application
       erb :menu
     end
   end
-
+  #Fixea dirección del css para el browser cuando se juega 
+  get '/lesson/:id/play.css' do
+    redirect '/play.css'
+  end
+  
   get '/login' do
     erb :login, locals: { error_message: nil }
   end
@@ -180,7 +184,7 @@ class App < Sinatra::Application
       # Respuesta correcta
       session[:answered_questions] << question_id
       # Seguir respondiendo preguntas de la lección
-      redirect "/lesson/#{params[:id]}/play"
+      redirect "/lesson/#{params[:id]}/play?success=correct_answer"
     else
       # Respuesta incorrecta
       @user.subtract_life_point

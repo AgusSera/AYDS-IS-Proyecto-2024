@@ -20,6 +20,7 @@ body {
     text-align: right;
     background-color: #394041;
     border-radius: 10px;
+    padding: 20px;
 }
 .btn {
     width: 120px;

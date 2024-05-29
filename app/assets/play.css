@@ -1,34 +1,102 @@
 body {
+    background-color: #212529;
+    color: #ced4da;
     font-family: 'Fira Code', monospace;
     display: flex;
-    background-color: #212529;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 .container {
     width: 65%;
     margin: auto;
+    background-color: #394041;
+    border-radius: 10px;
+    padding: 20px;
 }       
 .content-container {
-    text-align: left; 
+    text-align: center; 
     background-color: #394041;
     border-radius: 10px;
     padding: 5px;
+    margin-bottom: 20px;
+}
+.content-container p {
+    font-size: 1.5rem;
+    color: #ced4da;
 }
 .title-container {
     text-align: center;
     background-color: #394041;
     border-radius: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ced4da;
+    margin-bottom: 20px;
+}
+.title-container h1 {
+    color: #fff;
+    font-size: 2rem;
+}
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.option-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: #ced4da;
+    background-color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.option-btn:hover, .option-btn.selected {
+    background-color: #6c757d;
+    transform: scale(1.05);
 }
 .btn {
-    width: 120px;
+    width: 160px;
 }
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+  .btn-primary:disabled {
+    background-color: #6c757d;
+  }
+  .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+  }
+
 .content-text {
     color: #ced4da;
-}
-.h3 {
-    color: white;
 }
 .button-container {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+}
+
+.error-message {
+    color: #ff6b6b;
+    background-color: #3e4447;
+  }
+.success-message {
+    color: #28a745;
+    background-color: #3e4447;
+}
+.error-message, .success-message {
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
 }

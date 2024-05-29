@@ -4,70 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jugar <%= @lesson.name %></title>
-  <link rel="stylesheet" href="play.css">
-  <style>
-    body {
-      font-family: 'Fira Code', monospace;
-      display: flex;
-      background-color: #212529;
-    }
-    .container {
-      width: 65%;
-      margin: auto;
-    }       
-    .content-container {
-      text-align: left; 
-      background-color: #394041;
-      border-radius: 10px;
-      padding: 5px;
-    }
-    .button-container {
-      display: flex;
-      justify-content: space-between; /* Ajuste para colocar los elementos uno al lado del otro */
-      align-items: center; /* Alinea los elementos verticalmente */
-    }
-    .title-container {
-      text-align: center;
-      background-color: #394041;
-      border-radius: 10px;
-    }
-    .btn {
-      width: 120px;
-    }
-    .content-text {
-      color: #ced4da;
-    }
-    .h3 {
-      color: white;
-    }
-  </style>
+  <link type="text/css" rel="stylesheet" href="play.css">
 </head>
 <body>
   <div class="container mt-5">
-    <div class="title-container text-center">
-      <h1 class="h3 mb-3 font-weight-normal">Jugar <%= @lesson.name %></h1>
+    <div class="title-container">
+      <h1 class="p-2 font-weight-normal"><%= @lesson.name %></h1>
     </div>
     <% if params[:error] == 'wrong_answer' %>
-      <p style="color: red;">Respuesta incorrecta. Inténtalo de nuevo.</p>
-    <% end %>
+      <% error_messages = [
+          "Incorrect answer. Try again!",
+          "Oops! That's not quite right. Try again!",
+          "Not quite! Give it another shot!",
+          "Wrong answer. Keep trying!",
+          "That's not it! Try again!"
+        ]
+      %>
+      <div class="error-message"><%= error_messages.sample %></div>
+    <% elsif params[:success] == 'correct_answer' %>
+      <% success_messages = [
+          "Great job! Keep it up!",
+          "Well done! Keep going!",
+          "Awesome! Keep it up!",
+          "Fantastic! Keep going!",
+          "Wonderful! Keep it up!"
+        ]
+      %>
+      <div class="success-message"><%= success_messages.sample %></div>
+    <% end %>    
     <div class="content-container">
-      <p class="content-text"><%= @question.description %></p>
+      <p class="content-text display-6"><%= @question.description %></p>
     </div>
-    <form action="/lesson/<%= @lesson.id %>/submit_answer" method="post">
-      <% @question.options.each do |option| %>
-        <div class="form-check mb-3 mt-3">
-          <input class="form-check-input text-white" type="radio" name="answer" value="<%= option.id %>" checked> 
-          <label class="form-check-label text-white" for="exampleRadios1">
-            <%= option.description %>
-          </label>
-        </div>
-      <% end %>
+    <form id="lesson-form" action="/lesson/<%= @lesson.id %>/submit_answer" method="post">
+      <div class="options-container">
+        <% @question.options.each do |option| %>
+          <button type="button" class="option-btn" data-value="<%= option.id %>"><%= option.description %></button>
+        <% end %>
+      </div>
+      <input type="hidden" name="answer" id="selected-answer">
       
       <div class="button-container">
-        <input class="btn btn-primary" type="submit" value="Enviar">
-        <button class="btn btn-secondary" type="button" onclick="window.location.href='/';">Go back</button>
+        <input id="submit-button" class="btn btn-primary" type="submit" value="Check answer" disabled>
+        <button class="btn btn-danger" type="button" onclick="window.location.href='/';">Go back</button>
       </div>
     </form>
   </div>
+
+  <script>
+    document.querySelectorAll('.option-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('selected-answer').value = this.getAttribute('data-value');
+        toggleSubmitButton();
+      });
+    });
+
+    function toggleSubmitButton() {
+      const selectedAnswer = document.getElementById('selected-answer').value;
+      const submitButton = document.getElementById('submit-button');
+      submitButton.disabled = !selectedAnswer;
+    }
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+      toggleSubmitButton();
+    });
+  </script>
 </body>
 </html>
