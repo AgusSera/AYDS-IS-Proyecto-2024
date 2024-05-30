@@ -98,8 +98,8 @@
         <ul class="lesson-list list-group">
             <% @lessons.reverse.each do |lesson| %>
                 <li class="lesson-item list-group-item">
-                    <%= lesson.name %>
-                </li>
+                <a href="/lesson/<%= lesson.id %>"><%= lesson.name %></a>
+            </li>
             <% end %>
         </ul>
     </div>

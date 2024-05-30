@@ -69,6 +69,19 @@ a {
   border-radius: 50%;
   animation: ripple 1s ease infinite;
 }
+
+a {
+  color: #0a0a0a;
+}
+
+.lesson-item {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.lesson-item:hover {
+  transform: scale(1.03);
+}
+
 @keyframes ripple {
   0% {
       transform: scale(0);
