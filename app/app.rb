@@ -140,7 +140,9 @@ class App < Sinatra::Application
     @user = User.find_by(username: session[:username])
     progress = @user.progress 
 
-    session[:error] = ''
+    if @user.remaining_life_points > 0
+      session[:error] = ''
+    end
 
     # Acceder a lección ya completada 
     if @lesson.id < progress.current_lesson
