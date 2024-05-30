@@ -11,7 +11,7 @@
     <div class="title-container">
       <h1 class="p-2 font-weight-normal"><%= @lesson.name %></h1>
     </div>
-    <% if params[:error] == 'wrong_answer' %>
+    <% if session[:error] == 'wrong_answer' %>
       <% error_messages = [
           "Incorrect answer. Try again!",
           "Oops! That's not quite right. Try again!",
@@ -21,7 +21,7 @@
         ]
       %>
       <div class="error-message"><%= error_messages.sample %></div>
-    <% elsif params[:success] == 'correct_answer' %>
+    <% elsif session[:success] == 'correct_answer' %>
       <% success_messages = [
           "Great job! Keep it up!",
           "Well done! Keep going!",
@@ -31,11 +31,12 @@
         ]
       %>
       <div class="success-message"><%= success_messages.sample %></div>
-    <% end %>    
+    <% end %>
+ 
     <div class="content-container">
       <p class="content-text display-6"><%= @question.description %></p>
     </div>
-    <form id="lesson-form" action="/lesson/<%= @lesson.id %>/submit_answer" method="post">
+    <form id="lesson-form" action="/lesson/<%= @lesson.id %>/submit_answer" method="post" onsubmit="submit-button.disabled = true; return true;">
       <div class="options-container">
         <% @question.options.each do |option| %>
           <button type="button" class="option-btn" data-value="<%= option.id %>"><%= option.description %></button>
@@ -44,7 +45,7 @@
       <input type="hidden" name="answer" id="selected-answer">
       
       <div class="button-container">
-        <input id="submit-button" class="btn btn-primary" type="submit" value="Check answer" disabled>
+        <input id="submit-button" name="submit-button" class="btn btn-primary" type="submit" value="Check answer" disabled>
         <div class="d-flex justify-content-center align-items-center">
           <div class="remaining-lives">
             <% (1..3).each do |i| %> 
@@ -157,6 +158,19 @@
     const goBackModal = new bootstrap.Modal(document.getElementById('goBackModal'));
     goBackModal.show();
   }
-  </script>
+
+  // Function to disable button and uncheck option after form submission
+  document.getElementById('lesson-form').addEventListener('submit', function() {
+    const submitButton = document.getElementById('submit-button');
+    submitButton.disabled = true; // Disable the submit button
+    // Uncheck the selected option
+    document.querySelectorAll('.option-btn').forEach(button => {
+      button.classList.remove('selected');
+    });
+    // Clear the selected answer from sessionStorage
+    sessionStorage.removeItem('selectedAnswer');
+  });
+</script>
+
 </body>
 </html>

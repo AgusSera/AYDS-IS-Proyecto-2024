@@ -140,10 +140,6 @@ class App < Sinatra::Application
     @user = User.find_by(username: session[:username])
     progress = @user.progress 
 
-    if @user.remaining_life_points > 0
-      session[:error] = ''
-    end
-
     # Acceder a lección ya completada 
     if @lesson.id < progress.current_lesson
       erb :lesson_completed
@@ -162,6 +158,7 @@ class App < Sinatra::Application
           else
               @question = unanswered_questions.sample # Obtener pregunta aleatoria
               erb :play
+
           end
         else # Acceder a lección no alcanzada
           erb :lesson_locked
@@ -174,17 +171,20 @@ class App < Sinatra::Application
     @lesson = Lesson.find(params[:id])
     @user = User.find_by(username: session[:username])
     progress = @user.progress 
-
+  
     option_id = params[:answer].to_i
     option = Option.find(option_id)
     question_id = option.question.id
     question = Question.find(question_id)
+    session[:success] = nil
+    session[:error] = nil
     
     if option.value
       # Respuesta correcta
       session[:answered_questions] << question_id
       # Seguir respondiendo preguntas de la lección
-      redirect "/lesson/#{params[:id]}/play?success=correct_answer"
+      session[:success] = 'correct_answer'
+      redirect "/lesson/#{params[:id]}/play"
     else
       # Respuesta incorrecta
       @user.subtract_life_point
@@ -192,11 +192,11 @@ class App < Sinatra::Application
         # El usuario se queda sin vidas
         session[:answered_questions] = []
         session[:error] = 'no_lives_remaining'
-        redirect "/lesson/#{params[:id]}/play?error=wrong_answer"
+        redirect "/lesson/#{params[:id]}/play"
       else
         # El usuario todavía tiene vidas
-        session[:error] = ''
-        redirect "/lesson/#{params[:id]}/play?error=wrong_answer"
+        session[:error] = 'wrong_answer'
+        redirect "/lesson/#{params[:id]}/play"
       end
     end
   end
