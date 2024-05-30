@@ -70,6 +70,13 @@ a {
   animation: ripple 1s ease infinite;
 }
 
+.play-button-disabled {
+  position: relative;
+  overflow: hidden;
+  font-size: 36px;
+  padding: 12px 24px;
+}
+
 a {
   color: #0a0a0a;
 }

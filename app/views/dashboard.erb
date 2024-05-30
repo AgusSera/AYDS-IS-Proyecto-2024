@@ -84,6 +84,7 @@
         
         
 
+        <% if Lesson.exists?(@user.progress.current_lesson) %>
         <!-- Centered Play Button -->
         <div class="d-flex justify-content-center align-items-center">
             <form action="/lesson/<%= @user.progress.current_lesson %>" method="get">
@@ -92,6 +93,15 @@
                 </button>
             </form>
         </div>
+        <% else %>
+            <p class="text-center"> We ran out of lessons for the moment. Come back later! </p>
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn btn-disabled text-white play-button-disabled mt-4" disabled>
+                    <i class="bi bi-play"></i> Play
+                </button>
+            </div>
+        <% end %>
+
 
 
         <h2 class="mt-4">Available Lessons</h2>
