@@ -106,12 +106,14 @@
 
         <h2 class="mt-4">Available Lessons</h2>
         <ul class="lesson-list list-group">
-            <% @lessons.reverse.each do |lesson| %>
+        <% @lessons.reverse.each do |lesson| %>
+            <% if lesson.id <= @user.progress.current_lesson %>
                 <li class="lesson-item list-group-item">
-                <a href="/lesson/<%= lesson.id %>"><%= lesson.name %></a>
-            </li>
+                    <a href="/lesson/<%= lesson.id %>"><%= lesson.name %></a>
+                </li>
             <% end %>
-        </ul>
+        <% end %>
+</ul>
     </div>
 
     
