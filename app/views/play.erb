@@ -35,7 +35,7 @@
     <div class="content-container">
       <p class="content-text display-6"><%= @question.description %></p>
     </div>
-    <form id="lesson-form" action="/lesson/<%= @lesson.id %>/submit_answer" method="post" onsubmit="checkConditions(event, <%= @user.remaining_life_points %>, '<%= params[:error] %>');">
+    <form id="lesson-form" action="/lesson/<%= @lesson.id %>/submit_answer" method="post">
       <div class="options-container">
         <% @question.options.each do |option| %>
           <button type="button" class="option-btn" data-value="<%= option.id %>"><%= option.description %></button>
@@ -44,22 +44,21 @@
       <input type="hidden" name="answer" id="selected-answer">
       
       <div class="button-container">
-      <input id="submit-button" class="btn btn-primary" type="submit" value="Check answer" disabled>
-      <div class="d-flex justify-content-center align-items-center">
-            <div class="remaining-lives">
-                <% (1..3).each do |i| %> 
-                    <!-- 3 being the max. amount of lives a user can have -->
-                    <% if i <= @user.remaining_life_points %>
-                        <span class="heart">&#x2764;</span> <!-- Red heart -->
-                    <% else %>
-                        <span class="heart">&#x2661;</span> <!-- Heart outline -->
-                    <% end %>
-                <% end %>
-            </div>
+        <input id="submit-button" class="btn btn-primary" type="submit" value="Check answer" disabled>
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="remaining-lives">
+            <% (1..3).each do |i| %> 
+              <!-- 3 being the max. amount of lives a user can have -->
+              <% if i <= @user.remaining_life_points %>
+                <span class="heart">&#x2764;</span> <!-- Red heart -->
+              <% else %>
+                <span class="heart">&#x2661;</span> <!-- Heart outline -->
+              <% end %>
+            <% end %>
+          </div>
         </div>
-      <button class="btn btn-danger" type="button" onclick="showGoBackModal();">Go back</button>
-  </div>
-
+        <button class="btn btn-danger" type="button" onclick="showGoBackModal();">Go back</button>
+      </div>
     </form>
   </div>
 
@@ -77,7 +76,7 @@
           <p class="text-center">You ran out of lives, but don't worry, you will get more later!</p>
         </div>
         <div class="modal-footer justify-content-center">
-          <button class="btn btn-danger" id="modal-ok-btn" onclick="clearSessionStorageAndSubmitForm();">Go to the dashboard</button>
+        <button class="btn btn-danger" onclick="window.location.href='/';clearSessionStorage();">Go to the dashboard</button>
         </div>
       </div>
     </div>
@@ -111,6 +110,12 @@
       const myModal = new bootstrap.Modal(document.getElementById('myModal'));
       myModal.show();
     }
+    
+    // Check if session[:error] is 'no_lives_remaining' and show the modal
+    const noLivesRemaining = <%= @user.remaining_life_points == 0 && session[:error] == 'no_lives_remaining' ? 'true' : 'false' %>;
+    if (noLivesRemaining) {
+      showModalAndSetFlag();
+    }
 
     // Retrieve and set the selected answer if it exists
     const selectedAnswer = sessionStorage.getItem('selectedAnswer');
@@ -126,17 +131,9 @@
     sessionStorage.setItem('modalShown', 'true');
   }
 
-  function clearSessionStorageAndSubmitForm() {
+  function clearSessionStorage() {
     sessionStorage.removeItem('modalShown');
     sessionStorage.removeItem('selectedAnswer');
-    document.getElementById('lesson-form').submit();
-  }
-
-  function checkConditions(event, remainingLifePoints, answerStatus) {
-    if (remainingLifePoints == 1 && answerStatus === 'wrong_answer') {
-      event.preventDefault();
-      showModalAndSetFlag();
-    }
   }
 
   document.querySelectorAll('.option-btn').forEach(button => {
@@ -160,8 +157,6 @@
     const goBackModal = new bootstrap.Modal(document.getElementById('goBackModal'));
     goBackModal.show();
   }
-</script>
-
-
+  </script>
 </body>
 </html>
