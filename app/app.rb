@@ -94,23 +94,6 @@ class App < Sinatra::Application
     end
   end
 
-  get '/users' do
-    @users = User.all
-    erb :'users/index'
-  end
-
-  get '/users/:username' do
-    user = User.find_by(username: params[:username])
-    if user
-      response = "<p>Username: #{user.username}</p>"
-      response += "<p>E-mail: #{user.email}</p>"
-      response
-    else
-      status 404 
-      "User not found"
-    end
-  end
-
   get '/question/:id' do
     @question = Question.find_by(id: params[:id])
     if @question
