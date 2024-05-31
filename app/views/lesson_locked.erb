@@ -1,10 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lección Bloqueada</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>End Game</title>
+  <style>
+    body {
+      font-family: 'Fira Code', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #212529;
+      color: white;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 65%;
+      text-align: center;
+      background-color: #394041;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .btn {
+      margin-top: 20px;
+      width: 150px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Lección Bloqueada</h1>
-  <p>Lo siento, esta lección aún no ha sido desbloqueada. Completa las lecciones anteriores para acceder a esta.</p>
+  <div class="container">
+    <h1>Blocked lesson!</h1>
+    <p>We are sorry! This lesson has not been unlocked yet.</p>
+    <p>Come back later once you have made enough progress!</p>
+    <div class="button-container">
+      <form action="/" method="get">
+        <button type="submit" class="btn btn-secondary" id="go-back"> Go Back </button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
