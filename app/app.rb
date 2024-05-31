@@ -230,6 +230,14 @@ class App < Sinatra::Application
       erb :progress, locals: { progress: nil, error_message: "Progress not found" }
     end
   end
+
+  get '/settings' do
+    if session[:username]
+      erb :settings
+    else
+      redirect '/'
+    end
+  end
   
 
 end
