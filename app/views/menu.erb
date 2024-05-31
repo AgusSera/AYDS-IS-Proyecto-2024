@@ -4,32 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road to Senior</title>
+    <link href="https://fonts.cdnfonts.com/css/million-smiles" rel="stylesheet">
     <link rel="stylesheet" href="menu.css">
-    <style>
-        body {
-            font-family: 'Fira Code', monospace;
-        }
-    </style>
 </head>
 <body>
-    <!-------Nav Bar---------->
+    <!-- Nav Bar -->
     <section id="nav-bar">
-        <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img src="images/logo.png"></a>
+                <a class="navbar-brand" href="#"><img src="images/logo.png" class="animate__animated animate__fadeInLeft"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <form action="/login" method="get">
-                                <button class="btn btn-primary border-0 me-2">Login</button>
+                            <form action="/login" method="get" class="d-inline">
+                                <button class="btn btn-custom border-0 me-2">Login</button>
                             </form>
                         </li>
                         <li class="nav-item">
-                            <form action="/register" method="get">
-                                <button class="btn btn-dark border-0">Sign Up</button>
+                            <form action="/register" method="get" class="d-inline">
+                                <button class="btn btn-outline-custom border-0">Sign Up</button>
                             </form>
                         </li> 
                     </ul>  
@@ -37,22 +33,64 @@
             </div>
         </nav>
     </section> 
-    <!--------Hero Section---------->
-    <div class="hero vh-100 d-flex align-items-center">
-        <div class="container">
+    <!-- Hero Section -->
+    <div class="hero vh-100" id="hero">
+        <div class="container hero-content">
             <div class="row">
                 <div class="col-lg-6">
-                    <h1 class="display-4"> <strong>Boost your coding skills with fun trivia! </strong></h1>
-                    <p> Test your programming knowledge with our addictive trivia game. 
-                    Challenge yourself with a variety of questions covering languages, algorithms, and coding concepts. 
-                    Whether you're a beginner or an expert, there's something for everyone to learn and enjoy! </p>
-                    <form action="/login" method="get">
-                        <button class="btn btn-primary border-0">Start to Play!</button>
-                        <a href="https://github.com/AgusSera/AYDS-IS-Proyecto-2024" target="_blank" class="btn btn-outline-light">Our repository</a>
-                    </form>
+                    <div class="hero-card" id="hero-card">
+                        <h1 class="display-4">
+                            <strong>
+                                <span class="fancy-cursive text-primary" style="text-shadow: 0 0 15px rgba(0, 123, 255, 0.7);">Boost</span> your<br>
+                                <span class="text-primary symbols">&lt;&gt;</span>
+                                <span class="symbols">coding</span>
+                                <span class="text-primary symbols">&lt;&#47;&gt;</span>
+                                skills with fun
+                                trivia!
+                            </strong>
+                        </h1>
+                        <p>
+                            <span class="text-split" data-splitting>Test your programming knowledge with our addictive trivia game. 
+                            Challenge yourself with a variety of questions covering languages, algorithms, and coding concepts. 
+                            Whether you're a beginner or an expert, there's something for everyone to learn and enjoy!</span>
+                        </p>
+                        <form action="/login" method="get">
+                            <button class="btn btn-custom border-0">Start to Play!</button>
+                            <a href="https://github.com/AgusSera/AYDS-IS-Proyecto-2024" target="_blank" class="btn btn-outline-custom">Our repository</a>
+                        </form>
+                    </div>
                 </div>
+                <div class="col-lg-6"></div> <!-- Empty column to push the card to the left -->
             </div>
         </div>
     </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.0/gsap.min.js"></script>
+    <script>
+        // GSAP animation for logo
+        gsap.from('.navbar-brand', {
+            opacity: 0,
+            x: -50,
+            duration: 1,
+            ease: 'power4.out', // Smooth easing
+        });
+
+        // GSAP animation for navbar elements
+        gsap.from('.navbar-nav .nav-item', {
+            opacity: 0,
+            x: 50,
+            duration: 1,
+            ease: 'power4.out', // Smooth easing
+            stagger: 0.2 // Stagger the animation for each element
+        });
+
+        gsap.to('.hero', {
+            duration: 0.05,
+            onComplete: function() {
+                document.querySelector('.hero').classList.add('loaded');
+            }
+        });
+    </script>
 </body>
 </html>
