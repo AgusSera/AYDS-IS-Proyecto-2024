@@ -9,6 +9,9 @@ body {
     backdrop-filter: blur(10px); /* Aplica un difuminado al fondo */
 }
 
+.form-control::placeholder {
+    color: #a2a7b6; /* Adjust the color as needed */
+}
 
 .form-signin {
     width: 100%;
