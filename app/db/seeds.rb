@@ -6,43 +6,99 @@ require_relative '../models/progress'
 
 lessons_data = [
   {
-    name: 'Lección 1: Variables, Tipos de datos y Operadores básicos',
-    content: 'Las variables son contenedores que pueden almacenar diferentes tipos de datos en Python. Podemos asignarles valores utilizando el operador de asignación "=".
-    Además de asignarles valores directamente utilizando el operador de asignación "=", también podemos asignar a una variable el valor de otra variable. Esto se hace simplemente escribiendo el nombre de la variable deseada a la izquierda del operador de asignación y el nombre de la variable de origen a la derecha.
-    Tipos de datos:
-Un tipo de dato es una clasificación que se le asigna a un valor en programación para indicar qué tipo de información representa y cómo se puede manipular. Los tipos de datos definen qué operaciones se pueden realizar con esos valores y cómo se almacenan en la memoria de la computadora.
-Python admite varios tipos de datos, incluyendo enteros, números de coma flotante, cadenas de texto y valores booleanos.
-Es importante tener en cuenta que Python es un lenguaje de programación de tipado dinámico, lo que significa que no es necesario declarar explícitamente el tipo de una variable antes de asignarle un valor.',
+    name: 'Lesson 1: Variables, Data Types, and Basic Operators',
+    content: 'In this lesson, we will learn about variables, data types, and basic operators. These concepts are fundamental to start your programming journey. Each concept will be explained using Python.
+    <hr>
+    ### Variables
+    A variable is a space in memory used to store data that can change during the execution of the program. In Python, it is not necessary to declare the type of a variable before using it. You simply assign a value to a variable using the equal sign (=).
+    ```# Example of variable declaration
+    name = "John"
+    age = 25
+    is_student = True```
+    In the example above, we have declared three variables: name, age, and is_student, and assigned values of different types to them.
+    <hr>
+    ### Data Types
+    Python has several built-in data types that can be used for different purposes. Some of the most common data types are:
+    • Integers (int): Whole numbers, like 10, -3, 0.
+    • Floating-point numbers (float): Numbers with decimals, like 3.14, -2.5, 0.0.
+    • Strings (str): Sequences of characters, like "Hello", "Python".
+    • Booleans (bool): Truth values, like True or False.
+    ```# Examples of different data types
+    integer_number = 10
+    floating_number = 3.14
+    string = "Hello, world"
+    boolean_value = True```
+    <hr>
+    ### Basic Operators
+    Operators are used to perform operations on variables and values. Some of the basic operators in Python are:
+    • Arithmetic Operators
+    • Addition (+): Adds two values.
+    • Subtraction (-): Subtracts the second value from the first.
+    • Multiplication (*): Multiplies two values.
+    • Division (/): Divides the first value by the second.
+    • Modulus (%): Returns the remainder of the division.
+    ```# Examples of arithmetic operators
+    sum = 5 + 3          # Result: 8
+    difference = 10 - 4  # Result: 6
+    product = 2 * 3      # Result: 6
+    quotient = 8 / 2     # Result: 4.0
+    remainder = 7 % 3    # Result: 1```
+    <hr>
+    ### Comparison Operators
+    Operators are used to perform operations on variables and values. Some of the basic operators in Python are:
+    • Equal to (==): Returns True if the values are equal.
+    • Not equal to (!=): Returns True if the values are different.
+    • Greater than (>): Returns True if the first value is greater than the second.
+    • Less than (<): Returns True if the first value is less than the second.
+    • Greater than or equal to (>=): Returns True if the first value is greater than or equal to the second.
+    • Less than or equal to (<=): Returns True if the first value is less than or equal to the second.
+    ```# Examples of comparison operators
+    is_equal = (5 == 5)          # Result: True
+    is_not_equal = (5 != 3)      # Result: True
+    is_greater = (7 > 3)         # Result: True
+    is_less = (4 < 6)            # Result: True
+    is_greater_or_equal = (5 >= 5)  # Result: True
+    is_less_or_equal = (3 <= 5)  # Result: True```
+    <hr>
+    ### Logical Operators
+    Operators are used to perform operations on variables and values. Some of the basic operators in Python are:
+    • Logical AND (and): Returns True if both operands are True.
+    • Logical OR (or): Returns True if at least one of the operands is True.
+    • Logical NOT (not): Inverts the logical value of the operand.
+    ```# Examples of logical operators
+    result_and = (True and False)  # Result: False
+    result_or = (True or False)    # Result: True
+    result_not = not True          # Result: False```',
     questions: [
       {
-        description: '¿Cuál es la forma correcta de asignar un valor a una variable en Python?',
+        description: 'What is the correct way to assing a value to a variable in Python?',
         options: [
-          { description: 'nombre de la variable = valor', value: true },
-          { description: 'valor = nombre de la variable', value: false },
-          { description: 'variable = valor', value: false },
-          { description: 'variable: valor', value: false }
+          { description: 'variable name = value', value: true },
+          { description: 'value = variable name', value: false },
+          { description: 'variable = value', value: false },
+          { description: 'variable: value', value: false }
         ]
       },
       {
-        description: '¿Cómo se asigna un valor a una variable en Python?',
+        description: 'How can you assing a value to a variable in Python?',
         options: [
-          { description: 'Con el operador "=="', value: false },
-          { description: 'Utilizando corchetes "[ ]"', value: false },
-          { description: 'Utilizando el operador "="', value: true },
-          { description: 'Con el operador "+"', value: false }
+          { description: 'Using the "==" operator', value: false },
+          { description: 'Using "[ ]"', value: false },
+          { description: 'Using the "=" operator', value: true },
+          { description: 'Using the "+" operator', value: false }
         ]
       },
       {
-        description: '¿Qué representan los valores booleanos en Python?',
+        description: 'What do Boolean values represent in Python?',
         options: [
-          { description: 'Números enteros', value: false },
-          { description: 'Verdadero o falso', value: true },
-          { description: 'Cadenas de texto', value: false },
-          { description: 'Valores negativos', value: false }
+          { description: 'Integers', value: false },
+          { description: 'True or False', value: true },
+          { description: 'Strings', value: false },
+          { description: 'Negative integers', value: false }
         ]
       },
       {
-        description: '¿Cuál es el resultado de la siguiente operación en Python? resultado = (4 > 5) and (3 < 8)',
+        description: 'What is the value of the following expression in Python? result = (4 > 5) and (3 < 8)',
         options: [
           { description: 'True', value: false },
           { description: 'False', value: true },
@@ -51,7 +107,7 @@ Es importante tener en cuenta que Python es un lenguaje de programación de tipa
         ]
       },
       {
-        description: '¿Cuál es el resultado de la siguiente operación en Python? resultado = 7 - 4 * 2',
+        description: 'What is the value of the following expression in Python? result = 7 - 4 * 2',
         options: [
           { description: '14', value: false },
           { description: '6', value: false },
@@ -62,29 +118,73 @@ Es importante tener en cuenta que Python es un lenguaje de programación de tipa
     ]
   },
   {
-    name: 'Lección 2: Estructuras de Control y Bucles',
-    content: 'En esta lección, exploraremos las estructuras de control y los bucles en Python, elementos fundamentales para controlar el flujo de ejecución de un programa y realizar operaciones repetitivas.
-
-Estructuras de Control:
-Las estructuras de control, como if, else, y elif, permiten tomar decisiones en función de condiciones específicas. Aprenderemos cómo usar estas estructuras para ejecutar diferentes bloques de código según sea necesario, lo que nos permite crear programas más dinámicos y adaptativos.
-
-Bucles (Loops):
-Los bucles, como while y for, nos permiten ejecutar un bloque de código repetidamente. Con while, podemos repetir la ejecución de un bloque de código mientras se cumpla una condición. Con for, podemos iterar sobre una secuencia de elementos, como una lista o un rango de números. Exploraremos cómo usar estos bucles para automatizar tareas y procesar datos de manera eficiente.
-
-Palabra Clave "break" y "continue":
-Además de las estructuras de control y los bucles, también aprenderemos sobre las palabras clave break y continue. break se utiliza para salir de un bucle prematuramente si se cumple una condición específica, mientras que continue se utiliza para omitir la ejecución del resto del bloque de código actual y pasar a la siguiente iteración del bucle.',
+    name: 'Lesson 2: Control Structures and Loops',
+    content: 'In this lesson, we will learn about control structures and loops in Python. Control structures allow us to control the flow of execution of a program, while loops allow us to repeat certain actions.
+    <hr>
+    ## Control Structures
+    #### If-Else
+    The most basic control structure is the if-else statement, which allows us to make decisions based on conditions.
+    ```# Example of if-else statement
+    age = 18
+    
+    if age >= 18:
+        print("You are an adult")
+    else:
+        print("You are a minor")```
+    <br>
+    #### Elif
+    The elif keyword allows us to evaluate multiple conditions in a single if statement.
+    ```# Example of if-elif-else statement
+    grade = 75
+    
+    if grade >= 90:
+        print("Passed with an A")
+    elif grade >= 80:
+        print("Passed with a B")
+    elif grade >= 70:
+        print("Passed with a C")
+    else:
+        print("Failed")```
+    <hr>
+    
+    ## Loops
+    #### For Loop
+    The for loop is used to iterate over a sequence (such as a list, tuple, or range) and execute a block of code for each element in the sequence.
+    ```# Example of if-elif-else statement
+    grade = 75
+    
+    if grade >= 90:
+        print("Passed with an A")
+    elif grade >= 80:
+        print("Passed with a B")
+    elif grade >= 70:
+        print("Passed with a C")
+    else:
+        print("Failed")```
+    <br>
+    #### While Loop
+    The while loop is used to execute a block of code while a specified condition is true.
+    ```# Example of while loop
+    counter = 0
+    
+    while counter < 5:
+        print("Counter:", counter)
+        counter += 1```
+    <hr>
+    
+    With these control structures and loops, you can control the flow of execution of your program and perform repetitive tasks efficiently in Python. Practice writing and executing code to familiarize yourself with these fundamental programming concepts!',
     questions: [
       {
-        description: '¿Cuál es la estructura correcta de un condicional if en Python?',
+        description: 'What is the correct structure for an if contidional in Python?',
         options: [
-          { description: 'if (condición):', value: true },
-          { description: 'if condición entonces:', value: false },
-          { description: 'if condición {', value: false },
-          { description: 'if: condición', value: false }
+          { description: 'if (condition):', value: true },
+          { description: 'if condition then:', value: false },
+          { description: 'if condition {', value: false },
+          { description: 'if: condition', value: false }
         ]
       },
       {
-        description: '¿Cuál es la salida del siguiente código? for i in range(3): print(i)',
+        description: 'What is the output for this piece of code? for i in range(3): print(i)',
         options: [
           { description: '0 1 2', value: true },
           { description: '1 2 3', value: false },
@@ -93,7 +193,7 @@ Además de las estructuras de control y los bucles, también aprenderemos sobre 
         ]
       },
       {
-        description: '¿Qué palabra clave se usa para salir de un bucle en Python?',
+        description: 'What is the reserved keyword in Python to get out of a loop?',
         options: [
           { description: 'exit', value: false },
           { description: 'quit', value: false },
@@ -102,59 +202,101 @@ Además de las estructuras de control y los bucles, también aprenderemos sobre 
         ]
       },
       {
-        description: '¿Cuál es la función de la palabra clave "else" en un condicional if en Python?',
+        description: 'What does the reserved keyword "else" do in an if condition in Python?',
         options: [
-          { description: 'Especifica un bloque de código que se ejecuta si la condición del if es falsa.', value: true },
-          { description: 'Indica una condición alternativa al if.', value: false },
-          { description: 'Se utiliza para iniciar un nuevo condicional dentro del if.', value: false },
-          { description: 'No tiene ninguna función en un condicional if.', value: false }
+          { description: 'Specifies a code block which will be executed if the if condition is false.', value: true },
+          { description: 'Indicates an alternative condition to if.', value: false },
+          { description: 'It is used to inicialize a new conditional inside that if condition', value: false },
+          { description: 'It has no use inside an if conditional.', value: false }
         ]
       },
       {
-        description: '¿Cuál es la diferencia principal entre "while" y "for" en Python?',
+        description: 'What is the main difference between a "while" and a "for" loop in Python?',
         options: [
-          { description: '"while" se utiliza para iterar mientras una condición sea verdadera, mientras que "for" se utiliza para iterar sobre una secuencia de elementos.', value: true },
-          { description: '"while" y "for" son sinónimos y se pueden utilizar indistintamente.', value: false },
-          { description: '"for" se utiliza para bucles infinitos, mientras que "while" se utiliza para bucles con un número específico de iteraciones.', value: false },
-          { description: '"for" se utiliza solo para iterar sobre listas, mientras que "while" se utiliza para otros tipos de estructuras de datos.', value: false }
+          { description: '"while" is used to iterate for as long as the condition holds true, while "for" is utilized to iterate over a sequence of elements.', value: true },
+          { description: '"while" y "for" are synonyms and both can be used indistinctively.', value: false },
+          { description: '"for" is utilized for infinite loops and "while" is utilized for loops with a finite number of iterations.', value: false },
+          { description: '"for" is only used to iterate over the elements of a list, meanwhile a "while" structure is utilized for other kinds of data structures.', value: false }
         ]
       }
     ]
   },
   {
-    name: 'Lección 3: Funciones y Módulos',
-    content: 'Lección 3: Funciones y Módulos
-        En esta lección, exploraremos dos aspectos fundamentales de la programación en Python: las funciones y los módulos.
-
-        Definición de Funciones:
-        Las funciones son bloques de código reutilizables que realizan una tarea específica. Permiten organizar el código de manera más limpia y modular, lo que facilita su mantenimiento y reutilización. En Python, las funciones se definen utilizando la palabra clave def, seguida del nombre de la función y los parámetros, si los hay. Aprenderemos cómo definir funciones y cómo utilizar argumentos para personalizar su comportamiento.
-
-        Uso de Argumentos:
-        Los argumentos son valores que se pasan a una función para que esta los utilice durante su ejecución. En Python, existen varios tipos de argumentos, como los argumentos posicionales, los argumentos de palabra clave y los argumentos predeterminados. Aprenderemos cómo utilizar estos diferentes tipos de argumentos para hacer nuestras funciones más flexibles y versátiles.
-
-        Trabajo con Módulos:
-        Los módulos son archivos que contienen funciones, variables y clases relacionadas entre sí. Python incluye una amplia variedad de módulos estándar que proporcionan funcionalidades adicionales listas para usar. Además, podemos crear nuestros propios módulos para organizar y reutilizar nuestro propio código. Aprenderemos cómo importar módulos en Python y cómo utilizar las funciones y variables que contienen..',
+    name: 'Lesson 3: Functions and Modules',
+    content: 'In this lesson, we will delve into the concepts of functions and modules in Python. Functions allow us to encapsulate a set of instructions into a reusable block of code, while modules enable us to organize related functions and variables into separate files for better code organization and reusability.
+    <hr>
+    ## Functions
+    #### Defining Functions
+    A function in Python is defined using the def keyword, followed by the function name and parentheses containing any parameters the function requires. The function body is then indented.
+    ```# Example of defining a function
+    def greet(name):
+        """This function greets the user."""
+        print("Hello, " + name + "!")```
+    <br>
+    #### Calling Functions
+    To call a function, simply use its name followed by parentheses and any required arguments.
+    ```# Example of calling a function
+    greet("Alice")```
+    <br>
+    #### Returning Values
+    Functions can also return values using the return statement.
+    ```# Example of a function with return value
+    def add(x, y):
+        """This function adds two numbers."""
+        return x + y```
+    <hr>
+    ## Modules
+    #### Creating Modules
+    A module is a file containing Python code. It can define functions, classes, and variables. To create a module, simply save your Python code in a file with a .py extension.
+    ```# Example of a module saved as mymodule.py
+    
+    def greet(name):
+        """This function greets the user."""
+        print("Hello, " + name + "!")```
+    <br>
+    #### Importing Modules
+    To use functions or variables defined in a module, you need to import the module using the import keyword.
+    ```# Example of importing a module
+    import mymodule
+    
+    mymodule.greet("Bob")```
+    <br>
+    #### Importing Specific Functions
+    You can also import specific functions or variables from a module using the from keyword.
+    ```# Example of importing a specific function from a module
+    from mymodule import greet
+    
+    greet("Charlie")```
+    <br>
+    #### Renaming Modules
+    If the name of a module is long or conflicts with an existing name, you can rename it using the as keyword.
+    ```# Example of renaming a module
+    import mymodule as m
+    
+    m.greet("Dave")```
+    <hr>
+    With functions and modules, you can write organized and reusable code in Python. Practice defining functions, creating modules, and importing them to understand these fundamental concepts better!',
     questions: [
       {
-        description: '¿Cómo defines una función en Python?',
+        description: 'How can we define a function in Python?',
         options: [
-          { description: 'function mi_funcion():', value: false },
-          { description: 'def mi_funcion():', value: true },
-          { description: 'define mi_funcion():', value: false },
-          { description: 'func mi_funcion():', value: false }
+          { description: 'function my_func():', value: false },
+          { description: 'def my_func():', value: true },
+          { description: 'define my_func():', value: false },
+          { description: 'func my_func():', value: false }
         ]
       },
       {
-        description: '¿Cómo importas un módulo en Python?',
+        description: 'How can we import a module in Python?',
         options: [
-          { description: 'import modulo', value: true },
-          { description: 'include modulo', value: false },
-          { description: 'using modulo', value: false },
-          { description: 'require modulo', value: false }
+          { description: 'import module', value: true },
+          { description: 'include module', value: false },
+          { description: 'using module', value: false },
+          { description: 'require module', value: false }
         ]
       },
       {
-        description: '¿Qué se utiliza para devolver un valor desde una función?',
+        description: 'What keyword is reserved to indicate the output of a function in Python?',
         options: [
           { description: 'send', value: false },
           { description: 'return', value: true },
@@ -163,21 +305,21 @@ Además de las estructuras de control y los bucles, también aprenderemos sobre 
         ]
       },
       {
-        description: '¿Cuál es el propósito principal de una función en Python?',
+        description: 'What is the main purpose of a function in Python?',
         options: [
-          { description: 'Reutilizar un bloque de código para realizar una tarea específica.', value: true },
-          { description: 'Modificar directamente las variables globales.', value: false },
-          { description: 'Crear variables locales para el uso dentro de la función.', value: false },
-          { description: 'Realizar operaciones matemáticas complejas.', value: false }
+          { description: 'Reutilize blocks of code for specific tasks.', value: true },
+          { description: 'Modify directly the global variables.', value: false },
+          { description: 'Create local variables to use inside the function.', value: false },
+          { description: 'Do complex mathematical operations.', value: false }
         ]
       },
       {
-        description: '¿Qué es un parámetro en una función de Python?',
+        description: 'What is a parameter in a Python function?',
         options: [
-          { description: 'Una variable que almacena el resultado de una función.', value: false },
-          { description: 'Un valor que se pasa a una función para ser utilizado dentro de ella.', value: true },
-          { description: 'Una condición que debe cumplirse para ejecutar una función.', value: false },
-          { description: 'Un tipo de estructura de control en Python.', value: false }
+          { description: 'A variable which holds the output of a function.', value: false },
+          { description: 'A value passed to a function to be used inside that function.', value: true },
+          { description: 'A condition that has to be met to execute a function.', value: false },
+          { description: 'A kind of data structure in Python.', value: false }
         ]
       }
     ]
