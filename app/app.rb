@@ -238,6 +238,28 @@ class App < Sinatra::Application
       redirect '/'
     end
   end
+
+  post '/change_password' do
+    if session[:username]
+      user = User.find_by(username: session[:username], password: params[:current_password])
+      if user
+        if params[:new_password] == params[:confirm_new_password]
+          user.update(password: params[:new_password])
+          user.save
+          @success_message = "Password changed successfully!"
+          erb :settings, locals: { success_message: @success_message }
+        else
+          @error_message = "New password and confirm password do not match."
+          erb :settings, locals: { error_message: @error_message }
+        end
+      else
+        @error_message = "Incorrect current password."
+        erb :settings, locals: { error_message: @error_message }
+      end
+    else
+      redirect '/login'
+    end
+  end
   
 
 end
