@@ -122,9 +122,15 @@ class App < Sinatra::Application
   end
 
   get '/lesson/:id' do
-    @lesson = Lesson.find(params[:id])
     if session[:username]
-      erb :lesson
+      max_lesson_id = Lesson.maximum(:id)
+      @lesson = Lesson.find_by(id: params[:id])
+      
+      if @lesson.nil? || @lesson.id > max_lesson_id
+        erb :end_game
+      else
+        erb :lesson
+      end
     else
       redirect '/login'
     end
@@ -153,7 +159,7 @@ class App < Sinatra::Application
           unanswered_questions = @lesson.questions.where.not(id: session[:answered_questions])
 
           if unanswered_questions.empty? # No hay preguntas sin responder
-              progress.update(current_lesson: progress.current_lesson + 1) # El usuario avanza a la lección siguiente
+              progress.advance_to_next_lesson # El usuario avanza a la lección siguiente
               erb :lesson_completed
           else
               @question = unanswered_questions.sample # Obtener pregunta aleatoria
