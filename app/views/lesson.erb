@@ -1,63 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="lesson.css">
     <title><%= @lesson.name %></title>
-    <style>
+    <!--Este link para lesson.css no funciona -->
+    <link rel="stylesheet" href="lesson.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Prism CSS for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css">
+    <!-- el tag style está siendo ejecutado en lugar del lesson.css ya que falta arreglar la ruta para obtener el lesson.css, tanto el lesson.css como el tag style contienen lo mismo-->
+    <style> 
         body {
             font-family: 'Fira Code', monospace;
-            display: flex;
             background-color: #212529;
         }
         .container {
             width: 65%;
             margin: auto;
-        }       
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .content-container {
-            text-align: left; 
-            background-color: #394041;
-            border-radius: 10px;
-            padding: 15px;
+            padding-top: 50px;
+            padding-bottom: 50px;
         }
         .title-container {
-            text-align: right;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .content-container {
             background-color: #394041;
             border-radius: 10px;
-        }
-        .btn {
-            width: 120px;
-        }
-        .content-text {
+            padding: 20px;
             color: #ced4da;
         }
-        .h3 {
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .btn-primary, .btn-secondary {
+            width: 150px;
+            margin: 0 10px;
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+        .btn-primary i, .btn-secondary i {
+            margin-right: 5px;
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+            opacity: 0.8;
+        }
+        .h1 {
             color: white;
         }
+        /* Dark theme for code snippets */
+        pre[class*="language-"] {
+            background: #1E1E1E;
+            color: white;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+        }
     </style>
-
 </head>
 <body>
-    <div class="container mt-5">
-        <div class="title-container text-center">
-            <h1 class="h3 mb-3 font-weight-normal">Contenido de <%= @lesson.name %></h1>
+    <div class="container">
+        <div class="title-container">
+            <h1 class="h1">Content of <%= @lesson.name %></h1>
         </div>
-        <div class="content-container mb-3">
-            <p class="content-text"><%= @lesson.content %></p>
-        </div>
-        <div class="button-container">
+        <div class="button-container mb-5">
             <form action="/lesson/<%= @lesson.id %>/play" method="get">
-                <button type="submit" class="btn btn-primary" id="go-lesson"> Jugar </button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-play"></i> Jugar </button>
             </form>
             <form action="/" method="get">
-                <button type="submit" class="btn btn-secondary" id="go-back"> Go Back </button>
+                <button type="submit" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Go Back </button>
             </form>
         </div>
+        <div class="content-container mb-3">
+        <% @lesson.content.split(/```/).each_with_index do |block, index| %>
+            <% if index.odd? %>
+                <!-- Code block -->
+                <pre><code class="language-python"><%= block %></code></pre>
+            <% else %>
+                <!-- Text block with header handling -->
+                <% block.split("\n").each do |line| %>
+                    <% if line.start_with?('# ') %>
+                        <h1><%= line[2..-1].strip %></h1>
+                    <% elsif line.start_with?('## ') %>
+                        <h2><%= line[3..-1].strip %></h2>
+                    <% elsif line.start_with?('### ') %>
+                        <h3><%= line[4..-1].strip %></h3>
+                    <% elsif line.start_with?('#### ') %>
+                        <h4><%= line[5..-1].strip %></h4>
+                    <% elsif line.start_with?('##### ') %>
+                        <h5><%= line[6..-1].strip %></h5>
+                    <% elsif line.start_with?('###### ') %>
+                        <h6><%= line[7..-1].strip %></h6>
+                    <% else %>
+                        <p><%= line.strip %></p>
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+        </div>
     </div>
+
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
 </body>
 </html>

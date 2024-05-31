@@ -1,33 +1,48 @@
 body {
     font-family: 'Fira Code', monospace;
-    display: flex;
     background-color: #212529;
 }
 .container {
     width: 65%;
     margin: auto;
-}       
-.button-container {
-    display: flex;
-    justify-content: space-between;
-}
-.content-container {
-    text-align: center; 
-    background-color: #394041;
-    border-radius: 10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 .title-container {
-    text-align: right;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.content-container {
     background-color: #394041;
     border-radius: 10px;
     padding: 20px;
-}
-.btn {
-    width: 120px;
-}
-.content-text {
     color: #ced4da;
 }
-.h3 {
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+.btn-primary, .btn-secondary {
+    width: 150px;
+    margin: 0 10px;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+.btn-primary i, .btn-secondary i {
+    margin-right: 5px;
+}
+.btn-primary:hover, .btn-secondary:hover {
+    opacity: 0.8;
+}
+.h1 {
     color: white;
+}
+/* Dark theme for code snippets */
+pre[class*="language-"] {
+    background: #1E1E1E;
+    color: white;
+    border-radius: 5px;
+    padding: 15px;
+    overflow-x: auto;
 }
