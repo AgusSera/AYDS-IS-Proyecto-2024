@@ -57,12 +57,18 @@ body {
     transition: background-color 0.3s, transform 0.3s;
 }
 .option-btn:hover, .option-btn.selected {
-    background-color: #6c757d;
+    background-color: #3286df;
     transform: scale(1.05);
 }
+
 .btn {
-    width: 160px;
+    min-width: 160px;
 }
+
+.btn-play {
+  min-width: 600px;
+}
+
 .btn-primary {
     background-color: #007bff;
     color: #fff;
@@ -82,7 +88,7 @@ body {
 }
 .button-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin-top: 20px;
 }
 
