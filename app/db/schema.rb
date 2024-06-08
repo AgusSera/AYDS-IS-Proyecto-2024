@@ -37,9 +37,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
 
   create_table "progresses", force: :cascade do |t|
     t.integer "current_lesson", default: 1, null: false
-    t.integer "numberOfCorrectAnswers"
-    t.integer "numberOfAchivements"
-    t.string "progressLevel"
+    t.integer "numberOfCorrectAnswers", default: 0, null: false
+    t.integer "numberOfAchivements", default: 0, null: false
+    t.string "progressLevel", default: "Junior", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

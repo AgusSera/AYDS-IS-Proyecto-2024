@@ -143,6 +143,7 @@ class App < Sinatra::Application
 
           if unanswered_questions.empty? # No hay preguntas sin responder
               progress.advance_to_next_lesson # El usuario avanza a la lección siguiente
+              progress.increase_number_of_correct_answers
               erb :lesson_completed
           else
               @question = unanswered_questions.sample # Obtener pregunta aleatoria

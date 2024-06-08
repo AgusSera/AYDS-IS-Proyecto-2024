@@ -6,4 +6,9 @@ class Progress < ActiveRecord::Base
     self.current_lesson += 1
     save
   end
+
+  def increase_number_of_correct_answers
+    self.numberOfCorrectAnswers += 5
+    save
+  end
 end
