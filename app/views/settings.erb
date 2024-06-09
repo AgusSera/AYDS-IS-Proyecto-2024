@@ -1,58 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Password</title>
-    <link rel="stylesheet" href="login.css">
-<style>
-    .btn-go-back-container {
-        text-align: center;
-        margin-top: 20px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link rel="stylesheet" href="login.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .h1 {
+      color: white;
     }
 
-    .btn-go-back {
-        font-size: 60px;
-        color: #d9534f; /* Red color */
-        text-decoration: none;
-        display: inline-block;
-        transition: color 0.3s ease;
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
-        line-height: 80px;
-    }
-
-    .btn-go-back:hover {
-        color: #a94442; /* Darker red color on hover */
+    .btn-secondary {
+      margin-top: 10px;
     }
 
     .success-message {
-        color: #28a745; /* Green color */
-        text-align: center;
-        margin-top: 20px;
+      color: #28a745;
+      text-align: center;
+      margin-top: 20px;
     }
-</style>
+
+    .form-signin {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .form-signin input {
+      margin-bottom: 10px;
+    }
+
+    .form-signin p {
+      margin-top: 10px;
+    }
+  </style>
 </head>
+
 <body>
-    <form class="form-signin" action="/change_password" method="post">
-        <h1 class="h3 mb-3 font-weight-normal text-center">Change Password</h1>
-        <label for="current-password" class="sr-only">Current Password</label>
-        <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus>
-        <label for="new-password" class="sr-only">New Password</label>
-        <input type="password" id="new-password" name="new_password" class="form-control" placeholder="New Password" required>
-        <label for="confirm-new-password" class="sr-only">Confirm New Password</label>
-        <input type="password" id="confirm-new-password" name="confirm_new_password" class="form-control" placeholder="Confirm New Password" required>
-        <% if @error_message %>
-            <p class="mt-2 text-danger text-center"><%= @error_message %></p>
-        <% end %>
-        <% if @success_message %>
-            <p class="success-message"><%= @success_message %></p>
-        <% end %>
-        <button class="btn btn-lg btn-primary btn-block mx-auto d-block" type="submit">Change Password</button>
-        <div class="btn-go-back-container">
-            <a href="/dashboard" class="btn-go-back">&times;</a>
+  <div class="container text-center">
+    <div class="row align-items-center">
+      <div class="col">
+        <div class="row">
+          <div class="col-4">
+            <h1 style="color: white;">Settings</h1>
+            <div class="list-group" id="list-tab" role="tablist">
+              <a class="list-group-item list-group-item-action active" id="list-change-password-list" data-bs-toggle="list" href="#list-change-password" role="tab" aria-controls="list-change-password">Change Password</a>
+              <a class="list-group-item list-group-item-action" id="list-change-email-list" data-bs-toggle="list" href="#list-change-email" role="tab" aria-controls="list-change-email">Change Email</a>
+              <a class="list-group-item list-group-item-action" id="list-reset-progress-list" data-bs-toggle="list" href="#list-reset-progress" role="tab" aria-controls="list-reset-progress">Reset Progress</a>
+              <a class="list-group-item list-group-item-action" id="list-remove-account-list" data-bs-toggle="list" href="#list-remove-account" role="tab" aria-controls="list-remove-account">Remove Account</a>
+            </div>
+            <form action="/" method="get">
+              <button type="submit" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Go Back </button>
+            </form>
+          </div>
+          <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="list-change-password" role="tabpanel" aria-labelledby="list-change-password-list">
+                <form class="form-signin" action="/change_password" method="post">
+                  <h1 class="h3 mb-3 font-weight-normal text-center">Change Password</h1>
+                  <label for="current-password" class="sr-only">Current Password</label>
+                  <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus>
+                  <label for="new-password" class="sr-only">New Password</label>
+                  <input type="password" id="new-password" name="new_password" class="form-control" placeholder="New Password" required>
+                  <label for="confirm-new-password" class="sr-only">Confirm New Password</label>
+                  <input type="password" id="confirm-new-password" name="confirm_new_password" class="form-control" placeholder="Confirm New Password" required>
+                  <% if @error_message %>
+                      <p class="mt-2 text-danger text-center"><%= @error_message %></p>
+                  <% end %>
+                  <% if @success_message %>
+                      <p class="success-message"><%= @success_message %></p>
+                  <% end %>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="list-change-email" role="tabpanel" aria-labelledby="list-change-email-list">
+                <form class="form-signin" action="/change_email" method="post">
+                  <h1 class="h3 mb-3 font-weight-normal text-center">Change Email</h1>
+                  <label for="current-password" class="sr-only">Current Password</label>
+                  <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus><br>
+                  <label for="new-email" class="sr-only">New Email</label>
+                  <input type="email" id="new-email" name="new_email" class="form-control" placeholder="New Email" required><br>
+                  <% if @error_message %>
+                    <p class="mt-2 text-danger text-center"><%= @error_message %></p>
+                  <% end %>
+                  <% if @success_message %>
+                    <p class="success-message"><%= @success_message %></p>
+                  <% end %>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Change Email</button>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="list-reset-progress" role="tabpanel" aria-labelledby="list-reset-progress-list">
+                <form class="form-signin" action="/reset_progress" method="post">
+                  <h1 class="h3 mb-3 font-weight-normal text-center">Reset Progress</h1>
+                  <label for="current-password" class="sr-only">Current Password</label>
+                  <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus><br>
+                  <% if @error_message %>
+                      <p class="mt-2 text-danger text-center"><%= @error_message %></p>
+                  <% end %>
+                  <% if @success_message %>
+                      <p class="success-message"><%= @success_message %></p>
+                  <% end %>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Reset Progress</button>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="list-remove-account" role="tabpanel" aria-labelledby="list-remove-account-list">
+                <form class="form-signin" action="/remove_account" method="post">
+                  <h1 class="h3 mb-3 font-weight-normal text-center">Remove Account</h1>
+                  <label for="current-password" class="sr-only">Current Password</label>
+                  <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus><br>
+                  <% if @error_message %>
+                      <p class="mt-2 text-danger text-center"><%= @error_message %></p>
+                  <% end %>
+                  <% if @success_message %>
+                      <p class="success-message"><%= @success_message %></p>
+                  <% end %>
+                  <button class="btn btn-lg btn-danger btn-block mx-auto d-block" type="submit">Remove Account</button>
+              </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </form>
+      </div>
+    </div>
+  </div>
+
 </body>
+
 </html>
