@@ -11,4 +11,12 @@ class Progress < ActiveRecord::Base
     self.numberOfCorrectAnswers += 5
     save
   end
+
+  def reset
+    self.current_lesson = 1
+    self.numberOfCorrectAnswers = 0
+    self.numberOfAchivements = 0
+    self.progressLevel = "Junior"
+    save
+  end
 end
