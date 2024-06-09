@@ -244,6 +244,23 @@ class App < Sinatra::Application
       redirect '/login'
     end
   end
+
+  post '/change_email' do
+    if session[:username]
+      user = User.find_by(username: session[:username], password: params[:current_password])
+      if user
+          user.update(email: params[:new_email])
+          user.save
+          @success_message = "Email changed successfully!"
+          erb :settings, locals: { success_message: @success_message }
+      else
+        @error_message = "Incorrect current password."
+        erb :settings, locals: { error_message: @error_message }
+      end
+    else
+      redirect '/login'
+    end
+  end
   
 
 end
