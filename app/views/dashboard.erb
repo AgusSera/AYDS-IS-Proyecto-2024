@@ -6,12 +6,27 @@
   <title>Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
 </head>
-<body>
+<style>
+    .logo-container {
+            font-family: 'Fira Code', monospace;
+            color: #ffffff;
+            font-size: 1em;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+</style>
+<body> 
 <!-------Nav Bar---------->
 <section id="nav-bar">
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="images/logo.png"></a>
+            <a class="navbar-brand" href="#">
+                <div class="logo-container animate">
+                    <span class="angle left-angle">&lt;/</span>
+                    <span class="text">Road to Senior</span>
+                    <span class="angle right-angle">&gt;</span>
+                </div>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
