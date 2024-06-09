@@ -262,5 +262,22 @@ class App < Sinatra::Application
     end
   end
   
+  post '/reset_progress' do
+    if session[:username]
+      user = User.find_by(username: session[:username], password: params[:current_password])
+      if user
+          progress = user.progress
+          progress.reset
+          session[:answered_questions] = []
+          @success_message = "Reset progress successfully!"
+          erb :settings, locals: { success_message: @success_message }
+      else
+        @error_message = "Incorrect current password."
+        erb :settings, locals: { error_message: @error_message }
+      end
+    else
+      redirect '/login'
+    end
+  end
 
 end
