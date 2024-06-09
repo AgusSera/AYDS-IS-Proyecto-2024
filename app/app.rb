@@ -280,4 +280,20 @@ class App < Sinatra::Application
     end
   end
 
+  post '/remove_account' do
+    if session[:username]
+      user = User.find_by(username: session[:username], password: params[:current_password])
+      if user
+        user.destroy
+        session.clear
+        redirect '/'
+      else
+        @error_message = "Incorrect current password."
+        erb :settings, locals: { error_message: @error_message }
+      end
+    else
+      redirect '/login'
+    end
+  end
+
 end
