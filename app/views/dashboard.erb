@@ -28,6 +28,13 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- For large screens, show buttons -->
                         <li class="nav-item d-none d-lg-block">
+                            <form action="/ranking" method="get">
+                                <button type="submit" class="btn btn-dark border-0 me-2">
+                                    <i class="bi bi-trophy"></i>
+                                </button>
+                            </form>
+                        </li>
+                        <li class="nav-item d-none d-lg-block">
                             <form action="/progress" method="get">
                                 <input type="hidden" name="id" value="<%= @user.progress_id %>">
                                 <button type="submit" class="btn btn-dark border-0 me-2"">
@@ -49,6 +56,9 @@
                             </form>
                         </li>
                         <!-- For small screens, show plain text -->
+                        <li class="nav-item d-lg-none">
+                            <a href="/ranking" class="nav-link">Ranking</a>
+                        </li>
                         <li class="nav-item d-lg-none">
                             <form id="progressForm" action="/progress" method="get">
                                 <input type="hidden" name="id" value="<%= @user.progress_id %>">
