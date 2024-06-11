@@ -1,177 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.cdnfonts.com/css/million-smiles" rel="stylesheet">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
 </head>
-<style>
-    .logo-container {
-            font-family: 'Fira Code', monospace;
-            color: #ffffff;
-            font-size: 1em;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-        }
-</style>
-<body> 
-<!-------Nav Bar---------->
-<section id="nav-bar">
-    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <div class="logo-container animate">
-                    <span class="angle left-angle">&lt;/</span>
-                    <span class="text">Road to Senior</span>
-                    <span class="angle right-angle">&gt;</span>
+<body>
+    <!-------Nav Bar---------->
+    <section id="nav-bar">
+        <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <div class="logo-container">
+                        <span class="angle left-angle">&lt;/</span>
+                        <span class="text">Road to Senior</span>
+                        <span class="angle right-angle">&gt;</span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <ul class="navbar-nav ms-auto">
+                        <!-- For large screens, show buttons -->
+                        <li class="nav-item d-none d-lg-block">
+                            <form action="/progress" method="get">
+                                <input type="hidden" name="id" value="<%= @user.progress_id %>">
+                                <button type="submit" class="btn btn-dark border-0 me-2"">
+                        <i class=" bi bi-bar-chart"></i>
+                                </button>
+                            </form>
+                        </li>
+                        <li class="nav-item d-none d-lg-block">
+                            <form action="/settings" method="get">
+
+                                <button type="submit" class="btn btn-dark border-0 me-2">
+                                    <i class="bi bi-gear"></i>
+                                </button>
+                            </form>
+                        </li>
+                        <li class="nav-item d-none d-lg-block">
+                            <form action="/logout" method="post">
+                                <button type="submit" class="btn btn-danger border-0 me-2">Log out</button>
+                            </form>
+                        </li>
+                        <!-- For small screens, show plain text -->
+                        <li class="nav-item d-lg-none">
+                            <form id="progressForm" action="/progress" method="get">
+                                <input type="hidden" name="id" value="<%= @user.progress_id %>">
+                            </form>
+                            <a href="#" class="nav-link"
+                                onclick="document.getElementById('progressForm').submit(); return false;">Stats</a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <a href="/settings" class="nav-link">Settings</a>
+                        </li>
+                        <li class="nav-item d-lg-none">
+                            <form id="logoutForm" action="/logout" method="post">
+                            </form>
+                            <a href="#" class="nav-link"
+                                onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+                        </li>
+                    </ul>
                 </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul class="navbar-nav ms-auto">
-                    <!-- For large screens, show buttons -->
-                    <li class="nav-item d-none d-lg-block">
-                    <form action="/progress" method="get">
-                      <input type="hidden" name="id" value="<%= @user.progress_id %>">
-                      <button type="submit" class="btn btn-dark border-0 me-2"">
-                        <i class="bi bi-bar-chart"></i>
-                      </button>
-                    </form>
-                    </li>
-                    <li class="nav-item d-none d-lg-block">
-                        <form action="/settings" method="get">
-                        
-                            <button type="submit" class="btn btn-dark border-0 me-2">
-                                <i class="bi bi-gear"></i>
-                            </button>
-                        </form>
-                    </li>
-                    <li class="nav-item d-none d-lg-block">
-                        <form action="/logout" method="post">
-                            <button type="submit" class="btn btn-danger border-0 me-2">Log out</button>
-                        </form>
-                    </li>
-                    <!-- For small screens, show plain text -->
-                    <li class="nav-item d-lg-none">
-                      <form id="progressForm" action="/progress" method="get">
-                        <input type="hidden" name="id" value="<%= @user.progress_id %>">
-                      </form>
-                      <a href="#" class ="nav-link" onclick="document.getElementById('progressForm').submit(); return false;">Stats</a>
-                    </li>
-                    <li class="nav-item d-lg-none">
-                        <a href="/settings" class="nav-link">Settings</a>
-                    </li>
-                    <li class="nav-item d-lg-none">
-                      <form id="logoutForm" action="/logout" method="post">
-                      </form>
-                      <a href="#" class ="nav-link" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
-                    </li>
-                </ul>  
+            </div>
+        </nav>
+    </section>
+
+    <div class="container dashboard-container d-flex align-items-center justify-content-center">
+    <div class="container text-center">
+        <div class="row align-items-center">
+            <div class="col">
+                <div>
+                    <div class="text-center">
+                        <div class="profile-picture mb-4">
+                            <img src="images/profile-picture.png" alt="Profile Picture" width="400" height="400">
+                        </div>
+                        <h1>Welcome, <%= @user.username %>!</h1>
+                    </div>
+
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="remaining-lives">
+                            <% (1..3).each do |i| %>
+                                <!-- 3 being the max. amount of lives a user can have -->
+                                <% if i <=@user.remaining_life_points %>
+                                    <span class="heart">&#x2764;</span> <!-- Red heart -->
+                                    <% else %>
+                                        <span class="heart">&#x2661;</span> <!-- Heart outline -->
+                                        <% end %>
+                                            <% end %>
+                        </div>
+                    </div>
+                    <div id="countdown" class="text-center"></div>
+
+
+
+                    <% if Lesson.exists?(@user.progress.current_lesson) %>
+                        <!-- Centered Play Button -->
+                        <div class="d-flex justify-content-center align-items-center">
+                            <form action="/lesson/<%= @user.progress.current_lesson %>" method="get">
+                                <button type="submit" class="btn btn-primary play-button mt-4" id="play-button">
+                                    <i class="bi bi-play"></i> Play
+                                </button>
+                            </form>
+                        </div>
+                        <% else %>
+                            <p class="text-center"> We ran out of lessons for the moment. Come back later! </p>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <button type="submit" class="btn btn-disabled text-white play-button-disabled mt-4"
+                                    disabled>
+                                    <i class="bi bi-play"></i> Play
+                                </button>
+                            </div>
+                            <% end %>
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    <h2 class="mt-4">Available Lessons</h2>
+                    <ul class="lesson-list list-group">
+                        <% @lessons.reverse.each do |lesson| %>
+                            <% if lesson.id <=@user.progress.current_lesson %>
+                                <li class="lesson-item list-group-item">
+                                    <a href="/lesson/<%= lesson.id %>">
+                                        <%= lesson.name %>
+                                    </a>
+                                </li>
+                                <% end %>
+                                    <% end %>
+                    </ul>
+                </div>
             </div>
         </div>
-    </nav>
-</section>
-
-  <div class="container pt-4 pb-4">
-        <div class="text-center">
-            <div class="profile-picture mb-4">
-                <img src="images/profile-picture.png" alt="Profile Picture">
-            </div>
-            <h1>Welcome, <%= @user.username %>!</h1>
-        </div>
-
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="remaining-lives">
-                <% (1..3).each do |i| %> 
-                    <!-- 3 being the max. amount of lives a user can have -->
-                    <% if i <= @user.remaining_life_points %>
-                        <span class="heart">&#x2764;</span> <!-- Red heart -->
-                    <% else %>
-                        <span class="heart">&#x2661;</span> <!-- Heart outline -->
-                    <% end %>
-                <% end %>
-            </div>
-        </div>
-        <div id="countdown" class="text-center"></div>
-        
-        
-
-        <% if Lesson.exists?(@user.progress.current_lesson) %>
-        <!-- Centered Play Button -->
-        <div class="d-flex justify-content-center align-items-center">
-            <form action="/lesson/<%= @user.progress.current_lesson %>" method="get">
-                <button type="submit" class="btn btn-primary play-button mt-4" id="play-button">
-                    <i class="bi bi-play"></i> Play
-                </button>
-            </form>
-        </div>
-        <% else %>
-            <p class="text-center"> We ran out of lessons for the moment. Come back later! </p>
-            <div class="d-flex justify-content-center align-items-center">
-                <button type="submit" class="btn btn-disabled text-white play-button-disabled mt-4" disabled>
-                    <i class="bi bi-play"></i> Play
-                </button>
-            </div>
-        <% end %>
-
-
-
-        <h2 class="mt-4">Available Lessons</h2>
-        <ul class="lesson-list list-group">
-        <% @lessons.reverse.each do |lesson| %>
-            <% if lesson.id <= @user.progress.current_lesson %>
-                <li class="lesson-item list-group-item">
-                    <a href="/lesson/<%= lesson.id %>"><%= lesson.name %></a>
-                </li>
-            <% end %>
-        <% end %>
-</ul>
+    </div>
     </div>
 
-    
-<script>
-// Function to calculate and update countdown
-function updateCountdown() {
-    // Get the updated_at timestamp from the server-side
-    var updatedAt = '<%= @user.updated_at %>';
-    var updatedDate = new Date(updatedAt);
-    updatedDate.setSeconds(updatedDate.getSeconds() + 60); // Add 60 seconds for the refill time
 
-    // Check if remaining life points are less than 3
-    var remainingLifePoints = <%= @user.remaining_life_points %>;
-    if (remainingLifePoints === 0) {
-        // Update countdown every second
-        var countdownElement = document.getElementById('countdown');
-        var countdownInterval = setInterval(function() {
-            var now = new Date().getTime();
-            var distance = updatedDate - now;
+    <script>
+        // Function to calculate and update countdown
+        function updateCountdown() {
+            // Get the updated_at timestamp from the server-side
+            var updatedAt = '<%= @user.updated_at %>';
+            var updatedDate = new Date(updatedAt);
+            updatedDate.setSeconds(updatedDate.getSeconds() + 60); // Add 60 seconds for the refill time
 
-            // Calculate minutes and seconds
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Check if remaining life points are less than 3
+            var remainingLifePoints = <%= @user.remaining_life_points %>;
+            if (remainingLifePoints === 0) {
+                // Update countdown every second
+                var countdownElement = document.getElementById('countdown');
+                var countdownInterval = setInterval(function () {
+                    var now = new Date().getTime();
+                    var distance = updatedDate - now;
 
-            // Display the countdown
-            countdownElement.innerHTML = minutes + 'm ' + seconds + 's ';
+                    // Calculate minutes and seconds
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // If the countdown is over, clear the interval
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                countdownElement.innerHTML = 'Your lives have been restored! You can play now.';
-                // Reload the remaining life points div
-                reloadRemainingLifePoints();
+                    // Display the countdown
+                    countdownElement.innerHTML = minutes + 'm ' + seconds + 's ';
+
+                    // If the countdown is over, clear the interval
+                    if (distance < 0) {
+                        clearInterval(countdownInterval);
+                        countdownElement.innerHTML = 'Your lives have been restored! You can play now.';
+                        // Reload the remaining life points div
+                        reloadRemainingLifePoints();
+                    }
+                }, 1000);
+            } else {
+                // Hide the countdown timer if remaining life points are different than 0
+                document.getElementById('countdown').style.display = 'none';
             }
-        }, 1000);
-    } else {
-        // Hide the countdown timer if remaining life points are different than 0
-        document.getElementById('countdown').style.display = 'none';
-    }
-}
-// Call the updateCountdown function when the page loads
-updateCountdown();
-</script>
+        }
+        // Call the updateCountdown function when the page loads
+        updateCountdown();
+    </script>
 
 </body>
+
 </html>

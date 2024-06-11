@@ -108,3 +108,11 @@ a {
     font-family: 'Million Smiles', sans-serif;
     font-size: 70px;
 }
+
+.logo-container {
+    font-family: 'Million Smiles', monospace;
+    color: #ffffff;
+    font-size: 1.2em;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+}

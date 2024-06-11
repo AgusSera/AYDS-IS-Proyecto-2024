@@ -5,7 +5,9 @@ body {
   background-size: cover;
   backdrop-filter: blur(10px); /* Aplica un difuminado al fondo */
 }
-
+.dashboard-container {
+  min-height: calc(100vh - 61px);
+}
 h1,h2,h3,h4,h5,h6,.display-4 {
   color: white;
 }
@@ -89,6 +91,12 @@ a {
   transform: scale(1.03);
 }
 
+@media (max-width: 767.98px) {
+  .dashboard-container {
+    margin: 10px auto 10px auto;
+  }
+}
+
 @keyframes ripple {
   0% {
       transform: scale(0);
@@ -98,4 +106,12 @@ a {
       transform: scale(2);
       opacity: 0;
   }
+}
+
+.logo-container {
+  font-family: 'Million Smiles', monospace;
+  color: #ffffff;
+  font-size: 1.2em;
+  letter-spacing: 0.1em;
+  cursor: pointer;
 }
