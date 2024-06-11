@@ -55,10 +55,15 @@
         <% else %>
             <h1 class="mb-4">Progress Details</h1>
             <ul class="list-group">
-                <li class="list-group-item"><strong>Number of Correct Answers:</strong> <%= progress.numberOfCorrectAnswers %></li>
-                <li class="list-group-item"><strong>Number of Achievements:</strong> <%= progress.numberOfAchivements %></li>
+                <li class="list-group-item"><strong>Number of Correct Answers:</strong> <%= progress.numberOfCorrectAnswers.to_i %></li>
+                <li class="list-group-item"><strong>Number of Achievements:</strong> <%= progress.numberOfAchivements.to_i %></li>
                 <li class="list-group-item"><strong>Progress Level:</strong> <%= progress.progressLevel %></li>
                 <li class="list-group-item"><strong>Last lesson available:</strong> <%= progress.current_lesson %></li>
+                <% if progress.numberOfCorrectAnswers + progress.numberOfIncorrectAnswers > 0 %>
+                    <li class="list-group-item"><strong>Success Rate:</strong> <%= ((progress.numberOfCorrectAnswers / (progress.numberOfCorrectAnswers + progress.numberOfIncorrectAnswers))*100).round(2) %>%</li>
+                <% else %>
+                    <li class="list-group-item"><strong>Success Rate:</strong> 0%</li>
+                <% end %>
             </ul>
         <% end %>
     </div>
