@@ -1,4 +1,4 @@
-ruby '3.0.2'
+ruby '3.3.2'
 
 source "https://rubygems.org"
 
@@ -10,3 +10,7 @@ gem 'rake'
 gem 'rufus-scheduler'
 gem 'tzinfo-data'
 
+group :test, :development do
+    gem 'rspec'
+    gem 'rack-test'
+end

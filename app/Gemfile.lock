@@ -21,6 +21,7 @@ GEM
     bigdecimal (3.1.8)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
+    diff-lcs (1.5.1)
     drb (2.2.1)
     et-orbi (1.2.11)
       tzinfo
@@ -40,7 +41,22 @@ GEM
       rack (>= 3.0.0, < 4)
     rack-session (2.0.0)
       rack (>= 3.0.0)
+    rack-test (2.1.0)
+      rack (>= 1.3)
     rake (13.2.1)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.0)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.1)
     ruby2_keywords (0.0.5)
     rufus-scheduler (3.9.1)
       fugit (~> 1.1, >= 1.1.6)
@@ -68,7 +84,9 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  rack-test
   rake
+  rspec
   rufus-scheduler
   sinatra
   sinatra-activerecord
@@ -76,7 +94,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 3.0.2p107
+   ruby 3.3.2p79
 
 BUNDLED WITH
    2.5.10
