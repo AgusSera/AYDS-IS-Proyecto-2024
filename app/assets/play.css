@@ -62,11 +62,12 @@ body {
 }
 
 .btn {
-    min-width: 160px;
+  box-sizing: border-box;
 }
 
 .btn-play {
-  min-width: 600px;
+  width: 100%; 
+  max-width: 48%;
 }
 
 .btn-primary {
