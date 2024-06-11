@@ -12,21 +12,6 @@ h1 {
     color: white;
 }
 
-.content-wrapper {
-    width: 100%;
-    max-width: 700px;
-    padding: 30px;
-    background: #343a40; 
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    color: white; 
-}
-
-.content-wrapper h1 {
-    color: white;
-    margin-bottom: 30px !important;
-    font-size: xx-large;
-}
 
 .list-group-item {
     background-color: #394041 !important; 

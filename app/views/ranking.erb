@@ -4,51 +4,101 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Ranking</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Fira Code', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 70vh;
+      background-color: #212529;
+      margin: 0;
+    }
+    .content {
+      width: 90%;
+      max-width: 1300px;
+      padding: 30px;
+      background: #212529;
+      color: white;
+    }
+    h1 {
+      color: white;
+      font-size: xx-large;
     }
     table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 10px;
+      overflow: hidden;
     }
     th, td {
+      color: #ced4da;
       border: 1px solid #dddddd;
       text-align: left;
       padding: 8px;
     }
     th {
       background-color: #f2f2f2;
+      color: #212529;
     }
     tr:nth-child(even) {
-      background-color: #f2f2f2;
+      background-color: #394041;
+    }
+    tr:nth-child(odd) {
+      background-color: #343a40;
     }
     .highlight {
-      background-color: yellow;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    th:first-child {
+      border-top-left-radius: 10px;
+    }
+    th:last-child {
+      border-top-right-radius: 10px;
+    }
+    tr:last-child td:first-child {
+      border-bottom-left-radius: 10px;
+    }
+    tr:last-child td:last-child {
+      border-bottom-right-radius: 10px;
+    }
+    .btn-secondary {
+      margin-top: 30px;
+    }
+    .mb-4 {
+      font-size: 45px;
     }
   </style>
 </head>
 <body>
-  <h1>User Ranking</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Position</th>
-        <th>Username</th>
-        <th>Completed Lessons</th>
-        <th>Success Rate</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @ranking_usuarios.first(5).each_with_index do |usuario, index| %>
-        <tr <%= "class='highlight'" if usuario.username == @current_user.username %>>
-          <td><%= index + 1 %></td>
-          <td><%= usuario.username %></td>
-          <td><%= usuario.progress.last_completed_lesson %></td>
-          <td><%= usuario.progress.calculate_success_rate.round(2) %>%</td>
+  <div class="content mt-5">
+    <h1 class="mb-4">User Ranking</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Username</th>
+          <th>Completed Lessons</th>
+          <th>Success Rate</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @ranking_usuarios.first(5).each_with_index do |usuario, index| %>
+          <tr <%= "class='highlight'" if usuario.username == @current_user.username %>>
+            <td><%= index + 1 %></td>
+            <td><%= usuario.username %></td>
+            <td><%= usuario.progress.last_completed_lesson %></td>
+            <td><%= usuario.progress.calculate_success_rate.round(2) %>%</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <form action="/" method="get">
+      <button type="submit" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Go Back </button>
+    </form>
+  </div>
 </body>
 </html>
