@@ -127,32 +127,22 @@ class App < Sinatra::Application
   get '/lesson/:id/play' do
     @lesson = Lesson.find(params[:id])
     @user = User.find_by(username: session[:username])
-    progress = @user.progress 
-
-    # Acceder a lección ya completada 
+    progress = @user.progress
+  
     if @lesson.id < progress.current_lesson
       erb :lesson_completed
-    else
-      # Acceder a lección bloqueada
-      if @lesson.id > progress.current_lesson
-        erb :lesson_locked
+    elsif @lesson.id > progress.current_lesson
+      erb :lesson_locked
+    elsif @lesson.id == progress.current_lesson
+      unanswered_questions = @lesson.questions.where.not(id: progress.correct_answered_questions)
+  
+      if unanswered_questions.empty?
+        progress.advance_to_next_lesson
+        progress.save
+        erb :lesson_completed
       else
-        if @lesson.id == progress.current_lesson
-          session[:answered_questions] ||= []
-          unanswered_questions = @lesson.questions.where.not(id: session[:answered_questions])
-
-          if unanswered_questions.empty? # No hay preguntas sin responder
-              progress.advance_to_next_lesson # El usuario avanza a la lección siguiente
-              progress.increase_number_of_correct_answers
-              erb :lesson_completed
-          else
-              @question = unanswered_questions.sample # Obtener pregunta aleatoria
-              erb :play
-
-          end
-        else # Acceder a lección no alcanzada
-          erb :lesson_locked
-        end
+        @question = unanswered_questions.sample
+        erb :play
       end
     end
   end
@@ -170,21 +160,21 @@ class App < Sinatra::Application
     session[:error] = nil
     
     if option.value
-      # Respuesta correcta
-      session[:answered_questions] << question_id
-      # Seguir respondiendo preguntas de la lección
+      correct_questions = progress.correct_answered_questions
+      correct_questions << question_id unless correct_questions.include?(question_id)
+      progress.correct_answered_questions = correct_questions
+      progress.increase_number_of_correct_answers
+      progress.save
+  
       session[:success] = 'correct_answer'
       redirect "/lesson/#{params[:id]}/play"
     else
-      # Respuesta incorrecta
+      progress.increase_number_of_incorrect_answers
       @user.subtract_life_point
       if @user.remaining_life_points <= 0
-        # El usuario se queda sin vidas
-        session[:answered_questions] = []
         session[:error] = 'no_lives_remaining'
         redirect "/lesson/#{params[:id]}/play"
       else
-        # El usuario todavía tiene vidas
         session[:error] = 'wrong_answer'
         redirect "/lesson/#{params[:id]}/play"
       end
