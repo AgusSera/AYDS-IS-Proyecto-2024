@@ -139,11 +139,23 @@ class App < Sinatra::Application
       if unanswered_questions.empty?
         progress.advance_to_next_lesson
         progress.save
-        erb :lesson_completed
+        session[:completed_user_id] = @user.id
+        redirect "/lesson_completed"
       else
         @question = unanswered_questions.sample
         erb :play
       end
+    end
+  end
+
+  get '/lesson_completed' do
+    if session[:completed_user_id]
+      @user = User.find(session[:completed_user_id])
+      session[:success] = nil
+      session[:error] = nil
+      erb :lesson_completed
+    else
+      redirect "/dashboard"
     end
   end
 
