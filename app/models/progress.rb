@@ -27,6 +27,12 @@ class Progress < ActiveRecord::Base
     save
   end
 
+  def calculate_success_rate
+    total_attempts = self.numberOfCorrectAnswers + self.numberOfIncorrectAnswers
+    return 0 if total_attempts.zero? # Evitar división por cero
+    (self.numberOfCorrectAnswers.to_f / total_attempts) * 100
+  end
+
   def correct_answered_questions
     JSON.parse(read_attribute(:correct_answered_questions))
   end

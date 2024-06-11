@@ -59,11 +59,7 @@
                 <li class="list-group-item"><strong>Number of Achievements:</strong> <%= progress.numberOfAchivements.to_i %></li>
                 <li class="list-group-item"><strong>Progress Level:</strong> <%= progress.progressLevel %></li>
                 <li class="list-group-item"><strong>Completed lessons:</strong> <%= progress.last_completed_lesson %></li>
-                <% if progress.numberOfCorrectAnswers + progress.numberOfIncorrectAnswers > 0 %>
-                    <li class="list-group-item"><strong>Success Rate:</strong> <%= ((progress.numberOfCorrectAnswers / (progress.numberOfCorrectAnswers + progress.numberOfIncorrectAnswers))*100).round(2) %>%</li>
-                <% else %>
-                    <li class="list-group-item"><strong>Success Rate:</strong> 0%</li>
-                <% end %>
+                <li class="list-group-item"><strong>Success Rate:</strong> <%= progress.calculate_success_rate.round(2) %>%</li>
             </ul>
         <% end %>
     </div>

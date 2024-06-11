@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Ranking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <h1>User Ranking</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Username</th>
+        <th>Completed Lessons</th>
+        <th>Success Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @ranking_usuarios.first(5).each_with_index do |usuario, index| %>
+        <tr <%= "class='highlight'" if usuario.username == @current_user.username %>>
+          <td><%= index + 1 %></td>
+          <td><%= usuario.username %></td>
+          <td><%= usuario.progress.last_completed_lesson %></td>
+          <td><%= usuario.progress.calculate_success_rate.round(2) %>%</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</body>
+</html>

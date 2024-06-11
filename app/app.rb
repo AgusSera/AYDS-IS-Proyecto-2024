@@ -286,4 +286,17 @@ class App < Sinatra::Application
     end
   end
 
+  def obtener_ranking_usuarios
+    usuarios = User.all.to_a  # Convertir la relación ActiveRecord a una matriz
+    usuarios.sort_by do |usuario|
+      [-usuario.progress.last_completed_lesson, -usuario.progress.calculate_success_rate]
+    end
+  end
+  
+  get '/ranking' do
+    @ranking_usuarios = obtener_ranking_usuarios
+    @current_user = User.find_by(username: session[:username]) if session[:username]
+    erb :ranking
+  end
+
 end
