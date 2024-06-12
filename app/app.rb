@@ -125,26 +125,30 @@ class App < Sinatra::Application
   end
 
   get '/lesson/:id/play' do
-    @lesson = Lesson.find(params[:id])
-    @user = User.find_by(username: session[:username])
-    progress = @user.progress
-  
-    if @lesson.id < progress.current_lesson
-      erb :lesson_completed
-    elsif @lesson.id > progress.current_lesson
-      erb :lesson_locked
-    elsif @lesson.id == progress.current_lesson
-      unanswered_questions = @lesson.questions.where.not(id: progress.correct_answered_questions)
-  
-      if unanswered_questions.empty?
-        progress.advance_to_next_lesson
-        progress.save
-        session[:completed_user_id] = @user.id
-        redirect "/lesson_completed"
-      else
-        @question = unanswered_questions.sample
-        erb :play
+    if session[:username]
+      @lesson = Lesson.find(params[:id])
+      @user = User.find_by(username: session[:username])
+      progress = @user.progress
+    
+      if @lesson.id < progress.current_lesson
+        erb :lesson_completed
+      elsif @lesson.id > progress.current_lesson
+        erb :lesson_locked
+      elsif @lesson.id == progress.current_lesson
+        unanswered_questions = @lesson.questions.where.not(id: progress.correct_answered_questions)
+    
+        if unanswered_questions.empty?
+          progress.advance_to_next_lesson
+          progress.save
+          session[:completed_user_id] = @user.id
+          redirect "/lesson_completed"
+        else
+          @question = unanswered_questions.sample
+          erb :play
+        end
       end
+    else
+      redirect '/login'
     end
   end
 
@@ -205,23 +209,32 @@ class App < Sinatra::Application
   end
   
   get '/progress' do
-    redirect "/progress/#{params[:id]}"
+    if session[:username]
+      redirect "/progress/#{params[:id]}"
+    else
+      redirect "/login"
+    end
   end
   
   get '/progress/:id' do
-    progress = Progress.find_by(id: params[:id])
-    if progress
-      erb :progress, locals: { progress: progress, error_message: nil }
+    if session[:username]
+      progress = Progress.find_by(id: params[:id])
+      if progress
+        erb :progress, locals: { progress: progress, error_message: nil }
+      else
+        erb :progress, locals: { progress: nil, error_message: "Progress not found" }
+      end
     else
-      erb :progress, locals: { progress: nil, error_message: "Progress not found" }
+      redirect "/login"
     end
+    
   end
 
   get '/settings' do
     if session[:username]
       erb :settings
     else
-      redirect '/'
+      redirect '/login'
     end
   end
 
@@ -299,16 +312,21 @@ class App < Sinatra::Application
   end
 
   def obtener_ranking_usuarios
-    usuarios = User.all.to_a  # Convertir la relación ActiveRecord a una matriz
-    usuarios.sort_by do |usuario|
+    usuarios = User.includes(:progress).all.to_a  # Use includes to avoid N+1 query problem
+    usuarios_with_progress = usuarios.select { |usuario| usuario.progress.present? }
+  
+    usuarios_with_progress.sort_by do |usuario|
       [-usuario.progress.last_completed_lesson, -usuario.progress.calculate_success_rate]
     end
   end
   
   get '/ranking' do
-    @ranking_usuarios = obtener_ranking_usuarios
-    @current_user = User.find_by(username: session[:username]) if session[:username]
-    erb :ranking
+    if session[:username]
+      @ranking_usuarios = obtener_ranking_usuarios
+      @current_user = User.find_by(username: session[:username]) if session[:username]
+      erb :ranking
+    else
+      redirect '/login'
+    end
   end
-
 end
