@@ -114,6 +114,51 @@ lessons_data = [
           { description: '-1', value: true },
           { description: '0', value: false }
         ]
+      },
+      {
+      "description": "What data type is the value 3.14 in Python?",
+      "options": [
+        { description: "Integer", "value": false },
+        { description: "Float", "value": true },
+        { description: "String", "value": false },
+        { description: "Boolean", "value": false }
+      ]
+      },
+      {
+        description: "Which of the following is a comparison operator in Python?",
+        options: [
+          { description: "=", "value": false },
+          { description: "==", "value": true },
+          { description: "+", "value": false },
+          { description: "*", "value": false }
+        ]
+      },
+      {
+        description: "What is the output of the following code? print(8 / 4)",
+        options: [
+          { description: "2", "value": false },
+          { description: "2.0", "value": true },
+          { description: "4", "value": false },
+          { description: "4.0", "value": false }
+        ]
+      },
+      {
+        description: "Which of the following statements will result in a value of False?",
+        options: [
+          { description: "5 > 3", "value": false },
+          { description: "10 == 10", "value": false },
+          { description: "7 <= 4", "value": true },
+          { description: "3 != 2", "value": false }
+        ]
+      },
+      {
+        description: "What will be the result of the following code? result = not (True and False)",
+        options: [
+          { description: "True", "value": true },
+          { description: "False", "value": false },
+          { description: "None", "value": false },
+          { description: "Error", "value": false }
+        ]
       }
     ]
   },
@@ -218,6 +263,51 @@ lessons_data = [
           { description: '"for" is utilized for infinite loops and "while" is utilized for loops with a finite number of iterations.', value: false },
           { description: '"for" is only used to iterate over the elements of a list, meanwhile a "while" structure is utilized for other kinds of data structures.', value: false }
         ]
+      },
+      {
+        description: 'What is the purpose of the "elif" keyword in Python?',
+        options: [
+          { description: 'To end a loop.', value: false },
+          { description: 'To check an additional condition if the previous conditions were not true.', value: true },
+          { description: 'To execute a block of code regardless of any conditions.', value: false },
+          { description: 'To initialize a variable.', value: false }
+        ]
+      },
+      {
+        description: 'What will be the output of the following code? for i in range(2, 5): print(i)',
+        options: [
+          { description: '2 3 4', value: true },
+          { description: '2 3 4 5', value: false },
+          { description: '3 4 5', value: false },
+          { description: '2 3', value: false }
+        ]
+      },
+      {
+        description: 'What is the output of the following code? counter = 3 while counter < 3: print(counter) counter += 1',
+        options: [
+          { description: '0 1 2', value: false },
+          { description: '1 2 3', value: false },
+          { description: 'No output', value: true },
+          { description: '3 4 5', value: false }
+        ]
+      },
+      {
+        description: 'What will be the output of this code? if 5 > 3: print("Five is greater") else: print("Three is greater")',
+        options: [
+          { description: 'Five is greater', value: true },
+          { description: 'Three is greater', value: false },
+          { description: 'Error', value: false },
+          { description: 'No output', value: false }
+        ]
+      },
+      {
+        description: 'What does the "continue" keyword do in a loop in Python?',
+        options: [
+          { description: 'Stops the loop entirely.', value: false },
+          { description: 'Skips the rest of the code inside the loop for the current iteration and moves to the next iteration.', value: true },
+          { description: 'Restarts the loop from the beginning.', value: false },
+          { description: 'Exits the current function.', value: false }
+        ]
       }
     ]
   },
@@ -320,6 +410,51 @@ lessons_data = [
           { description: 'A value passed to a function to be used inside that function.', value: true },
           { description: 'A condition that has to be met to execute a function.', value: false },
           { description: 'A kind of data structure in Python.', value: false }
+        ]
+      },
+      {
+        description: "How do you call a function in Python?",
+        options: [
+          { description: "By using parentheses () after the function name with any required arguments inside.", "value": true },
+          { description: "By using square brackets [].", "value": false },
+          { description: "By using the execute keyword.", "value": false },
+          { description: "By using the call keyword.", "value": false }
+        ]
+      },
+      {
+        description: "If a function in Python doesn't have a 'return' statement, what value does it default to?",
+        options: [
+          { description: "'None'", "value": true },
+          { description: "The last calculated value within the function.", "value": false },
+          { description: "A syntax error.", "value": false },
+          { description: "The value 'True'.", "value": false }
+        ]
+      },
+      {
+        description: "What keyword is used to indicate the end of a function definition in Python?",
+        options: [
+          { description: "'end'", "value": false },
+          { description: "'finish'", "value": false },
+          { description: "'def'", "value": true },
+          { description: "'return'", "value": false }
+        ]
+      },
+      {
+        description: "How can you define a function that doesn't take any parameters in Python?",
+        options: [
+          { description: "def my_function()", "value": true },
+          { description: "def my_function(parameters)", "value": false },
+          { description: "def my_function(parameters=None)", "value": false },
+          { description: "def my_function(parameters=0)", "value": false }
+        ]
+      },
+      {
+        description: "What is the purpose of the 'return' statement in a Python function?",
+        options: [
+          { description: "To terminate the function and return control to the caller.", "value": false },
+          { description: "To define the name of the function.", "value": false },
+          { description: "To specify the input parameters of the function.", "value": false },
+          { description: "To send back a value from the function to the caller.", "value": true }
         ]
       }
     ]
