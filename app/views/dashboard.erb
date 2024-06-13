@@ -36,7 +36,6 @@
                         </li>
                         <li class="nav-item d-none d-lg-block">
                             <form action="/progress" method="get">
-                                <input type="hidden" name="id" value="<%= @user.progress_id %>">
                                 <button type="submit" class="btn btn-dark border-0 me-2"">
                         <i class=" bi bi-bar-chart"></i>
                                 </button>
@@ -60,11 +59,7 @@
                             <a href="/ranking" class="nav-link">Ranking</a>
                         </li>
                         <li class="nav-item d-lg-none">
-                            <form id="progressForm" action="/progress" method="get">
-                                <input type="hidden" name="id" value="<%= @user.progress_id %>">
-                            </form>
-                            <a href="#" class="nav-link"
-                                onclick="document.getElementById('progressForm').submit(); return false;">Stats</a>
+                            <a href="/progress" class="nav-link">Stats</a>
                         </li>
                         <li class="nav-item d-lg-none">
                             <a href="/settings" class="nav-link">Settings</a>

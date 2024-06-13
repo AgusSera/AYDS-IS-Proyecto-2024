@@ -37,11 +37,11 @@
                   <input type="password" id="new-password" name="new_password" class="form-control" placeholder="New Password" required>
                   <label for="confirm-new-password" class="sr-only">Confirm New Password</label>
                   <input type="password" id="confirm-new-password" name="confirm_new_password" class="form-control" placeholder="Confirm New Password" required>
-                  <% if @error_message %>
-                      <p class="mt-2 text-danger text-center"><%= @error_message %></p>
+                  <% if locals[:error_message] %>
+                    <p class="mt-2 text-danger text-center"><%= locals[:error_message] %></p>
                   <% end %>
-                  <% if @success_message %>
-                      <p class="success-message"><%= @success_message %></p>
+                  <% if locals[:success_message] %>
+                    <p class="success-message text-success text-center"><%= locals[:success_message] %></p>
                   <% end %>
                   <button class="btn btn-lg btn-primary btn-block" type="submit">Change Password</button>
                 </form>
@@ -53,11 +53,11 @@
                   <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus><br>
                   <label for="new-email" class="sr-only">New Email</label>
                   <input type="email" id="new-email" name="new_email" class="form-control" placeholder="New Email" required><br>
-                  <% if @error_message %>
-                    <p class="mt-2 text-danger text-center"><%= @error_message %></p>
+                  <% if locals[:error_message] %>
+                    <p class="mt-2 text-danger text-center"><%= locals[:error_message] %></p>
                   <% end %>
-                  <% if @success_message %>
-                    <p class="success-message"><%= @success_message %></p>
+                  <% if locals[:success_message] %>
+                    <p class="success-message text-success text-center"><%= locals[:success_message] %></p>
                   <% end %>
                   <button class="btn btn-lg btn-primary btn-block" type="submit">Change Email</button>
                 </form>
@@ -67,11 +67,11 @@
                   <h1 class="h3 mb-3 font-weight-normal text-center">Reset Progress</h1>
                   <label for="current-password" class="sr-only">Current Password</label>
                   <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus><br>
-                  <% if @error_message %>
-                      <p class="mt-2 text-danger text-center"><%= @error_message %></p>
+                  <% if locals[:error_message] %>
+                    <p class="mt-2 text-danger text-center"><%= locals[:error_message] %></p>
                   <% end %>
-                  <% if @success_message %>
-                      <p class="success-message"><%= @success_message %></p>
+                  <% if locals[:success_message] %>
+                    <p class="success-message text-success text-center"><%= locals[:success_message] %></p>
                   <% end %>
                   <button class="btn btn-lg btn-primary btn-block" type="submit">Reset Progress</button>
                 </form>
@@ -81,11 +81,11 @@
                   <h1 class="h3 mb-3 font-weight-normal text-center">Remove Account</h1>
                   <label for="current-password" class="sr-only">Current Password</label>
                   <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus><br>
-                  <% if @error_message %>
-                      <p class="mt-2 text-danger text-center"><%= @error_message %></p>
+                  <% if locals[:error_message] %>
+                    <p class="mt-2 text-danger text-center"><%= locals[:error_message] %></p>
                   <% end %>
-                  <% if @success_message %>
-                      <p class="success-message"><%= @success_message %></p>
+                  <% if locals[:success_message] %>
+                    <p class="success-message text-success text-center"><%= locals[:success_message] %></p>
                   <% end %>
                   <button class="btn btn-lg btn-danger btn-block mx-auto d-block" type="submit">Remove Account</button>
               </form>
