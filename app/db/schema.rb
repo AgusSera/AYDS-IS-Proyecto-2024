@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
     t.string "username", null: false
     t.string "email"
     t.string "password"
-    t.integer "remaining_life_points"
+    t.integer "remaining_life_points", default: 3, null: false
     t.integer "progress_id"
     t.datetime "created_at"
     t.datetime "updated_at"

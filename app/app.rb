@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'rufus-scheduler'
 require 'tzinfo'
+require_relative 'helpers'
 enable :sessions
 
 ENV['TZ'] = 'America/Argentina/Buenos_Aires'
