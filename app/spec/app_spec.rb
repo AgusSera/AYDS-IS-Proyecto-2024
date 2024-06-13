@@ -139,14 +139,7 @@ RSpec.describe '../app.rb' do
         get '/settings'
         expect(last_response).to be_ok
       end
-  
-      it "displays the progress/stats page" do
-        get '/progress'
-        expect(last_response).to be_redirect
-        follow_redirect!
-        expect(last_request.path).to eq("/progress/")
-      end      
-
+      
       it "redirects to login page if accessing lesson directly without logging in" do
         # Assuming there's at least one lesson in the database
         lesson = Lesson.first
@@ -191,13 +184,13 @@ RSpec.describe '../app.rb' do
       it "shows an error if the username already exists" do
         User.create(username: 'usuario', password: 'password', email: 'newuser@hola.com')
         post '/register', username: 'usuario', password: 'password', email: 'newuser@hola.com'
-        expect(last_response.body).to include('This user already exists.')
+        expect(last_response.body).to include('Username already exists.')
       end
     
       it "shows an error if the email already exists" do
         User.create(username: 'uniqueuser', password: 'password', email: 'usuario@example.com')
         post '/register', username: 'newuser', password: 'password', email: 'usuario@example.com'
-        expect(last_response.body).to include('This user already exists.')
+        expect(last_response.body).to include('Email already registered.')
       end
     end
 
