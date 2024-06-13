@@ -11,14 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
-  create_table "achievements", force: :cascade do |t|
-    t.string "description"
-    t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["user_id"], name: "index_achievements_on_user_id"
-  end
-
   create_table "lessons", force: :cascade do |t|
     t.string "name"
     t.string "content"
@@ -40,7 +32,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
     t.integer "current_lesson", default: 1, null: false
     t.float "numberOfCorrectAnswers", default: 0.0, null: false
     t.float "numberOfIncorrectAnswers", default: 0.0, null: false
-    t.integer "numberOfAchivements", default: 0, null: false
     t.string "progressLevel", default: "Beginner", null: false
     t.text "correct_answered_questions", default: "[]"
     t.datetime "created_at"
@@ -55,24 +46,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
     t.index ["lesson_id"], name: "index_questions_on_lesson_id"
   end
 
-  create_table "user_lessons", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "lesson_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["lesson_id"], name: "index_user_lessons_on_lesson_id"
-    t.index ["user_id"], name: "index_user_lessons_on_user_id"
-  end
-
-  create_table "user_questions", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "question_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["question_id"], name: "index_user_questions_on_question_id"
-    t.index ["user_id"], name: "index_user_questions_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "email"
@@ -84,12 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
     t.index ["progress_id"], name: "index_users_on_progress_id"
   end
 
-  add_foreign_key "achievements", "users"
   add_foreign_key "options", "questions"
   add_foreign_key "questions", "lessons"
-  add_foreign_key "user_lessons", "lessons"
-  add_foreign_key "user_lessons", "users"
-  add_foreign_key "user_questions", "questions"
-  add_foreign_key "user_questions", "users"
   add_foreign_key "users", "progresses"
 end
