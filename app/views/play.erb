@@ -11,7 +11,7 @@
           <div class="d-flex remaining-lives justify-content-center">
             <% (1..3).each do |i| %> 
               <!-- 3 being the max. amount of lives a user can have -->
-              <% if i <= @user.remaining_life_points %>
+              <% if @user.remaining_life_points && i <= @user.remaining_life_points %>
                 <span class="heart">&#x2764;</span> <!-- Red heart -->
               <% else %>
                 <span class="heart">&#x2661;</span> <!-- Heart outline -->
