@@ -26,17 +26,6 @@ class App < Sinatra::Application
     start_scheduler
   end
 
-  def start_scheduler
-    scheduler = Rufus::Scheduler.new
-    
-    scheduler.every '5s' do
-      users = User.where('remaining_life_points <= 0 AND updated_at <= ?', 1.minute.ago)
-      users.each do |user|
-        user.update(remaining_life_points: [user.remaining_life_points + 3, 0].max) # El usuario recupera las vidas.
-      end
-    end
-  end
-
   get '/' do
     if session[:username]
       redirect '/dashboard'
@@ -44,6 +33,7 @@ class App < Sinatra::Application
       erb :menu
     end
   end
+
   #Fixea dirección del css para el browser cuando se juega 
   get '/lesson/:id/play.css' do
     redirect '/play.css'
@@ -54,7 +44,16 @@ class App < Sinatra::Application
   end
   
   post '/login' do
-    user = User.find_by(username: params[:username], password: params[:password])
+    username = params['username']
+    password = params['password']
+
+    if username.empty? || password.empty?
+      @error_message = "Username and password are required."
+      return erb :login, locals: { error_message: @error_message }
+    end
+
+    user = User.find_by(username: username, password: password)
+
     if user
       session[:username] = user.username
       redirect '/dashboard'
@@ -78,29 +77,30 @@ class App < Sinatra::Application
     password = params['password']
     email = params['email']
 
-    if User.exists?(username: username) || User.exists?(email: email)
-      @error_message = "This user already exists."
-      erb :register
-    else
-      new_progress = Progress.create(current_lesson: 1) # Progreso asociado al nuevo usuario
-      new_user = User.new(username: username, password: password, email: email, remaining_life_points: 3, progress_id: new_progress.id)
-      if new_user.save
+    if username.empty? || password.empty? || email.empty?
+      @error_message = "All fields are required."
+      return erb :register
+    end
+
+    if User.exists?(username: username)
+      @error_message = "Username already exists."
+      return erb :register
+    end
+
+    if User.exists?(email: email)
+      @error_message = "Email already registered."
+      return erb :register
+    end
+
+    new_progress = Progress.create!
+    new_user = User.create(username: username, password: password, email: email, progress_id: new_progress.id)
+
+    if new_user.save
         session[:username] = new_user.username
         redirect '/dashboard'
-      else
+    else
         @error_message = "There was an error trying to create the account."
         erb :register
-      end
-    end
-  end
-
-  get '/question/:id' do
-    @question = Question.find_by(id: params[:id])
-    if @question
-      @options = @question.options
-      erb :question
-    else
-      "Question not found"
     end
   end
 
@@ -119,11 +119,6 @@ class App < Sinatra::Application
     end
   end
 
-  get '/lesson/:id/content' do
-    @lesson = Lesson.find(params[:id])
-    erb :content
-  end
-
   get '/lesson/:id/play' do
     if session[:username]
       @lesson = Lesson.find(params[:id])
@@ -139,7 +134,6 @@ class App < Sinatra::Application
     
         if unanswered_questions.empty?
           progress.advance_to_next_lesson
-          progress.save
           session[:completed_user_id] = @user.id
           redirect "/lesson_completed"
         else
@@ -164,36 +158,20 @@ class App < Sinatra::Application
   end
 
   post '/lesson/:id/submit_answer' do
-    @lesson = Lesson.find(params[:id])
-    @user = User.find_by(username: session[:username])
-    progress = @user.progress 
-  
-    option_id = params[:answer].to_i
-    option = Option.find(option_id)
-    question_id = option.question.id
-    question = Question.find(question_id)
+    lesson = Lesson.find(params[:id])
+    user = User.find_by(username: session[:username])
+    progress = user.progress
+
+    option = Option.find(params[:answer].to_i)
+    question = option.question
+
     session[:success] = nil
     session[:error] = nil
-    
+
     if option.value
-      correct_questions = progress.correct_answered_questions
-      correct_questions << question_id unless correct_questions.include?(question_id)
-      progress.correct_answered_questions = correct_questions
-      progress.increase_number_of_correct_answers
-      progress.save
-  
-      session[:success] = 'correct_answer'
-      redirect "/lesson/#{params[:id]}/play"
+      handle_correct_answer(progress, question)
     else
-      progress.increase_number_of_incorrect_answers
-      @user.subtract_life_point
-      if @user.remaining_life_points <= 0
-        session[:error] = 'no_lives_remaining'
-        redirect "/lesson/#{params[:id]}/play"
-      else
-        session[:error] = 'wrong_answer'
-        redirect "/lesson/#{params[:id]}/play"
-      end
+      handle_incorrect_answer(user, progress)
     end
   end
 
@@ -201,7 +179,6 @@ class App < Sinatra::Application
     if session[:username]
       @user = User.find_by(username: session[:username])
       @lessons = Lesson.all
-      session[:answered_questions] = nil
       erb :dashboard
     else
       redirect '/login'
@@ -210,25 +187,14 @@ class App < Sinatra::Application
   
   get '/progress' do
     if session[:username]
-      redirect "/progress/#{params[:id]}"
+      @user = User.find_by(username: session[:username])
+      progress = @user.progress 
+      erb :progress, locals: { progress: progress, error_message: nil }
     else
       redirect "/login"
     end
   end
   
-  get '/progress/:id' do
-    if session[:username]
-      progress = Progress.find_by(id: params[:id])
-      if progress
-        erb :progress, locals: { progress: progress, error_message: nil }
-      else
-        erb :progress, locals: { progress: nil, error_message: "Progress not found" }
-      end
-    else
-      redirect "/login"
-    end
-    
-  end
 
   get '/settings' do
     if session[:username]
@@ -240,20 +206,12 @@ class App < Sinatra::Application
 
   post '/change_password' do
     if session[:username]
-      user = User.find_by(username: session[:username], password: params[:current_password])
+      user = authenticate_user(session[:username], params[:current_password])
       if user
-        if params[:new_password] == params[:confirm_new_password]
-          user.update(password: params[:new_password])
-          user.save
-          @success_message = "Password changed successfully!"
-          erb :settings, locals: { success_message: @success_message }
-        else
-          @error_message = "New password and confirm password do not match."
-          erb :settings, locals: { error_message: @error_message }
-        end
+        result = update_password(user, params[:new_password], params[:confirm_new_password])
+        erb :settings, locals: result
       else
-        @error_message = "Incorrect current password."
-        erb :settings, locals: { error_message: @error_message }
+        erb :settings, locals: { error_message: "Incorrect current password." }
       end
     else
       redirect '/login'
@@ -262,15 +220,12 @@ class App < Sinatra::Application
 
   post '/change_email' do
     if session[:username]
-      user = User.find_by(username: session[:username], password: params[:current_password])
+      user = authenticate_user(session[:username], params[:current_password])
       if user
-          user.update(email: params[:new_email])
-          user.save
-          @success_message = "Email changed successfully!"
-          erb :settings, locals: { success_message: @success_message }
+        result = update_email(user, params[:new_email])
+        erb :settings, locals: result
       else
-        @error_message = "Incorrect current password."
-        erb :settings, locals: { error_message: @error_message }
+        erb :settings, locals: { error_message: "Incorrect current password." }
       end
     else
       redirect '/login'
@@ -279,12 +234,11 @@ class App < Sinatra::Application
   
   post '/reset_progress' do
     if session[:username]
-      user = User.find_by(username: session[:username], password: params[:current_password])
+      user = authenticate_user(session[:username], params[:current_password])
       if user
           progress = user.progress
           progress.reset
-          session[:answered_questions] = []
-          @success_message = "Reset progress successfully!"
+          @success_message = "Progress reset successfully!"
           erb :settings, locals: { success_message: @success_message }
       else
         @error_message = "Incorrect current password."
@@ -297,7 +251,7 @@ class App < Sinatra::Application
 
   post '/remove_account' do
     if session[:username]
-      user = User.find_by(username: session[:username], password: params[:current_password])
+      user = authenticate_user(session[:username], params[:current_password])
       if user
         user.destroy
         session.clear
@@ -308,15 +262,6 @@ class App < Sinatra::Application
       end
     else
       redirect '/login'
-    end
-  end
-
-  def obtener_ranking_usuarios
-    usuarios = User.includes(:progress).all.to_a  # Use includes to avoid N+1 query problem
-    usuarios_with_progress = usuarios.select { |usuario| usuario.progress.present? }
-  
-    usuarios_with_progress.sort_by do |usuario|
-      [-usuario.progress.last_completed_lesson, -usuario.progress.calculate_success_rate]
     end
   end
   
