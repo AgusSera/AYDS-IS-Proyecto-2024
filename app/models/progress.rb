@@ -46,7 +46,6 @@ class Progress < ActiveRecord::Base
     self.current_lesson = 1
     self.numberOfCorrectAnswers = 0
     self.numberOfIncorrectAnswers = 0
-    self.numberOfAchivements = 0
     self.correct_answered_questions = []
     self.progressLevel = "Beginner"
     save

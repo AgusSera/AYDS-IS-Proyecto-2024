@@ -43,7 +43,6 @@
             <h1 class="mb-4">Progress Details</h1>
             <ul class="list-group">
                 <li class="list-group-item"><strong>Number of Correct Answers:</strong> <%= progress.numberOfCorrectAnswers.to_i %></li>
-                <li class="list-group-item"><strong>Number of Achievements:</strong> <%= progress.numberOfAchivements.to_i %></li>
                 <li class="list-group-item"><strong>Progress Level:</strong> <%= progress.progressLevel %></li>
                 <li class="list-group-item"><strong>Completed lessons:</strong> <%= progress.last_completed_lesson %></li>
                 <li class="list-group-item"><strong>Success Rate:</strong> <%= progress.calculate_success_rate.round(2) %>%</li>
