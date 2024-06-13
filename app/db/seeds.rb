@@ -463,18 +463,33 @@ lessons_data = [
 
 # Crear lecciones, preguntas y opciones
 lessons_data.each do |lesson_data|
-  lesson = Lesson.create(name: lesson_data[:name], content: lesson_data[:content])
+  lesson = Lesson.find_or_create_by(name: lesson_data[:name]) do |l|
+    l.content = lesson_data[:content]
+  end
+
   lesson_data[:questions].each do |question_data|
-    question = Question.create(description: question_data[:description], lesson_id: lesson.id)
+    question = Question.find_or_create_by(description: question_data[:description], lesson_id: lesson.id)
+
     question_data[:options].each do |option_data|
-      Option.create(description: option_data[:description], value: option_data[:value], question_id: question.id)
+      Option.find_or_create_by(description: option_data[:description], question_id: question.id) do |option|
+        option.value = option_data[:value]
+      end
     end
   end
 end
 
 
-# Crear progreso de usuario
-progress = Progress.create(current_lesson: 1)
-
 # Crear usuario de ejemplo
-user = User.create(username: 'usuario', password: 'password', email: 'usuario@example.com', remaining_life_points: 3, progress_id: progress.id)
+ActiveRecord::Base.transaction do
+
+  progress = Progress.create(current_lesson: 1)
+  
+  user = User.find_or_initialize_by(username: 'usuario')
+  
+  user.update!(
+    password: 'password',
+    email: 'usuario@example.com',
+    remaining_life_points: 3,
+    progress_id: progress.id
+  )
+end
