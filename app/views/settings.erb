@@ -31,11 +31,8 @@
               <div class="tab-pane fade show active" id="list-change-password" role="tabpanel" aria-labelledby="list-change-password-list">
                 <form class="form-signin" action="/change_password" method="post">
                   <h1 class="h3 mb-3 font-weight-normal text-center">Change Password</h1>
-                  <label for="current-password" class="sr-only">Current Password</label>
                   <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus>
-                  <label for="new-password" class="sr-only">New Password</label>
                   <input type="password" id="new-password" name="new_password" class="form-control" placeholder="New Password" required>
-                  <label for="confirm-new-password" class="sr-only">Confirm New Password</label>
                   <input type="password" id="confirm-new-password" name="confirm_new_password" class="form-control" placeholder="Confirm New Password" required>
                   <% if locals[:error_message] %>
                     <p class="mt-2 text-danger text-center"><%= locals[:error_message] %></p>
@@ -49,9 +46,7 @@
               <div class="tab-pane fade" id="list-change-email" role="tabpanel" aria-labelledby="list-change-email-list">
                 <form class="form-signin" action="/change_email" method="post">
                   <h1 class="h3 mb-3 font-weight-normal text-center">Change Email</h1>
-                  <label for="current-password" class="sr-only">Current Password</label>
                   <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus><br>
-                  <label for="new-email" class="sr-only">New Email</label>
                   <input type="email" id="new-email" name="new_email" class="form-control" placeholder="New Email" required><br>
                   <% if locals[:error_message] %>
                     <p class="mt-2 text-danger text-center"><%= locals[:error_message] %></p>
@@ -65,7 +60,6 @@
               <div class="tab-pane fade" id="list-reset-progress" role="tabpanel" aria-labelledby="list-reset-progress-list">
                 <form class="form-signin" action="/reset_progress" method="post">
                   <h1 class="h3 mb-3 font-weight-normal text-center">Reset Progress</h1>
-                  <label for="current-password" class="sr-only">Current Password</label>
                   <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus><br>
                   <% if locals[:error_message] %>
                     <p class="mt-2 text-danger text-center"><%= locals[:error_message] %></p>
@@ -79,7 +73,6 @@
               <div class="tab-pane fade" id="list-remove-account" role="tabpanel" aria-labelledby="list-remove-account-list">
                 <form class="form-signin" action="/remove_account" method="post">
                   <h1 class="h3 mb-3 font-weight-normal text-center">Remove Account</h1>
-                  <label for="current-password" class="sr-only">Current Password</label>
                   <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus><br>
                   <% if locals[:error_message] %>
                     <p class="mt-2 text-danger text-center"><%= locals[:error_message] %></p>
@@ -95,6 +88,47 @@
         </div>
       </div>
     </div>
+
+    <div id="removeAccountModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered modal-confirm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="icon-box">
+              <i class="material-icons">&#xE5CD;</i>
+            </div>        
+            <h4 class="modal-title w-100">Confirmation</h4> 
+          </div>
+          <div class="modal-body">
+            <p class="text-center">Are you sure you want to remove your account? This action cannot be undone.</p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <!-- Agregado de clases 'd-grid' y 'gap-2' para alinear verticalmente los botones -->
+            <div class="d-grid gap-2">
+              <button class="btn btn-danger" onclick="confirmRemoveAccount()">Yes, remove account</button>
+              <button class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+  <script>
+    function showRemoveAccountModal() {
+      const removeAccountModal = new bootstrap.Modal(document.getElementById('removeAccountModal'));
+      removeAccountModal.show();
+    }
+
+    function confirmRemoveAccount() {
+      document.querySelector('#list-remove-account form').submit();
+    }
+
+    function clearSessionStorage() {
+      sessionStorage.removeItem('modalShown');
+      sessionStorage.removeItem('selectedAnswer');
+    }
+  </script>
+
 </body>
 </html>
