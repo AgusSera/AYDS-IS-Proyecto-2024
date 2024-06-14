@@ -32,8 +32,8 @@
                 <form class="form-signin" action="/change_password" method="post">
                   <h1 class="h3 mb-3 font-weight-normal text-center">Change Password</h1>
                   <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current Password" required autofocus>
-                  <input type="password" id="new-password" name="new_password" class="form-control" placeholder="New Password" required>
-                  <input type="password" id="confirm-new-password" name="confirm_new_password" class="form-control" placeholder="Confirm New Password" required>
+                  <input type="password" id="new-password" name="new_password" class="form-control" placeholder="New Password" minlength="8" required>
+                  <input type="password" id="confirm-new-password" name="confirm_new_password" class="form-control" placeholder="Confirm New Password" minlength="8" required>
                   <% if locals[:error_message] %>
                     <p class="mt-2 text-danger text-center"><%= locals[:error_message] %></p>
                   <% end %>
