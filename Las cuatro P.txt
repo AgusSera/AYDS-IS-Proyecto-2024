@@ -1,0 +1,43 @@
+------------------------------ CONSIGNAS -----------------------------------
+
+1) Teniendo en cuenta que “La Gestión de Proyectos de Software consiste en planificar, organizar, supervisar y controlar el desarrollo del proyecto durante todo su ciclo de vida.”
+Identifiquen y describan brevemente las estrategias que plantearon y las actividades que hicieron ustedes y el equipo docente que se relacionen con la planificación,
+organización, supervisión y control del desarrollo de su proyecto.
+
+2) Ustedes ¿Qué acciones pueden identificar que realizaron para gestionar el personal, el proceso y el problema durante el desarrollo del proyecto para tratar de obtener un producto de calidad?
+
+3) Teniendo en cuenta las conceptualizaciones trabajadas en la teoría identifiquen y enuncien brevemente las personas, procesos y productos del proyecto de software
+realizado por su grupo en el taller.
+
+4) De acuerdo a las conceptualizaciones trabajadas en la teoría y de sus experiencias en el taller ¿creen que ustedes y los docentes realizaron actividades vinculadas a la
+gestión de riesgos y a la gestión del personal en el marco de su proyecto? Justifique/ejemplifique en cada caso.
+
+5) ¿Ustedes consideran que constituyeron un grupo o un equipo de trabajo según las definiciones dadas en la teoría? Justifiquen
+
+6) ¿Creen que lograron las 5C que debe reunir un Equipo de trabajo (Complementariedad, Coordinación, Comunicación, Confianza, Compromiso)?
+Justifiquen/ejemplifiquen cada una.
+
+Las respuestas a estas preguntas serán compartidas para intercambiar ideas en torno a ello en la próxima clase de práctico y el documento deberá ser incorporado a la
+carpeta del repositorio GIT del grupo, con el nombre “Las cuatro P”.
+
+------------------------------ RESPUESTAS -----------------------------------
+
+1 = En las primeras instancias del desarrollo de nuestro proyecto de software, junto a los profesores y demas grupos de alumnos, planteamos la idea principal o "tematica" que debia seguir cada proyecto (Duolingo). Con esto decidido, se pasó a una etapa de planificacion en donde las personas participes del grupo decidian que tipo de metodologia iban a aplicar para administrar las tareas durante todo el desarrollo (en nuestro caso, SCRUM). Luego se pasó a elaborar la especificacion de requisitos de software (SRS), proporcionando una descripcion completa del producto junto con sus requisitos funcionales y no funcionales. 
+    Ya en la etapa de organizacion, se decidio por hacer tanto un Product Discovery (determina qué es lo que se va a construir) como un BackLog (lista priorizada de funcionalidades que debe contener un producto) que, por medio de diferentes sesiones, nos ayudaron a elegir qué exactamente desarrollar y a gestionar todos elementos a diseñar respectivamente.
+    La metodologia SCRUM, con sus Sprint y Sprint Meetings, nos ayudaron a supervisar el trabajo realizado y por realizar dentro de nuestro proyecto. Tambien estuvo la asistencia de los profesores en cada clase de taller que teniamos.
+    El control del proyecto fue gestionada en conjunto utilizando Git y GitHub donde guardabamos nuestros archivos del proyecto. Cada nueva actualizacion del codigo traia consigo su correspondiente testeo sobre todo el programa y documentacion.
+
+2 = La gestion del personal se dio asignando a cada miembro del equipo roles especificos dentro del proyecto en base a las capacidades, experiencia y habilidades propias. Esto facilito la cooperacion y comunicacion entre cada miembro del grupo para lograr cumplir con los objetivos propuestos en cada Sprint.
+    Dentro de la gestion del proceso utilizamos todo el tiempo el BackLog para guiarnos a la hora de resolver los problemas e implementar nuevas funcionalidades al producto. 
+    Utilizamos una capa de testing (hecha con RSpec) para asegurar que el producto final sea de calidad.
+
+3 = -Personas: Integrantes del equipo de trabajo y los docentes de la materia.
+    -Procesos: Captura de requerimientos, análisis, diseño, implementación y testing
+    -Productos: Aplicacion web, destinada a aquellos usuarios que querian aprender de manera didactica y entretenida a programar utilizando Python.
+
+4 = No realizaron, por parte de los miembros del equipo ni por los docentes, ese tipo de gestiones durante el desarrollo del software. En el caso de la gestion del personal, cada miembro del grupo cumplia el rol de desarrollador y, en caso de haber inconvenientes, nos comunicabamos a traves de Discord o WhatsApp para solucionarlos. Gestionamos los riesgos a traves de GitHub, ya que esta plataforma nos ofrece una capacidad de centralizar la informacion, facilita la revision y correccion de errores, y mantiene el historial del codigo desde el inicio.
+
+5 = Consideramos que formamos un equipo de trabajo según las definiciones dadas en la teoría. En nuestro equipo hubo una fuerte interdependencia entre los miembros. Trabajamos juntos hacia un objetivo común, colaborando y apoyándonos mutuamente para lograrlo. Durante el proyecto, no solo compartimos responsabilidades, sino que también dependimos del aporte de cada uno para avanzar.
+
+6 = Sí, el equipo de trabajo logró de manera satisfactoria cumplir con las 5C. Hubo una correcta comunicación y coordinación durante todo el desarrollo, gracias a herramientas como las reuniones Sprint realizadas en Discord. Además, el grupo logró la complementariedad necesaria para este tipo de actividades, ya que definimos los objetivos del proyecto de manera correcta y eficaz. La confianza y el compromiso se fueron afianzando a medida que alcanzábamos los objetivos pendientes y la aplicación web tomaba una forma cada vez más completa y profesional, con un enfoque especial en desarrollarla como lo haríamos en nuestros trabajos futuros.
+    
