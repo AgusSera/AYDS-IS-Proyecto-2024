@@ -17,6 +17,17 @@ require './models/lesson'
 require './models/progress'
 
 class App < Sinatra::Application
+
+  # Lista de rutas protegidas
+  protected_routes = ['/dashboard', '/settings', '/profile', %r{/lesson/.*}, '/lesson_completed', '/progress', '/ranking', '/remove_account', '/reset_progress', '/change_email', '/change_password']
+
+  before do
+    if protected_routes.any? { |route| route === request.path_info } && session[:username].nil?
+      # La ruta está protegida y no hay sesión activa.
+      redirect '/login'
+    end
+  end
+
   configure do
     # Establecer la zona horaria
     Time.zone = 'America/Argentina/Buenos_Aires'
@@ -106,44 +117,36 @@ class App < Sinatra::Application
   end
 
   get '/lesson/:id' do
-    if session[:username]
-      max_lesson_id = Lesson.maximum(:id)
-      @lesson = Lesson.find_by(id: params[:id])
-      
-      if @lesson.nil? || @lesson.id > max_lesson_id
-        erb :end_game
-      else
-        erb :lesson
-      end
+    max_lesson_id = Lesson.maximum(:id)
+    @lesson = Lesson.find_by(id: params[:id])
+    
+    if @lesson.nil? || @lesson.id > max_lesson_id
+      erb :end_game
     else
-      redirect '/login'
+      erb :lesson
     end
   end
 
   get '/lesson/:id/play' do
-    if session[:username]
-      @lesson = Lesson.find(params[:id])
-      @user = User.find_by(username: session[:username])
-      progress = @user.progress
-    
-      if @lesson.id < progress.current_lesson
-        erb :lesson_completed
-      elsif @lesson.id > progress.current_lesson
-        erb :lesson_locked
-      elsif @lesson.id == progress.current_lesson
-        unanswered_questions = @lesson.questions.where.not(id: progress.correct_answered_questions)
-    
-        if unanswered_questions.empty?
-          progress.advance_to_next_lesson
-          session[:completed_user_id] = @user.id
-          redirect "/lesson_completed"
-        else
-          @question = unanswered_questions.sample
-          erb :play
-        end
+    @lesson = Lesson.find(params[:id])
+    @user = User.find_by(username: session[:username])
+    progress = @user.progress
+  
+    if @lesson.id < progress.current_lesson
+      erb :lesson_completed
+    elsif @lesson.id > progress.current_lesson
+      erb :lesson_locked
+    elsif @lesson.id == progress.current_lesson
+      unanswered_questions = @lesson.questions.where.not(id: progress.correct_answered_questions)
+  
+      if unanswered_questions.empty?
+        progress.advance_to_next_lesson
+        session[:completed_user_id] = @user.id
+        redirect "/lesson_completed"
+      else
+        @question = unanswered_questions.sample
+        erb :play
       end
-    else
-      redirect '/login'
     end
   end
 
@@ -177,102 +180,69 @@ class App < Sinatra::Application
   end
 
   get '/dashboard' do
-    if session[:username]
-      @user = User.find_by(username: session[:username])
-      @lessons = Lesson.all
-      erb :dashboard
-    else
-      redirect '/login'
-    end
+    @user = User.find_by(username: session[:username])
+    @lessons = Lesson.all
+    erb :dashboard
   end
   
   get '/progress' do
-    if session[:username]
-      @user = User.find_by(username: session[:username])
-      progress = @user.progress 
-      erb :progress, locals: { progress: progress, error_message: nil }
-    else
-      redirect "/login"
-    end
+    @user = User.find_by(username: session[:username])
+    progress = @user.progress 
+    erb :progress, locals: { progress: progress, error_message: nil }
   end
   
 
   get '/settings' do
-    if session[:username]
-      erb :settings
-    else
-      redirect '/login'
-    end
+    erb :settings
   end
 
   post '/change_password' do
-    if session[:username]
-      user = authenticate_user(session[:username], params[:current_password])
-      if user
-        result = update_password(user, params[:new_password], params[:confirm_new_password])
-        erb :settings, locals: result
-      else
-        erb :settings, locals: { error_message: "Incorrect current password." }
-      end
+    user = authenticate_user(session[:username], params[:current_password])
+    if user
+      result = update_password(user, params[:new_password], params[:confirm_new_password])
+      erb :settings, locals: result
     else
-      redirect '/login'
+      erb :settings, locals: { error_message: "Incorrect current password." }
     end
   end
 
   post '/change_email' do
-    if session[:username]
-      user = authenticate_user(session[:username], params[:current_password])
-      if user
-        result = update_email(user, params[:new_email])
-        erb :settings, locals: result
-      else
-        erb :settings, locals: { error_message: "Incorrect current password." }
-      end
+    user = authenticate_user(session[:username], params[:current_password])
+    if user
+      result = update_email(user, params[:new_email])
+      erb :settings, locals: result
     else
-      redirect '/login'
+      erb :settings, locals: { error_message: "Incorrect current password." }
     end
   end
   
   post '/reset_progress' do
-    if session[:username]
-      user = authenticate_user(session[:username], params[:current_password])
-      if user
-          progress = user.progress
-          progress.reset
-          @success_message = "Progress reset successfully!"
-          erb :settings, locals: { success_message: @success_message }
-      else
-        @error_message = "Incorrect current password."
-        erb :settings, locals: { error_message: @error_message }
-      end
+    user = authenticate_user(session[:username], params[:current_password])
+    if user
+        progress = user.progress
+        progress.reset
+        @success_message = "Progress reset successfully!"
+        erb :settings, locals: { success_message: @success_message }
     else
-      redirect '/login'
+      @error_message = "Incorrect current password."
+      erb :settings, locals: { error_message: @error_message }
     end
   end
 
   post '/remove_account' do
-    if session[:username]
-      user = authenticate_user(session[:username], params[:current_password])
-      if user
-        user.destroy
-        session.clear
-        redirect '/'
-      else
-        @error_message = "Incorrect current password."
-        erb :settings, locals: { error_message: @error_message }
-      end
+    user = authenticate_user(session[:username], params[:current_password])
+    if user
+      user.destroy
+      session.clear
+      redirect '/'
     else
-      redirect '/login'
+      @error_message = "Incorrect current password."
+      erb :settings, locals: { error_message: @error_message }
     end
   end
   
   get '/ranking' do
-    if session[:username]
-      @ranking_usuarios = obtener_ranking_usuarios
-      @current_user = User.find_by(username: session[:username]) if session[:username]
-      erb :ranking
-    else
-      redirect '/login'
-    end
-  end
+    @ranking_usuarios = obtener_ranking_usuarios
+    @current_user = User.find_by(username: session[:username]) if session[:username]
+    erb :ranking
 end
