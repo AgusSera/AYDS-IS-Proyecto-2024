@@ -215,19 +215,6 @@ class App < Sinatra::Application
       erb :settings, locals: { error_message: "Incorrect current password." }
     end
   end
-  
-  post '/reset_progress' do
-    user = authenticate_user(session[:username], params[:current_password])
-    if user
-        progress = user.progress
-        progress.reset
-        @success_message = "Progress reset successfully!"
-        erb :settings, locals: { success_message: @success_message }
-    else
-      @error_message = "Incorrect current password."
-      erb :settings, locals: { error_message: @error_message }
-    end
-  end
 
   post '/remove_account' do
     user = authenticate_user(session[:username], params[:current_password])

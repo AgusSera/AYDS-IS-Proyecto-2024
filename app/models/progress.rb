@@ -41,16 +41,6 @@ class Progress < ActiveRecord::Base
     write_attribute(:correct_answered_questions, value.to_json)
   end
 
-  def reset
-    self.last_completed_lesson = 0
-    self.current_lesson = 1
-    self.numberOfCorrectAnswers = 0
-    self.numberOfIncorrectAnswers = 0
-    self.correct_answered_questions = []
-    self.progressLevel = "Beginner"
-    save
-  end
-
   private
 
   # Método privado para calcular el nivel de progreso
