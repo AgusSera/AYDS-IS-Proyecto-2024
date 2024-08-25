@@ -43,32 +43,4 @@ helpers do
       end
       redirect "/lesson/#{params[:id]}/play"
     end
-  
-  
-    def authenticate_user(username, password)
-      User.find_by(username: username, password: password)
-    end
-  
-    def update_password(user, new_password, confirm_password)
-      if new_password == confirm_password
-        user.update(password: new_password)
-        if user.save
-          { success_message: "Password changed successfully!" }
-        else
-          { error_message: "Failed to update password." }
-        end
-      else
-        { error_message: "New password and confirm password do not match." }
-      end
-    end
-  
-    def update_email(user, new_email)
-      user.update(email: new_email)
-      if user.save
-        { success_message: "Email changed successfully!" }
-      else
-        { error_message: "Failed to update email." }
-      end
-    end
-
 end

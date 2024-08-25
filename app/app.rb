@@ -191,41 +191,37 @@ class App < Sinatra::Application
     erb :progress, locals: { progress: progress, error_message: nil }
   end
   
-
   get '/settings' do
     erb :settings
   end
 
   post '/change_password' do
-    user = authenticate_user(session[:username], params[:current_password])
-    if user
-      result = update_password(user, params[:new_password], params[:confirm_new_password])
-      erb :settings, locals: result
+    user = User.find_by(username: session[:username])
+    if user.change_password(params[:current_password], params[:new_password], params[:confirm_new_password])
+      erb :settings, locals: { success_message: "Contraseña actualizada correctamente" }
     else
-      erb :settings, locals: { error_message: "Incorrect current password." }
+      erb :settings, locals: { error_message: "La contraseña actual es incorrecta o las nuevas contraseñas no coinciden." }
     end
   end
 
   post '/change_email' do
-    user = authenticate_user(session[:username], params[:current_password])
-    if user
-      result = update_email(user, params[:new_email])
-      erb :settings, locals: result
-    else
-      erb :settings, locals: { error_message: "Incorrect current password." }
-    end
+      user = User.find_by(username: session[:username])
+      if user.change_email(params[:new_email], params[:current_password])
+        erb :settings, locals: { success_message: "Email actualizado correctamente" }
+      else
+        erb :settings, locals: { error_message: "La contraseña actual es incorrecta." }
+      end
   end
 
   post '/remove_account' do
-    user = authenticate_user(session[:username], params[:current_password])
-    if user
-      user.destroy
-      session.clear
-      redirect '/'
-    else
-      @error_message = "Incorrect current password."
-      erb :settings, locals: { error_message: @error_message }
-    end
+      user = User.find_by(username: session[:username])
+      if user
+        user.destroy
+        session.clear
+        redirect '/'
+      else
+        erb :settings, locals: { error_message: "Incorrect current password." }
+      end
   end
   
   get '/ranking' do
