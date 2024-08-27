@@ -228,4 +228,5 @@ class App < Sinatra::Application
     @ranking_usuarios = obtener_ranking_usuarios
     @current_user = User.find_by(username: session[:username]) if session[:username]
     erb :ranking
+  end
 end
