@@ -160,6 +160,43 @@ RSpec.describe '../app.rb' do
     end
 
   ##############                      ##############
+  ##############     Login process    ##############
+  ##############                      ##############
+
+    context "login process" do
+
+      after(:each) do
+        # Remove the new users created in database
+        User.find_by(username: 'newuser123')&.destroy
+      end
+      
+      it "shows an error if the username is empty" do
+        post '/login', username: '', password: 'newpassword123'
+        expect(last_response.body).to include('Username and password are required.')
+      end
+
+      it "shows an error if the password is empty" do
+        post '/login', username: 'newuser123', password: ''
+        expect(last_response.body).to include('Username and password are required.')
+      end
+
+      it "login successfully" do
+        User.create(username: 'newuser123', password: 'newpassword123', email: 'newuser123@example.com')
+        post '/login', username: 'newuser123', password: 'newpassword123' 
+        expect(last_response).to be_redirect
+        follow_redirect!
+        expect(last_request.path).to eq('/dashboard')
+      end
+
+      it "shows an error if the password is wrong" do
+        User.create(username: 'newuser123', password: 'newpassword123', email: 'newuser123@example.com')
+        post '/login', username: 'newuser123', password: '12345678'
+        expect(last_response.body).to include('Incorrect username or password. Please try again.')
+      end
+
+    end  
+
+  ##############                      ##############
   ############## Registration process ##############
   ##############                      ##############
 
@@ -172,6 +209,21 @@ RSpec.describe '../app.rb' do
       after(:each) do
         # Remove the new users created in database
         User.find_by(username: 'newuser123')&.destroy
+      end
+
+      it "shows an error if the username is empty" do
+        post '/register', username: '', password: 'password', email: 'newuser@hola.com'
+        expect(last_response.body).to include('All fields are required.')
+      end
+
+      it "shows an error if the password is empty" do
+        post '/register', username: 'usuario', password: '', email: 'newuser@hola.com'
+        expect(last_response.body).to include('All fields are required.')
+      end
+
+      it "shows an error if the email is empty" do
+        post '/register', username: 'usuario', password: 'password', email: ''
+        expect(last_response.body).to include('All fields are required.')
       end
 
       it "registers a new user successfully" do

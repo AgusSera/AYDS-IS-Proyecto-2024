@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Años/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/app.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/app.rb": {
         "lines": [
           1,
           1,
@@ -27,7 +27,7 @@
           1,
           null,
           1,
-          780,
+          902,
           null,
           9,
           null,
@@ -39,8 +39,8 @@
           null,
           null,
           1,
-          22,
-          22,
+          29,
+          29,
           null,
           null,
           1,
@@ -61,42 +61,42 @@
           null,
           null,
           1,
-          8,
-          8,
+          12,
+          12,
           null,
-          8,
-          0,
-          0,
-          null,
-          null,
-          8,
-          null,
-          8,
-          8,
-          8,
-          null,
-          0,
-          0,
+          12,
+          2,
+          2,
           null,
           null,
+          10,
           null,
-          1,
-          23,
-          23,
-          null,
+          10,
+          9,
+          9,
           null,
           1,
           1,
           null,
           null,
-          1,
-          3,
-          3,
-          3,
           null,
+          1,
+          26,
+          26,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          6,
+          6,
+          6,
+          null,
+          6,
           3,
-          0,
-          0,
+          3,
           null,
           null,
           3,
@@ -185,9 +185,9 @@
           null,
           null,
           1,
-          3,
-          3,
-          3,
+          4,
+          4,
+          4,
           null,
           null,
           1,
@@ -237,13 +237,13 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Años/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/helpers.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/helpers.rb": {
         "lines": [
           1,
           1,
-          22,
+          29,
           null,
-          22,
+          29,
           0,
           0,
           0,
@@ -287,7 +287,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Años/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/user.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/user.rb": {
         "lines": [
           1,
           null,
@@ -318,7 +318,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Años/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/question.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/question.rb": {
         "lines": [
           1,
           null,
@@ -328,7 +328,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Años/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/option.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/option.rb": {
         "lines": [
           1,
           null,
@@ -336,7 +336,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Años/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/lesson.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/lesson.rb": {
         "lines": [
           1,
           null,
@@ -344,7 +344,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Años/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/progress.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/progress.rb": {
         "lines": [
           1,
           null,
@@ -400,7 +400,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Años/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/spec/app_spec.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/spec/app_spec.rb": {
         "lines": [
           1,
           1,
@@ -412,7 +412,7 @@
           1,
           null,
           1,
-          22,
+          29,
           null,
           null,
           null,
@@ -568,14 +568,66 @@
           null,
           null,
           1,
-          1,
-          null,
-          3,
-          null,
           null,
           1,
           null,
-          3,
+          4,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          6,
+          null,
+          null,
+          1,
+          null,
+          6,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
           null,
           null,
           1,
@@ -635,6 +687,6 @@
         ]
       }
     },
-    "timestamp": 1724726636
+    "timestamp": 1724728075
   }
 }
