@@ -326,5 +326,64 @@ RSpec.describe '../app.rb' do
       expect(user.reload.email).to eq('oldemail@example.com')
     end
   end
+
   
+  ##############                        ##############
+  ##############        Progress        ##############
+  ##############                        ##############
+
+  let(:progress) { Progress.create(last_completed_lesson: 0, current_lesson: 1, correct_answered_questions: []) }
+
+  describe '#advance_to_next_lesson' do
+
+    it 'updates progressLevel based on last_completed_lesson' do
+      progress.advance_to_next_lesson
+      expect(progress.reload.progressLevel).to eq("Junior")
+    end
+    
+    it 'advances to the next lesson' do
+      expect { progress.advance_to_next_lesson }.to change { progress.reload.current_lesson }.by(1)
+    end
+
+    it 'increases last_completed_lesson by 1' do
+      expect { progress.advance_to_next_lesson }.to change { progress.reload.last_completed_lesson }.by(1)
+    end
+
+    it 'resets correct_answered_questions to an empty array' do
+      progress.update(correct_answered_questions: [1, 2, 3])
+      progress.advance_to_next_lesson
+      expect(progress.reload.correct_answered_questions).to eq([])
+    end
+
+  end
+
+
+  let(:progress) { Progress.create(numberOfCorrectAnswers: 0) }
+
+  describe '#increase_number_of_correct_answers' do
+    it 'increases numberOfCorrectAnswers by 1' do
+      expect { progress.increase_number_of_correct_answers }.to change { progress.reload.numberOfCorrectAnswers }.by(1)
+    end
+  end
+
+  describe '#increase_number_of_incorrect_answers' do
+    it 'increases numberOfIncorrectAnswers by 1' do
+      expect { progress.increase_number_of_incorrect_answers }.to change { progress.reload.numberOfIncorrectAnswers }.by(1)
+    end
+  end
+
+  let(:progress) { Progress.create(numberOfCorrectAnswers: 7, numberOfIncorrectAnswers: 3) }
+
+  describe '#calculate_success_rate' do
+    it 'calculates the correct success rate' do
+      expect(progress.calculate_success_rate).to eq(70.0)
+    end
+
+    it 'returns 0 if there are no attempts' do
+      progress.update(numberOfCorrectAnswers: 0, numberOfIncorrectAnswers: 0)
+      expect(progress.calculate_success_rate).to eq(0.0)
+    end
+  end
+
+
 end

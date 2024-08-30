@@ -45,8 +45,7 @@ class Progress < ActiveRecord::Base
 
   # Método privado para calcular el nivel de progreso
   def calculate_progress_level
-    PROGRESS_LEVELS[self.last_completed_lesson] || "Junior"
+    PROGRESS_LEVELS[self.last_completed_lesson] || "Beginner"
   end
-
 end
 
