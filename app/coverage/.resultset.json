@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/app.rb": {
+      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/app.rb": {
         "lines": [
           1,
           1,
@@ -27,7 +27,7 @@
           1,
           null,
           1,
-          902,
+          914,
           null,
           9,
           null,
@@ -39,8 +39,8 @@
           null,
           null,
           1,
-          29,
-          29,
+          30,
+          30,
           null,
           null,
           1,
@@ -61,19 +61,19 @@
           null,
           null,
           1,
-          12,
-          12,
+          13,
+          13,
           null,
-          12,
+          13,
           2,
           2,
           null,
           null,
-          10,
+          11,
           null,
+          11,
           10,
-          9,
-          9,
+          10,
           null,
           1,
           1,
@@ -237,13 +237,13 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/helpers.rb": {
+      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/helpers.rb": {
         "lines": [
           1,
           1,
-          29,
+          30,
           null,
-          29,
+          30,
           0,
           0,
           0,
@@ -287,38 +287,38 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/user.rb": {
+      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/user.rb": {
         "lines": [
           1,
           null,
           1,
           null,
           1,
-          0,
-          0,
+          1,
+          1,
           null,
           null,
           1,
-          0,
-          0,
-          0,
+          3,
+          1,
+          1,
           null,
-          0,
+          2,
           null,
           null,
           null,
           1,
-          0,
-          0,
-          0,
+          2,
+          1,
+          1,
           null,
-          0,
+          1,
           null,
           null,
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/question.rb": {
+      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/question.rb": {
         "lines": [
           1,
           null,
@@ -328,15 +328,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/option.rb": {
-        "lines": [
-          1,
-          null,
-          1,
-          null
-        ]
-      },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/lesson.rb": {
+      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/option.rb": {
         "lines": [
           1,
           null,
@@ -344,7 +336,15 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/progress.rb": {
+      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/lesson.rb": {
+        "lines": [
+          1,
+          null,
+          1,
+          null
+        ]
+      },
+      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/progress.rb": {
         "lines": [
           1,
           null,
@@ -400,7 +400,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/spec/app_spec.rb": {
+      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/spec/app_spec.rb": {
         "lines": [
           1,
           1,
@@ -412,7 +412,7 @@
           1,
           null,
           1,
-          29,
+          30,
           null,
           null,
           null,
@@ -560,6 +560,7 @@
           1,
           1,
           1,
+          null,
           null,
           null,
           null,
@@ -656,18 +657,15 @@
           null,
           1,
           1,
-          1,
-          1,
-          1,
+          2,
+          2,
+          2,
           null,
           null,
           1,
           null,
-          1,
-          1,
-          null,
-          null,
-          1,
+          2,
+          2,
           null,
           null,
           1,
@@ -679,6 +677,56 @@
           1,
           null,
           null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          4,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          6,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
           1,
           null,
           null,
@@ -687,6 +735,6 @@
         ]
       }
     },
-    "timestamp": 1724728075
+    "timestamp": 1725019764
   }
 }

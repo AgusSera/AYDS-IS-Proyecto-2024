@@ -157,6 +157,7 @@ RSpec.describe '../app.rb' do
         follow_redirect!
         expect(last_request.path).to eq('/dashboard')
       end
+
     end
 
   ##############                      ##############
@@ -277,6 +278,53 @@ RSpec.describe '../app.rb' do
       # Check if the response indicates that the lesson is locked
       expect(last_response.body).to include('locked')
     end
-       
+    
+    describe '#subtract_life_point' do
+      it 'decreases remaining_life_points by 1' do
+        expect { @user.subtract_life_point }.to change { @user.reload.remaining_life_points }.by(-1)
+      end
+    end
+
   end
+
+  ##############                        ##############
+  ##############  Change user settings  ##############
+  ##############                        ##############
+
+  let(:user) { User.create(username: 'testuser', password: 'oldpassword', email: 'oldemail@example.com') }
+
+  describe '#change_password' do
+    it 'changes the password when the current password is correct and confirmation matches' do
+      result = user.change_password('oldpassword', 'newpassword', 'newpassword')
+      expect(result).to be_truthy
+      expect(user.reload.password).to eq('newpassword')
+    end
+
+    it 'does not change the password if the current password is incorrect' do
+      result = user.change_password('wrongpassword', 'newpassword', 'newpassword')
+      expect(result).to be_falsey
+      expect(user.reload.password).to eq('oldpassword')
+    end
+
+    it 'does not change the password if the new password and confirmation do not match' do
+      result = user.change_password('oldpassword', 'newpassword', 'differentpassword')
+      expect(result).to be_falsey
+      expect(user.reload.password).to eq('oldpassword')
+    end
+  end
+
+  describe '#change_email' do
+    it 'changes the email when the current password is correct' do
+      result = user.change_email('newemail@example.com', 'oldpassword')
+      expect(result).to be_truthy
+      expect(user.reload.email).to eq('newemail@example.com')
+    end
+
+    it 'does not change the email if the current password is incorrect' do
+      result = user.change_email('newemail@example.com', 'wrongpassword')
+      expect(result).to be_falsey
+      expect(user.reload.email).to eq('oldemail@example.com')
+    end
+  end
+  
 end
