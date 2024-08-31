@@ -436,6 +436,18 @@ RSpec.describe '../app.rb' do
       expect(last_response).to be_ok
       expect(last_response.body).to include('Lesson 1: Variables, Data Types, and Basic Operators')
     end
+
+    it "select correct answer" do
+      @lesson = Lesson.find_by(id: 1)
+      @user.progress.update(current_lesson: 1)
+      post '/lesson/1/submit_answer', answer:1
+    end
+
+    it "select wrong answer" do
+      @lesson = Lesson.find_by(id: 1)
+      @user.progress.update(current_lesson: 1)
+      post '/lesson/1/submit_answer', answer:2
+    end
   end
 
   context "user progress page" do
