@@ -385,6 +385,25 @@ RSpec.describe '../app.rb' do
     end
   end
 
+  context "user progress page" do
+
+    before(:each) do
+      @progress = Progress.create!
+      @user = User.create(username: 'new_user', password: 'password', email: 'new@example.com', progress_id: @progress.id)
+      post '/login', username: 'new_user', password: 'password'  
+    end
+
+    after(:each) do
+      User.find_by(username: 'new_user')&.destroy
+    end
+
+    it "view progress" do
+      get '/progress'
+      expect(last_response.body).to include('Progress Details')
+    end
+
+  end
+
   context "change password" do
 
     before(:each) do
