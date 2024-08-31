@@ -385,5 +385,50 @@ RSpec.describe '../app.rb' do
     end
   end
 
+  context "change password" do
+
+    before(:each) do
+      @user = User.create(username: 'new_user', password: 'password', email: 'new@example.com')
+      post '/login', username: 'new_user', password: 'password'  
+    end
+
+    after(:each) do
+      User.find_by(username: 'new_user')&.destroy
+    end
+
+    it "password changed successfully" do
+      post '/change_password', current_password: 'password', new_password: 'new_password', confirm_new_password: 'new_password'
+      expect(last_response.body).to include('Contraseña actualizada correctamente')
+    end
+
+    it "password change unsuccessful" do
+      post '/change_password', current_password: 'wrong_password', new_password: 'new_password', confirm_new_password: 'new_password'
+      expect(last_response.body).to include('La contraseña actual es incorrecta o las nuevas contraseñas no coinciden.')
+    end
+
+  end
+
+  context "change email" do
+
+    before(:each) do
+      @user = User.create(username: 'new_user', password: 'password', email: 'email@example.com')
+      post '/login', username: 'new_user', password: 'password'  
+    end
+
+    after(:each) do
+      User.find_by(username: 'new_user')&.destroy
+    end
+
+    it "email changed successfully" do
+      post '/change_email', new_email: 'new@example.com', current_password: 'password'
+      expect(last_response.body).to include('Email actualizado correctamente')
+    end
+
+    it "email change unsuccessful" do
+      post '/change_email', new_email: 'new@example.com', current_password: 'wrong_password'
+      expect(last_response.body).to include('La contraseña actual es incorrecta.')
+    end
+
+  end
 
 end
