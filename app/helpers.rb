@@ -18,29 +18,4 @@ helpers do
           [-usuario.progress.last_completed_lesson, -usuario.progress.calculate_success_rate]
         end
     end
-
-    def handle_correct_answer(progress, question)
-
-      question_id = question.id
-      correct_questions = progress.correct_answered_questions || []
-      correct_questions << question_id unless correct_questions.include?(question_id)
-      progress.correct_answered_questions = correct_questions
-  
-      progress.increase_number_of_correct_answers
-      progress.save
-  
-      session[:success] = 'correct_answer'
-      redirect "/lesson/#{params[:id]}/play"
-    end
-  
-    def handle_incorrect_answer(user, progress)
-      progress.increase_number_of_incorrect_answers
-      user.subtract_life_point
-      if user.remaining_life_points <= 0
-        session[:error] = 'no_lives_remaining'
-      else
-        session[:error] = 'wrong_answer'
-      end
-      redirect "/lesson/#{params[:id]}/play"
-    end
 end

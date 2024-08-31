@@ -164,19 +164,23 @@ class App < Sinatra::Application
   post '/lesson/:id/submit_answer' do
     lesson = Lesson.find(params[:id])
     user = User.find_by(username: session[:username])
-    progress = user.progress
 
-    option = Option.find(params[:answer].to_i)
-    question = option.question
+    option = Option.find_by(id: params[:answer].to_i)
+    question_id = option.question.id
 
     session[:success] = nil
     session[:error] = nil
 
     if option.value
-      handle_correct_answer(progress, question)
+      user.progress.correct_answer(question_id)
+      session[:success] = 'correct_answer'
     else
-      handle_incorrect_answer(user, progress)
+      user.progress.increase_number_of_incorrect_answers
+      user.subtract_life_point
+      session[:error] = user.remaining_life_points <= 0 ? 'no_lives_remaining' : 'wrong_answer'
     end
+
+    redirect "/lesson/#{params[:id]}/play"
   end
 
   get '/dashboard' do

@@ -9,6 +9,12 @@ class Progress < ActiveRecord::Base
     3 => "Senior"
   }
 
+  def correct_answer(question_id)
+    self.correct_answered_questions = correct_answered_questions << question_id
+    self.numberOfCorrectAnswers += 1
+    save
+  end
+
   def advance_to_next_lesson
     self.last_completed_lesson += 1
     self.current_lesson += 1
