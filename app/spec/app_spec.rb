@@ -385,6 +385,59 @@ RSpec.describe '../app.rb' do
     end
   end
 
+  context "play game" do
+    before(:each) do
+      @progress = Progress.create!
+      @user = User.create(username: 'new_user', password: 'password', email: 'email@example.com', progress_id: @progress.id)
+      post '/login', username: 'new_user', password: 'password'
+    end
+  
+    after(:each) do
+      # Clean up the database
+      User.find_by(username: 'new_user')&.destroy
+      Progress.find_by(id: @user.progress.id)&.destroy
+    end
+
+    it "access to completed lesson" do
+      @user.progress.update(current_lesson: 3)
+
+      get "/lesson/1/play"
+
+      expect(last_response).to be_ok
+      expect(last_response.body).to include('Lesson Completed!')
+    end
+
+    it "access to locked lesson" do
+      @user.progress.update(current_lesson: 1)
+
+      get "/lesson/2/play"
+
+      expect(last_response).to be_ok
+      expect(last_response.body).to include('Blocked lesson!')
+    end
+
+    it "access to lesson with no questions to answer" do
+      @lesson = Lesson.find_by(id: 1)
+      @user.progress.update(current_lesson: 1, correct_answered_questions: @lesson.questions)
+
+      get "/lesson/1/play"
+
+      expect(last_response).to be_redirect
+      follow_redirect!
+      expect(last_request.path).to eq('/lesson_completed')
+    end
+
+    it "access to lesson with questions to answer" do
+      @lesson = Lesson.find_by(id: 1)
+      @user.progress.update(current_lesson: 1)
+
+      get "/lesson/1/play"
+
+      expect(last_response).to be_ok
+      expect(last_response.body).to include('Lesson 1: Variables, Data Types, and Basic Operators')
+    end
+  end
+
   context "user progress page" do
 
     before(:each) do
