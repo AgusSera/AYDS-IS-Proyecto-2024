@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/app.rb": {
+      "C:/Users/nikot/Desktop/2do cuatri/ING/AYDS-IS-Proyecto-2024/app/app.rb": {
         "lines": [
           1,
           1,
@@ -241,7 +241,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/helpers.rb": {
+      "C:/Users/nikot/Desktop/2do cuatri/ING/AYDS-IS-Proyecto-2024/app/helpers.rb": {
         "lines": [
           1,
           1,
@@ -257,7 +257,7 @@
           null,
           1,
           1,
-          100,
+          2,
           null,
           1,
           1,
@@ -266,7 +266,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/user.rb": {
+      "C:/Users/nikot/Desktop/2do cuatri/ING/AYDS-IS-Proyecto-2024/app/models/user.rb": {
         "lines": [
           1,
           null,
@@ -297,7 +297,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/question.rb": {
+      "C:/Users/nikot/Desktop/2do cuatri/ING/AYDS-IS-Proyecto-2024/app/models/question.rb": {
         "lines": [
           1,
           null,
@@ -307,7 +307,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/option.rb": {
+      "C:/Users/nikot/Desktop/2do cuatri/ING/AYDS-IS-Proyecto-2024/app/models/option.rb": {
         "lines": [
           1,
           null,
@@ -315,7 +315,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/lesson.rb": {
+      "C:/Users/nikot/Desktop/2do cuatri/ING/AYDS-IS-Proyecto-2024/app/models/lesson.rb": {
         "lines": [
           1,
           null,
@@ -323,7 +323,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/progress.rb": {
+      "C:/Users/nikot/Desktop/2do cuatri/ING/AYDS-IS-Proyecto-2024/app/models/progress.rb": {
         "lines": [
           1,
           null,
@@ -371,7 +371,7 @@
           null,
           null,
           1,
-          8,
+          9,
           null,
           null,
           1,
@@ -384,7 +384,7 @@
           null
         ]
       },
-      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/spec/app_spec.rb": {
+      "C:/Users/nikot/Desktop/2do cuatri/ING/AYDS-IS-Proyecto-2024/app/spec/app_spec.rb": {
         "lines": [
           1,
           1,
@@ -571,10 +571,24 @@
           null,
           1,
           1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
           1,
           1,
           1,
-          0,
+          1,
           null,
           null,
           1,
@@ -907,6 +921,6 @@
         ]
       }
     },
-    "timestamp": 1725132987
+    "timestamp": 1725229057
   }
 }

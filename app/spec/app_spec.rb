@@ -89,11 +89,11 @@ RSpec.describe '../app.rb' do
       expect(last_request.path).to eq('/login')
     end
 
-    it "redirects to dashboard when accessing lesson completed page without completed user id (not logged in)" do
+    it "redirects to login page when accessing lesson completed page without completed user id (not logged in)" do
       get '/lesson_completed'
       expect(last_response).to be_redirect
       follow_redirect!
-      expect(last_request.path).to eq('/dashboard')
+      expect(last_request.path).to eq('/login')
     end
   end
   
@@ -182,8 +182,22 @@ RSpec.describe '../app.rb' do
       end
 
       it "login successfully" do
-        User.create(username: 'newuser123', password: 'newpassword123', email: 'newuser123@example.com')
-        post '/login', username: 'newuser123', password: 'newpassword123' 
+        progress = Progress.create(
+          last_completed_lesson: 0,
+          current_lesson: 1,
+          numberOfCorrectAnswers: 0.0,
+          numberOfIncorrectAnswers: 0.0,
+          progressLevel: "Beginner",
+          correct_answered_questions: '[]'
+        )
+        
+        User.create(
+          username: 'newuser123',
+          password: 'newpassword123',
+          email: 'newuser123@example.com',
+          progress: progress
+        )
+        post '/login', username: 'newuser123', password: 'newpassword123'
         expect(last_response).to be_redirect
         follow_redirect!
         expect(last_request.path).to eq('/dashboard')
