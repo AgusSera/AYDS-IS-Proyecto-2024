@@ -148,14 +148,13 @@
     </div>
 
     <script>
-    const REFILL_TIME = 30;
     function updateCountdown() {
         var remainingLifePoints = <%= @user.remaining_life_points %>;
 
         if (remainingLifePoints < 3) {
             var updatedAt = '<%= @user.lives_last_updated %>';
             var updatedDate = new Date(updatedAt);
-            updatedDate.setSeconds(updatedDate.getSeconds() + REFILL_TIME); // Adds refill time to the last time lives have been updated
+            updatedDate.setSeconds(updatedDate.getSeconds() + <%= REFILL_TIME %>); // Adds refill time to the last time lives have been updated
 
             var now = new Date().getTime();
             var distance = updatedDate - now;
