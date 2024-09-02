@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
     t.string "password"
     t.integer "remaining_life_points", default: 3, null: false
     t.integer "progress_id"
-    t.datetime "lives_last_updated", default: "2024-09-02 00:34:53"
+    t.datetime "lives_last_updated", default: "2024-09-02 06:16:02"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["progress_id"], name: "index_users_on_progress_id"

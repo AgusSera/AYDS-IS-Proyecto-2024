@@ -130,6 +130,7 @@ RSpec.describe '../app.rb' do
         expect(last_request.path).to eq("/login")
       end
   
+      
       it "displays the ranking page" do
         get '/ranking'
         expect(last_response).to be_ok
@@ -158,6 +159,47 @@ RSpec.describe '../app.rb' do
         expect(last_request.path).to eq('/dashboard')
       end
 
+      it "redirects to dashboard when trying to reach the main page" do
+        get '/'
+        expect(last_response).to be_redirect
+        follow_redirect!
+        expect(last_request.path).to eq('/dashboard')
+      end
+
+      it "redirects to css file when trying to reach it from /lesson/id/play.css" do
+        get 'lesson/:id/play.css'
+        expect(last_response).to be_redirect
+        follow_redirect!
+        expect(last_request.path).to eq('/play.css')
+      end
+
+      let!(:lessons) { Lesson.all } 
+
+      context 'when lesson does not exist (nil)' do
+        it 'renders the end_game template' do
+          get '/lesson/9999'  # id invalido
+          expect(last_response).to be_ok
+          expect(last_response.body).to include("You have completed all available lessons.")
+        end
+      end
+
+      context 'when lesson ID is greater than max_lesson_id' do
+        it 'renders the end_game template' do
+          max_lesson_id = lessons.last.id
+          get "/lesson/#{max_lesson_id + 1}"
+          expect(last_response).to be_ok
+          expect(last_response.body).to include("You have completed all available lessons.")
+        end
+      end
+
+      context 'when lesson ID is valid' do
+        it 'renders the lesson template' do
+          lesson = lessons.first
+          get "/lesson/#{lesson.id}"
+          expect(last_response).to be_ok
+          expect(last_response.body).to include("Content of")
+        end
+      end
     end
 
   ##############                      ##############
@@ -219,6 +261,7 @@ RSpec.describe '../app.rb' do
       before(:each) do
         # Clear any existing session
         post '/logout'
+        User.find_by(username: 'newuser123')&.destroy
       end
 
       after(:each) do
@@ -249,16 +292,27 @@ RSpec.describe '../app.rb' do
       end
     
       it "shows an error if the username already exists" do
-        User.create(username: 'usuario', password: 'password', email: 'newuser@hola.com')
-        post '/register', username: 'usuario', password: 'password', email: 'newuser@hola.com'
+        User.create(username: 'newuser123', password: 'newpassword123', email: 'newuser123@hola.com')
+        post '/register', username: 'newuser123', password: 'password', email: 'newuser@hola.com'
         expect(last_response.body).to include('Username already exists.')
       end
     
       it "shows an error if the email already exists" do
-        User.create(username: 'uniqueuser', password: 'password', email: 'usuario@example.com')
-        post '/register', username: 'newuser', password: 'password', email: 'usuario@example.com'
+        User.create(username: 'newuser123', password: 'password', email: 'usuario@hola.com')
+        post '/register', username: 'newuser124', password: 'password', email: 'usuario@hola.com'
         expect(last_response.body).to include('Email already registered.')
       end
+
+      it 'shows an error if the user couldn\'\t be created successfully' do
+        allow(User).to receive(:create).and_return(User.new)
+        allow_any_instance_of(User).to receive(:save).and_return(false)
+      
+        post '/register', { username: 'newuser123', password: 'password', email: 'usuario@hola.com' }
+      
+        expect(last_response).to be_ok
+        expect(last_response.body).to include("There was an error trying to create the account.")
+      end
+      
     end
 
   ##############                      ##############
@@ -399,6 +453,10 @@ RSpec.describe '../app.rb' do
     end
   end
 
+  ##############                        ##############
+  ##############          GAME          ##############
+  ##############                        ##############
+
   context "play game" do
     before(:each) do
       @progress = Progress.create!
@@ -464,6 +522,10 @@ RSpec.describe '../app.rb' do
     end
   end
 
+  ##############                             ##############
+  ##############        PROGRESS PAGE        ##############
+  ##############                             ##############
+
   context "user progress page" do
 
     before(:each) do
@@ -482,6 +544,10 @@ RSpec.describe '../app.rb' do
     end
 
   end
+
+  ##############                               ##############
+  ##############        CHANGE PASSWORD        ##############
+  ##############                               ##############
 
   context "change password" do
 
@@ -506,6 +572,10 @@ RSpec.describe '../app.rb' do
 
   end
 
+  ##############                            ##############
+  ##############        CHANGE EMAIL        ##############
+  ##############                            ##############
+
   context "change email" do
 
     before(:each) do
@@ -529,4 +599,103 @@ RSpec.describe '../app.rb' do
 
   end
 
+  ##############                             ##############
+  ##############        HEARTS REFILL        ##############
+  ##############                             ##############
+
+  context 'refill hearts' do
+    before(:each) do
+      # Set up the user with less than 3 life points and an old lives_last_updated time
+      progress = Progress.create(
+        last_completed_lesson: 0,
+        current_lesson: 1,
+        numberOfCorrectAnswers: 0.0,
+        numberOfIncorrectAnswers: 0.0,
+        progressLevel: "Beginner",
+        correct_answered_questions: '[]'
+      )
+        
+      @user = User.create(
+        username: 'newuser123',
+        password: 'newpassword123',
+        email: 'newuser123@example.com',
+        remaining_life_points: 2,
+        lives_last_updated: 10.minutes.ago,
+        progress: progress
+      )
+      # Simulate a login by setting the session
+      post '/login', username: 'newuser123', password: 'newpassword123'
+      follow_redirect! # Follow the redirect to trigger the before filter
+    end
+    
+    after(:each) do
+      # Clean up the database
+      User.find_by(username: 'newuser123')&.destroy
+    end
+  
+    it 'refills life points if they are below 3 and enough time has passed' do
+      @user.reload
+      expect(@user.remaining_life_points).to eq(3)
+      expect(@user.lives_last_updated).to be_within(1.second).of(Time.now)
+    end
+  
+    it 'does not exceed the maximum of 3 life points' do
+      @user.reload
+      expect(@user.remaining_life_points).to eq(3)
+    end
+  end
+  
+
+  ##############                                ##############
+  ##############        ACCOUNT DELETION        ##############
+  ##############                                ##############
+
+  context 'when the user exists' do
+    before(:each) do
+      @user = User.create(username: 'new_user', password: 'password', email: 'email@example.com')
+      post '/login', username: 'new_user', password: 'password'
+    end
+  
+    after(:each) do
+      # Clean up the database
+      User.find_by(username: 'new_user')&.destroy
+      post '/logout'
+    end
+  
+    it 'renders the settings page with an error message for incorrect password' do
+      post '/remove_account', current_password: 'wrongpassword' # incorrect password
+  
+      expect(last_response.body).to include("Incorrect current password.")
+    end
+  
+    it 'removes the user and clears the session' do
+      post '/remove_account', current_password: 'password' # correct password
+      
+      # checks if the user has been removed
+      expect(User.find_by(username: 'new_user')).to be_nil
+      
+      expect(last_response).to be_redirect
+      follow_redirect!
+      expect(last_response.body).to include('coding') 
+    end
+  end
+  
+  
+  
+
+  context 'when the user does not exist' do
+    before do
+      # simulates no user logged in
+      post '/logout'
+    end
+
+    it 'renders the settings page with an error message' do
+      post '/remove_account', current_password: 'any_password'
+      
+      # checks response to be a redirect
+      expect(last_response).to be_redirect
+      follow_redirect!
+      expect(last_response.body).to include("Login")
+    end
+  end
 end

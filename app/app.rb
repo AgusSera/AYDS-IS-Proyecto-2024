@@ -215,15 +215,18 @@ class App < Sinatra::Application
   end
 
   post '/remove_account' do
-      user = User.find_by(username: session[:username])
-      if user
-        user.destroy
-        session.clear
-        redirect '/'
-      else
-        erb :settings, locals: { error_message: "Incorrect current password." }
-      end
+    user = User.find_by(username: session[:username])
+    
+    if user && user.password == params[:current_password]
+      user.destroy
+      session.clear
+      redirect '/'
+    else
+      erb :settings, locals: { error_message: "Incorrect current password." }
+    end
   end
+  
+  
   
   get '/ranking' do
     @ranking_usuarios = obtener_ranking_usuarios
