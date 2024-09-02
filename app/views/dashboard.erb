@@ -92,17 +92,21 @@
                         <div class="remaining-lives">
                             <% (1..3).each do |i| %>
                                 <!-- 3 being the max. amount of lives a user can have -->
-                                <% if i <=@user.remaining_life_points %>
+                                <% if i <= @user.remaining_life_points %>
                                     <span class="heart">&#x2764;</span> <!-- Red heart -->
-                                    <% else %>
-                                        <span class="heart">&#x2661;</span> <!-- Heart outline -->
-                                    <% end %>
+                                <% elsif i == @user.remaining_life_points + 1 %>
+                                    <span class="heart pump">&#x2764;</span> <!-- Red heart with pump animation -->
+                                <% else %>
+                                    <span class="heart empty">&#x2661;</span> <!-- Grey heart -->
                                 <% end %>
+                            <% end %>
                         </div>
                     </div>
-                    <div id="countdown" class="text-center"></div>
-
-
+                    <div id="countdown" class="text-center">
+                        <% if @user.remaining_life_points < 3 %>
+                            <span id="countdown-text"></span>
+                        <% end %>
+                    </div>
 
                     <% if Lesson.exists?(@user.progress.current_lesson) %>
                         <!-- Centered Play Button -->
@@ -113,15 +117,14 @@
                                 </button>
                             </form>
                         </div>
-                        <% else %>
-                            <p class="text-center"> We ran out of lessons for the moment. Come back later! </p>
-                            <div class="d-flex justify-content-center align-items-center">
-                                <button type="submit" class="btn btn-disabled text-white play-button-disabled mt-4"
-                                    disabled>
-                                    <i class="bi bi-play"></i> Play
-                                </button>
-                            </div>
-                            <% end %>
+                    <% else %>
+                        <p class="text-center">We ran out of lessons for the moment. Come back later!</p>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <button type="submit" class="btn btn-disabled text-white play-button-disabled mt-4" disabled>
+                                <i class="bi bi-play"></i> Play
+                            </button>
+                        </div>
+                    <% end %>
                 </div>
             </div>
             <div class="col">
@@ -129,14 +132,14 @@
                     <h2 class="mt-4">Available Lessons</h2>
                     <ul class="lesson-list list-group">
                         <% @lessons.reverse.each do |lesson| %>
-                            <% if lesson.id <=@user.progress.current_lesson %>
+                            <% if lesson.id <= @user.progress.current_lesson %>
                                 <li class="lesson-item list-group-item">
                                     <a href="/lesson/<%= lesson.id %>">
                                         <%= lesson.name %>
                                     </a>
                                 </li>
-                                <% end %>
-                                    <% end %>
+                            <% end %>
+                        <% end %>
                     </ul>
                 </div>
             </div>
@@ -144,46 +147,34 @@
     </div>
     </div>
 
-
     <script>
-        // Function to calculate and update countdown
-        function updateCountdown() {
-            // Get the updated_at timestamp from the server-side
-            var updatedAt = '<%= @user.updated_at %>';
+    const REFILL_TIME = 30;
+    function updateCountdown() {
+        var remainingLifePoints = <%= @user.remaining_life_points %>;
+
+        if (remainingLifePoints < 3) {
+            var updatedAt = '<%= @user.lives_last_updated %>';
             var updatedDate = new Date(updatedAt);
-            updatedDate.setSeconds(updatedDate.getSeconds() + 60); // Add 60 seconds for the refill time
+            updatedDate.setSeconds(updatedDate.getSeconds() + REFILL_TIME); // Adds refill time to the last time lives have been updated
 
-            // Check if remaining life points are less than 3
-            var remainingLifePoints = <%= @user.remaining_life_points %>;
-            if (remainingLifePoints === 0) {
-                // Update countdown every second
-                var countdownElement = document.getElementById('countdown');
-                var countdownInterval = setInterval(function () {
-                    var now = new Date().getTime();
-                    var distance = updatedDate - now;
+            var now = new Date().getTime();
+            var distance = updatedDate - now;
 
-                    // Calculate minutes and seconds
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                    // Display the countdown
-                    countdownElement.innerHTML = minutes + 'm ' + seconds + 's ';
-
-                    // If the countdown is over, clear the interval
-                    if (distance < 0) {
-                        clearInterval(countdownInterval);
-                        countdownElement.innerHTML = 'Your lives have been restored! You can play now.';
-                        // Reload the remaining life points div
-                        reloadRemainingLifePoints();
-                    }
-                }, 1000);
+            var countdownText = document.getElementById('countdown-text');
+            if (minutes !== 0) {
+                countdownText.innerHTML = 'Next heart in ' + minutes + ' minutes and ' + seconds + ' seconds';
             } else {
-                // Hide the countdown timer if remaining life points are different than 0
-                document.getElementById('countdown').style.display = 'none';
+                countdownText.innerHTML = 'Next heart in ' + seconds + ' seconds';
             }
+            
         }
-        // Call the updateCountdown function when the page loads
-        updateCountdown();
+    }
+
+    // Call the updateCountdown function when the page loads
+    updateCountdown();
     </script>
 
 </body>

@@ -1,11 +1,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
-require 'rufus-scheduler'
-require 'tzinfo'
 require_relative 'helpers'
 enable :sessions
-
-ENV['TZ'] = 'America/Argentina/Buenos_Aires'
 
 set :database_file, './config/database.yml'
 set :public_folder, 'assets'
@@ -21,21 +17,22 @@ class App < Sinatra::Application
   # Lista de rutas protegidas
   protected_routes = ['/dashboard', '/settings', '/profile', %r{/lesson/.*}, '/lesson_completed', '/progress', '/ranking', '/remove_account', '/reset_progress', '/change_email', '/change_password']
 
+  # Tiempo para refill (en segundos)
+  REFILL_TIME = 30
+
   before do
     if protected_routes.any? { |route| route === request.path_info } && session[:username].nil?
       # La ruta está protegida y no hay sesión activa.
       redirect '/login'
     end
-  end
+    
+    if session[:username]
+      user = User.find_by(username: session[:username])
+      if user && user.remaining_life_points < 3 && user.lives_last_updated <= REFILL_TIME.second.ago
+          user.update(remaining_life_points: [user.remaining_life_points + 1, 3].min, lives_last_updated: Time.now)
+      end
+    end
 
-  configure do
-    # Establecer la zona horaria
-    Time.zone = 'America/Argentina/Buenos_Aires'
-  end
-
-  def initialize(app = nil)
-    super()
-    start_scheduler
   end
 
   get '/' do
@@ -54,7 +51,7 @@ class App < Sinatra::Application
   get '/login' do
     erb :login, locals: { error_message: nil }
   end
-  
+
   post '/login' do
     username = params['username']
     password = params['password']

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   def subtract_life_point
     self.remaining_life_points -= 1
+    self.lives_last_updated = Time.now
     save
   end
 
