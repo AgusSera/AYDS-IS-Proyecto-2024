@@ -9,6 +9,17 @@ class Progress < ActiveRecord::Base
     3 => "Senior"
   }
 
+  def act(new_points, new_streak)
+    if new_points > self.points
+      self.points = new_points
+    end
+
+    if new_streak > self.streak
+      self.streak = new_streak
+    end
+    save
+  end
+
   def correct_answer(question_id)
     self.correct_answered_questions = correct_answered_questions << question_id
     self.numberOfCorrectAnswers += 1

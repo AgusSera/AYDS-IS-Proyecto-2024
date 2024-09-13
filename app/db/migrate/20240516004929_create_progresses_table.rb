@@ -9,6 +9,8 @@ class CreateProgressesTable < ActiveRecord::Migration[7.1]
       t.float :numberOfIncorrectAnswers, null: false, default: 0
       t.string :progressLevel, null: false, default: "Beginner"
       t.text    "correct_answered_questions", default: '[]'
+      t.integer :points, null: false, default: 0
+      t.integer :streak, null: false, default: 0
 
       t.datetime :created_at
       t.datetime :updated_at

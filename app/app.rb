@@ -281,6 +281,11 @@ class App < Sinatra::Application
   end
 
   get '/end_game' do
+    @user = User.find_by(username: session[:username])
+    progress = @user.progress
+
+    progress.act(session[:points],session[:streak])
+
     session[:streak] = 0
     session[:points] = 0
     session[:answered_questions] = []
