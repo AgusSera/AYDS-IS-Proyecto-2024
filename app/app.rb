@@ -226,11 +226,66 @@ class App < Sinatra::Application
     end
   end
   
-  
-  
   get '/ranking' do
     @ranking_usuarios = obtener_ranking_usuarios
     @current_user = User.find_by(username: session[:username]) if session[:username]
     erb :ranking
   end
+
+  get '/competitive' do
+    erb :competitive
+  end
+
+  get '/start_game/competitive' do
+    session[:streak] = 0
+    session[:points] = 0
+    session[:answered_questions] = []
+    redirect '/competitive/play'
+  end
+
+  get '/competitive/play' do
+
+    @lives = session[:lives]
+    @points = session[:points]
+    @streak = session[:streak]
+
+    if session[:current_question_id] == nil
+      competitive_questions = Question.where(lesson_id: nil)
+      unanswered_questions = competitive_questions.where.not(id: session[:answered_questions])
+      session[:current_question_id] = unanswered_questions.sample.id
+    end
+
+    @question = Question.find(session[:current_question_id])
+
+    erb :play_competitive
+  end
+
+  post '/competitive/submit_answer' do
+    selected_option_id = params[:answer]
+    option = Option.find(selected_option_id)
+
+    if option.value
+      session[:streak] += 1
+      session[:answered_questions] << option.question.id
+      session[:points]+=1
+      if session[:streak] > 5
+        session[:points]+=1
+      end
+    else
+      session[:streak] = 0
+    end
+
+    session[:current_question_id] = nil
+
+    redirect '/competitive/play'
+  end
+
+  get '/end_game' do
+    session[:streak] = 0
+    session[:points] = 0
+    session[:answered_questions] = []
+
+    erb :end_game
+  end
+
 end
