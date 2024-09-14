@@ -686,14 +686,17 @@ lessons_data = [
 
 # Crear lecciones, preguntas y opciones
 lessons_data.each do |lesson_data|
+
   lesson = Lesson.find_or_create_by(name: lesson_data[:name]) do |l|
+
     l.content = lesson_data[:content]
+
   end
 
   lesson_data[:questions].each do |question_data|
-    # Si no se quiere asociar a una lección, poner lesson_id como nil
+
     lesson_id = lesson_data[:no_lesson] ? nil : lesson.id
-    
+
     question = Question.find_or_create_by(description: question_data[:description], lesson_id: lesson_id)
 
     question_data[:options].each do |option_data|
@@ -703,8 +706,6 @@ lessons_data.each do |lesson_data|
     end
   end
 end
-
-
 
 # Crear usuario de ejemplo
 ActiveRecord::Base.transaction do
