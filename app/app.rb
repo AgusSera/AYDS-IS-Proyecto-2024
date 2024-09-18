@@ -240,12 +240,12 @@ class App < Sinatra::Application
     session[:streak] = 0
     session[:points] = 0
     session[:answered_questions] = []
+    session[:game_started_at] = Time.now.to_i
     redirect '/timetrial/play'
   end
 
   get '/timetrial/play' do
 
-    @lives = session[:lives]
     @points = session[:points]
     @streak = session[:streak]
 

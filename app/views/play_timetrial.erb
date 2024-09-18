@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Modo Competitivo</title>
+  <script>
+    window.onload = function () {
+      // Duración de partida
+      const totalTime = 5;
+
+      // Hora en la que inició la partida
+      const gameStartedAt = <%= session[: game_started_at] %>;
+
+      // Hora actual
+      const now = Math.floor(Date.now() / 1000);
+
+      // Tiempo de la partida
+      let timeElapsed = now - gameStartedAt;
+
+      // Tiempo restante
+      let timeLeft = totalTime - timeElapsed;
+
+      if (timeLeft <= 0) {
+        // Contador llegó a 0
+        window.location.href = "/end_game";
+      }
+
+      document.getElementById("timer").innerHTML = timeLeft;
+
+      // Actualizar contador
+      const countdown = setInterval(function () {
+        timeLeft -= 1;
+        document.getElementById("timer").innerHTML = timeLeft;
+
+        if (timeLeft <= 0) {
+          // Contador llegó a 0
+          clearInterval(countdown);
+          window.location.href = "/end_game";
+        }
+      }, 1000);
+    };
+  </script>
+</head>
+
+<body>
+
+  <p><strong>Tiempo restante:</strong> <span id="timer"></span> segundos</p>
+
+</body>
+
+</html>
