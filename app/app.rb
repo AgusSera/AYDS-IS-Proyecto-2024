@@ -232,35 +232,35 @@ class App < Sinatra::Application
     erb :ranking
   end
 
-  get '/competitive' do
-    erb :competitive
+  get '/timetrial' do
+    erb :timetrial
   end
 
-  get '/start_game/competitive' do
+  get '/start_game/timetrial' do
     session[:streak] = 0
     session[:points] = 0
     session[:answered_questions] = []
-    redirect '/competitive/play'
+    redirect '/timetrial/play'
   end
 
-  get '/competitive/play' do
+  get '/timetrial/play' do
 
     @lives = session[:lives]
     @points = session[:points]
     @streak = session[:streak]
 
     if session[:current_question_id] == nil
-      competitive_questions = Question.where(lesson_id: nil)
-      unanswered_questions = competitive_questions.where.not(id: session[:answered_questions])
+      timetrial_questions = Question.where(lesson_id: nil)
+      unanswered_questions = timetrial_questions.where.not(id: session[:answered_questions])
       session[:current_question_id] = unanswered_questions.sample.id
     end
 
     @question = Question.find(session[:current_question_id])
 
-    erb :play_competitive
+    erb :play_timetrial
   end
 
-  post '/competitive/submit_answer' do
+  post '/timetrial/submit_answer' do
     selected_option_id = params[:answer]
     option = Option.find(selected_option_id)
 
@@ -277,7 +277,7 @@ class App < Sinatra::Application
 
     session[:current_question_id] = nil
 
-    redirect '/competitive/play'
+    redirect '/timetrial/play'
   end
 
   get '/end_game' do

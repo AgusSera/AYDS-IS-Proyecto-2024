@@ -7,7 +7,9 @@
     <link href="https://fonts.cdnfonts.com/css/million-smiles" rel="stylesheet">
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <!-------Nav Bar---------->
     <section id="nav-bar">
@@ -36,14 +38,13 @@
                         </li>
                         <li class="nav-item d-none d-lg-block">
                             <form action="/progress" method="get">
-                                <button type="submit" class="btn btn-dark border-0 me-2"">
-                        <i class=" bi bi-bar-chart"></i>
+                                <button type="submit" class="btn btn-dark border-0 me-2">
+                                    <i class="bi bi-bar-chart"></i>
                                 </button>
                             </form>
                         </li>
                         <li class="nav-item d-none d-lg-block">
                             <form action="/settings" method="get">
-
                                 <button type="submit" class="btn btn-dark border-0 me-2">
                                     <i class="bi bi-gear"></i>
                                 </button>
@@ -76,106 +77,20 @@
         </nav>
     </section>
 
-    <div class="container dashboard-container d-flex align-items-center justify-content-center">
-    <div class="container text-center">
-        <div class="row align-items-center">
-            <div class="col">
-                <div>
-                    <div class="text-center">
-                        <div class="profile-picture mb-4">
-                            <img src="images/profile-picture.png" alt="Profile Picture" width="400" height="400">
-                        </div>
-                        <h1>Welcome, <%= @user.username %>!</h1>
-                    </div>
-
-                    <div class="d-flex justify-content-center align-items-center">
-                        <div class="remaining-lives">
-                            <% (1..3).each do |i| %>
-                                <!-- 3 being the max. amount of lives a user can have -->
-                                <% if i <= @user.remaining_life_points %>
-                                    <span class="heart">&#x2764;</span> <!-- Red heart -->
-                                <% elsif i == @user.remaining_life_points + 1 %>
-                                    <span class="heart pump">&#x2764;</span> <!-- Red heart with pump animation -->
-                                <% else %>
-                                    <span class="heart empty">&#x2661;</span> <!-- Grey heart -->
-                                <% end %>
-                            <% end %>
-                        </div>
-                    </div>
-                    <div id="countdown" class="text-center">
-                        <% if @user.remaining_life_points < 3 %>
-                            <span id="countdown-text"></span>
-                        <% end %>
-                    </div>
-
-                    <% if Lesson.exists?(@user.progress.current_lesson) %>
-                        <!-- Centered Play Button -->
-                        <div class="d-flex justify-content-center align-items-center">
-                            <form action="/lesson/<%= @user.progress.current_lesson %>" method="get">
-                                <button type="submit" class="btn btn-primary play-button mt-4" id="play-button">
-                                    <i class="bi bi-play"></i> Play
-                                </button>
-                            </form>
-                        </div>
-                    <% else %>
-                        <p class="text-center">We ran out of lessons for the moment. Come back later!</p>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <button type="submit" class="btn btn-disabled text-white play-button-disabled mt-4" disabled>
-                                <i class="bi bi-play"></i> Play
-                            </button>
-                        </div>
-                    <% end %>
-                </div>
-            </div>
-            <div class="col">
-                <div>
-                    <h2 class="mt-4">Available Lessons</h2>
-                    <ul class="lesson-list list-group">
-                        <% @lessons.reverse.each do |lesson| %>
-                            <% if lesson.id <= @user.progress.current_lesson %>
-                                <li class="lesson-item list-group-item">
-                                    <a href="/lesson/<%= lesson.id %>">
-                                        <%= lesson.name %>
-                                    </a>
-                                </li>
-                            <% end %>
-                        <% end %>
-                    </ul>
-                </div>
-            </div>
+    <!-------Centered Buttons---------->
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div>
+            <form action="/timetrial" method="get">
+                <button type="submit" class="btn btn-primary">Modo Contrarreloj</button>
+            </form>
+            <form action="/learning" method="get">
+                <button type="submit" class="btn btn-primary">Modo Aprendizaje</button>
+            </form>
+            
         </div>
     </div>
-    </div>
 
-    <script>
-    function updateCountdown() {
-        var remainingLifePoints = <%= @user.remaining_life_points %>;
-
-        if (remainingLifePoints < 3) {
-            var updatedAt = '<%= @user.lives_last_updated %>';
-            var updatedDate = new Date(updatedAt);
-            updatedDate.setSeconds(updatedDate.getSeconds() + <%= REFILL_TIME %>); // Adds refill time to the last time lives have been updated
-
-            var now = new Date().getTime();
-            var distance = updatedDate - now;
-
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            var countdownText = document.getElementById('countdown-text');
-            if (minutes !== 0) {
-                countdownText.innerHTML = 'Next heart in ' + minutes + ' minutes and ' + seconds + ' seconds';
-            } else {
-                countdownText.innerHTML = 'Next heart in ' + seconds + ' seconds';
-            }
-            
-        }
-    }
-
-    // Call the updateCountdown function when the page loads
-    updateCountdown();
-    </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

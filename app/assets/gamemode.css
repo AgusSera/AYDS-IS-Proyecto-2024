@@ -1,0 +1,18 @@
+body {
+    background-color: #f8f9fa;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.btn {
+    width: 150px;
+    margin: 10px;
+    font-size: 18px;
+}
