@@ -186,14 +186,10 @@ class App < Sinatra::Application
     erb :dashboard
   end
   
-  get '/progress' do
+  get '/profile' do
     @user = User.find_by(username: session[:username])
-    progress = @user.progress 
-    erb :progress, locals: { progress: progress, error_message: nil }
-  end
-  
-  get '/settings' do
-    erb :settings
+    @progress = @user.progress
+    erb :profile
   end
 
   post '/change_password' do
