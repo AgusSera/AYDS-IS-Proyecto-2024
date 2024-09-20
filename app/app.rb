@@ -172,9 +172,7 @@ class App < Sinatra::Application
       user.progress.correct_answer(question_id)
       session[:success] = 'correct_answer'
     else
-      user.progress.increase_number_of_incorrect_answers
-      user.subtract_life_point
-      session[:error] = user.remaining_life_points <= 0 ? 'no_lives_remaining' : 'wrong_answer'
+      session[:error] = 'wrong_answer'
     end
 
     redirect "/lesson/#{params[:id]}/play"

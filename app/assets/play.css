@@ -188,12 +188,3 @@ body {
     background: #dd5757;
     outline: none;
   }
-
-  /* Hearts */
-
-  .remaining-lives .heart {
-    color: #fc3232; 
-    font-size: 1.5rem; 
-    margin-right: 5px;
-    text-shadow: 0 0 2px #000; /* Outline effect */
-    }
