@@ -61,9 +61,9 @@ class App < Sinatra::Application
       return erb :login, locals: { error_message: @error_message }
     end
 
-    user = User.find_by(username: username, password: password)
+    user = User.find_by(username: username)
 
-    if user
+    if user && user.authenticate(password)
       session[:username] = user.username
       redirect '/dashboard'
     else

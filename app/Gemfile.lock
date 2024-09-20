@@ -18,6 +18,7 @@ GEM
       mutex_m
       tzinfo (~> 2.0)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     bigdecimal (3.1.8)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
@@ -91,6 +92,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  bcrypt
   rack-test
   rake
   rspec
@@ -102,7 +104,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 3.0.2p107
+   ruby 3.3.4p94
 
 BUNDLED WITH
    2.5.10

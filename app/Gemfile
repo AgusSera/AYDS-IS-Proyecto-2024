@@ -1,4 +1,4 @@
-ruby '3.0.2'
+ruby '3.3.4'
 
 source "https://rubygems.org"
 
@@ -10,6 +10,7 @@ gem 'rake'
 gem 'rufus-scheduler'
 gem 'tzinfo-data'
 gem 'simplecov', require: false, group: :test
+gem 'bcrypt'
 
 group :test, :development do
     gem 'rspec'

@@ -51,10 +51,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
   create_table "users", force: :cascade do |t|
     t.string "username", null: false
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.integer "remaining_life_points", default: 3, null: false
     t.integer "progress_id"
-    t.datetime "lives_last_updated", default: "2024-09-13 22:07:57"
+    t.datetime "lives_last_updated", default: "2024-09-20 20:25:12"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["progress_id"], name: "index_users_on_progress_id"
