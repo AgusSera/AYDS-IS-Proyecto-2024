@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   end
 
   def change_password(current_password, new_password, confirm_new_password)
-    if self.password == current_password && new_password == confirm_new_password
+    if authenticate(current_password) && new_password == confirm_new_password
       self.password = new_password
       save
     else
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   end
 
   def change_email(new_email, current_password)
-    if self.password == current_password
+    if authenticate(current_password)
       self.email = new_email
       save
     else
