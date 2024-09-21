@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>End Game Timetrial</title>
+  <link rel="stylesheet" href="/end_game.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Juego Terminado</h1>
+    <p>Has acumulado <%= @points %> puntos.</p>
+    <p>Tu racha fue de <%= @streak %> respuestas correctas consecutivas.</p>
+    <form action="/" method="get">
+        <button type="submit" class="btn btn-secondary" id="go-back"> Go Back </button>
+    </form>
+  </div>
+</body>
+</html>

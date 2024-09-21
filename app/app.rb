@@ -118,7 +118,7 @@ class App < Sinatra::Application
     @lesson = Lesson.find_by(id: params[:id])
     
     if @lesson.nil? || @lesson.id > max_lesson_id
-      erb :end_game
+      erb :end_game_learn
     else
       erb :lesson
     end
@@ -226,11 +226,7 @@ class App < Sinatra::Application
     erb :ranking
   end
 
-  get '/timetrial' do
-    erb :timetrial
-  end
-
-  get '/start_game/timetrial' do
+  get '/timetrial/start_game' do
     session[:streak] = 0
     session[:points] = 0
     session[:answered_questions] = []
@@ -274,17 +270,22 @@ class App < Sinatra::Application
     redirect '/timetrial/play'
   end
 
-  get '/end_game' do
+  get '/end_game_time' do
     @user = User.find_by(username: session[:username])
     progress = @user.progress
-
-    progress.act(session[:points],session[:streak])
-
+  
+    progress.act(session[:points], session[:streak])
+    
+    # Para mostrar los puntos obtenidos en el end_game_time
+    @points = session[:points]
+    @streak = session[:streak]
+  
     session[:streak] = 0
     session[:points] = 0
     session[:answered_questions] = []
-
-    erb :end_game
+  
+    erb :end_game_time
   end
+  
 
 end

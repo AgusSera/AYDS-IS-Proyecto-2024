@@ -9,7 +9,7 @@
       const totalTime = 5;
 
       // Hora en la que inició la partida
-      const gameStartedAt = <%= session[: game_started_at] %>;
+      const gameStartedAt = <%= session[:game_started_at] %>;
 
       // Hora actual
       const now = Math.floor(Date.now() / 1000);
@@ -22,7 +22,7 @@
 
       if (timeLeft <= 0) {
         // Contador llegó a 0
-        window.location.href = "/end_game";
+        window.location.href = "/end_game_time";
       }
 
       document.getElementById("timer").innerHTML = timeLeft;
@@ -35,7 +35,7 @@
         if (timeLeft <= 0) {
           // Contador llegó a 0
           clearInterval(countdown);
-          window.location.href = "/end_game";
+          window.location.href = "/end_game_time";
         }
       }, 1000);
     };
@@ -43,6 +43,19 @@
 </head>
 
 <body>
+  <h1>Pregunta</h1>
+  <p><%= @question.description %></p>
+
+  <form action="/timetrial/submit_answer" method="post">
+    <% @question.options.each do |option| %>
+      <input type="radio" name="answer" value="<%= option.id %>" />
+      <%= option.description %><br>
+    <% end %>
+    <button type="submit">Responder</button>
+  </form>
+
+  <p>Puntos: <%= @points %></p>
+  <p>Racha: <%= @streak %></p>
 
   <p><strong>Tiempo restante:</strong> <span id="timer"></span> segundos</p>
 
