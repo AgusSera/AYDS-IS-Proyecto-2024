@@ -5,78 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= @lesson.name %></title>
     <!--Este link para lesson.css no funciona -->
-    <link rel="stylesheet" href="lesson.css">
+    <link rel="stylesheet" href="/lesson.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Prism CSS for syntax highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css">
-    <!-- el tag style está siendo ejecutado en lugar del lesson.css ya que falta arreglar la ruta para obtener el lesson.css, tanto el lesson.css como el tag style contienen lo mismo-->
-    <style> 
-        body {
-            font-family: 'Fira Code', monospace;
-            background-color: #212529;
-        }
-        .container {
-            width: 65%;
-            margin: auto;
-            padding-top: 50px;
-            padding-bottom: 50px;
-            position: relative; /* Add relative positioning */
-        }
-        .title-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .content-container {
-            background-color: #394041;
-            border-radius: 10px;
-            padding: 20px;
-            color: #ced4da;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
-        .btn-primary, .btn-secondary {
-            width: 150px;
-            margin: 0 10px;
-            border-radius: 20px;
-            padding: 10px 20px;
-        }
-        .btn-primary i, .btn-secondary i {
-            margin-right: 5px;
-        }
-        .btn-primary:hover, .btn-secondary:hover {
-            opacity: 0.8;
-        }
-        .h1 {
-            color: white;
-        }
-        /* Dark theme for code snippets */
-        pre[class*="language-"] {
-            background: #1E1E1E;
-            color: white;
-            border-radius: 5px;
-            padding: 15px;
-            overflow-x: auto;
-        }
-        /* Style for back-to-top button */
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
     <div class="container">

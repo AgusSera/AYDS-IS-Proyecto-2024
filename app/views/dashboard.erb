@@ -94,11 +94,15 @@
                     Modo Aprendizaje
                 </button>
                 <ul class="dropdown-menu">
-                    <li>
-                        <form action="/learning" method="get">
-                            <button type="submit" class="dropdown-item"> Lecciones ...</button>
-                        </form>
-                    </li>
+                    <% @lessons.reverse.each do |lesson| %>
+                        <% if lesson.id <= @user.progress.current_lesson %>
+                            <li class="dropdown-item">
+                                <a href="/lesson/<%= lesson.id %>">
+                                    <%= lesson.name %>
+                                </a>
+                            </li>
+                        <% end %>
+                    <% end %>
                     <li>
                         <button type="button" class="dropdown-item" onclick="openPopupAprendizaje()">Tutorial</button>
                     </li>

@@ -8,9 +8,9 @@
 </head>
 <body>
   <div class="container">
-    <h1>Juego Terminado</h1>
-    <p>Has acumulado <%= @points %> puntos.</p>
-    <p>Tu racha fue de <%= @streak %> respuestas correctas consecutivas.</p>
+    <h1>Game over!</h1>
+    <p>You earn <%= @points %> points this time.</p>
+    <p>Your streak was <%= @streak %> consecutive correct answers.</p>
     <form action="/" method="get">
         <button type="submit" class="btn btn-secondary" id="go-back"> Go Back </button>
     </form>
