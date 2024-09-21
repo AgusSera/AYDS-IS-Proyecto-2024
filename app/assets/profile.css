@@ -1,0 +1,96 @@
+body {
+  font-family: 'Fira Code', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #212529;
+  margin: 0;
+  position: relative;
+}
+.content {
+  width: 90%;
+  max-width: 1300px;
+  padding: 30px;
+  background: #212529;
+  color: white;
+  position: relative;
+}
+h1, h3 {
+  color: white;
+  font-size: xx-large;
+}
+
+.col-md-3 {
+  display: flex;
+  align-items: center;
+}
+.nav-link {
+  color: white;
+  border: 1px solid #343a40;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+.nav-link.active {
+  background-color: #495057;
+  border-color: #495057;
+}
+.nav-link:hover {
+  background-color: #343a40;
+}
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 48px;
+  color: white;
+  text-decoration: none;
+}
+.close-btn:hover {
+  color: #0d6efd;
+}
+.btn-link {
+  color: white;
+  text-decoration: none;
+}
+.btn-link:hover {
+  color: #ff4d4d;
+}
+.form-control {
+  background-color: white;
+  margin: 10px;
+}
+.list-group-item {
+  margin-top: 10px;
+}
+.accordion-button {
+  color: white;
+  background-color: #212529;
+  border: 1px solid #495057;
+  transition: border-color 0.3s ease;
+}
+
+.accordion-button:hover {
+  color: #0d6efd;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #212529;
+}
+
+.accordion-body {
+  background-color: #212529;
+  border: 1px solid #495057;
+  border-top: none;
+}
+
+.accordion-item {
+  border: none;
+}
+
+.alert {
+  margin-top: 80px;
+}
+.modal {
+  color: black;
+}
