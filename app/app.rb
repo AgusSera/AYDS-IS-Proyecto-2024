@@ -191,32 +191,35 @@ class App < Sinatra::Application
   end
 
   post '/change_password' do
-    user = User.find_by(username: session[:username])
-    if user.change_password(params[:current_password], params[:new_password], params[:confirm_new_password])
-      erb :settings, locals: { success_message: "Contraseña actualizada correctamente" }
+    @user = User.find_by(username: session[:username])
+    @progress = @user.progress
+    if @user.change_password(params[:current_password], params[:new_password], params[:confirm_new_password])
+      erb :profile, locals: { success_message: "Contraseña actualizada correctamente" }
     else
-      erb :settings, locals: { error_message: "La contraseña actual es incorrecta o las nuevas contraseñas no coinciden." }
+      erb :profile, locals: { error_message: "La contraseña actual es incorrecta o las nuevas contraseñas no coinciden." }
     end
   end
 
   post '/change_email' do
-      user = User.find_by(username: session[:username])
-      if user.change_email(params[:new_email], params[:current_password])
-        erb :settings, locals: { success_message: "Email actualizado correctamente" }
-      else
-        erb :settings, locals: { error_message: "La contraseña actual es incorrecta." }
-      end
+    @user = User.find_by(username: session[:username])
+    @progress = @user.progress
+    if @user.change_email(params[:new_email], params[:current_password])
+      erb :profile, locals: { success_message: "Email actualizado correctamente" }
+    else
+      erb :profile, locals: { error_message: "La contraseña actual es incorrecta." }
+    end
   end
 
   post '/remove_account' do
-    user = User.find_by(username: session[:username])
+    @user = User.find_by(username: session[:username])
+    @progress = @user.progress
     
-    if user && user.password == params[:current_password]
-      user.destroy
+    if @user && @user.authenticate(params[:current_password])
+      @user.destroy
       session.clear
       redirect '/'
     else
-      erb :settings, locals: { error_message: "Incorrect current password." }
+      erb :profile, locals: { error_message: "Incorrect current password." }
     end
   end
   
