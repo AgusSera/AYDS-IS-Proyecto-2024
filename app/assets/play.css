@@ -26,6 +26,9 @@ body {
     font-size: 1.5rem;
     color: #ced4da;
 }
+.points-container {
+  margin-top: 40px;
+}
 .title-container {
     text-align: center;
     background-color: #394041;

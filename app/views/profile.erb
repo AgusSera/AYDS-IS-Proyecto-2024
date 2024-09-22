@@ -22,7 +22,7 @@
       </symbol>
     </svg>
 
-    <a href="/dashboard" class="close-btn" aria-label="Cerrar">&times;</a>
+    <a href="/dashboard" class="close-btn" aria-label="Close">&times;</a>
 
     <% if locals[:error_message] %>
       <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
@@ -48,9 +48,9 @@
 
       <div class="col-md-3">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <button class="nav-link active" id="v-pills-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">Información Personal</button>
-          <button class="nav-link" id="v-pills-stats-tab" data-bs-toggle="pill" data-bs-target="#v-pills-stats" type="button" role="tab" aria-controls="v-pills-stats" aria-selected="false">Estadísticas</button>
-          <button class="nav-link" id="v-pills-config-tab" data-bs-toggle="pill" data-bs-target="#v-pills-config" type="button" role="tab" aria-controls="v-pills-config" aria-selected="false">Configuración</button>
+          <button class="nav-link active" id="v-pills-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">Personal information</button>
+          <button class="nav-link" id="v-pills-stats-tab" data-bs-toggle="pill" data-bs-target="#v-pills-stats" type="button" role="tab" aria-controls="v-pills-stats" aria-selected="false">Statistics</button>
+          <button class="nav-link" id="v-pills-config-tab" data-bs-toggle="pill" data-bs-target="#v-pills-config" type="button" role="tab" aria-controls="v-pills-config" aria-selected="false">Configuration</button>
         </div>
       </div>
 
@@ -59,45 +59,45 @@
         <div class="tab-content" id="v-pills-tabContent"> 
 
           <div class="tab-pane fade show active" id="v-pills-info" role="tabpanel" aria-labelledby="v-pills-info-tab">
-            <h3>Información Personal</h3>
+            <h3>Personal information</h3>
             <ul class="list-group">
-                <li class="list-group-item"><strong>Nombre de usuario:</strong> <%= @user.username %></li>
-                <li class="list-group-item"><strong>Email:</strong> <%= @user.email %></li>
-                <li class="list-group-item"><strong>Fecha de creación:</strong> <%= @user.created_at %></li>
+                <li class="list-group-item"><strong>User Name:</strong> <%= @user.username %></li>
+                <li class="list-group-item"><strong>E-mail:</strong> <%= @user.email %></li>
+                <li class="list-group-item"><strong>Creation date:</strong> <%= @user.created_at %></li>
             </ul>
           </div>
 
           <div class="tab-pane fade" id="v-pills-stats" role="tabpanel" aria-labelledby="v-pills-stats-tab">
-            <h3>Estadísticas</h3>
-            Modo Aprendizaje
+            <h3>Statistics</h3>
+            Learning Mode
             <ul class="list-group">
-                <li class="list-group-item"><strong>Nivel:</strong> <%= @progress.progressLevel %></li>
-                <li class="list-group-item"><strong>Lecciones completadas:</strong> <%= @progress.last_completed_lesson %></li>
+                <li class="list-group-item"><strong>Level:</strong> <%= @progress.progressLevel %></li>
+                <li class="list-group-item"><strong>Completed lessons:</strong> <%= @progress.last_completed_lesson %></li>
             </ul>
-            Modo Contrarreloj
+            Timetrial Mode
             <ul class="list-group">
-                <li class="list-group-item"><strong>Máxima puntuación:</strong> <%= @progress.points %></li>
-                <li class="list-group-item"><strong>Máxima racha:</strong> <%= @progress.streak %></li>
+                <li class="list-group-item"><strong>Maximum score:</strong> <%= @progress.points %></li>
+                <li class="list-group-item"><strong>Maximum streak:</strong> <%= @progress.streak %></li>
             </ul>
           </div>
 
           <div class="tab-pane fade" id="v-pills-config" role="tabpanel" aria-labelledby="v-pills-config-tab">
-            <h3>Configuración</h3>
+            <h3>Configuration</h3>
             <div class="accordion" id="accordionExample">
 
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Cambiar contraseña
+                    Change password
                   </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form class="form-signin" action="/change_password" method="post">
-                      <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Contraseña actual" required autofocus>
-                      <input type="password" id="new-password" name="new_password" class="form-control" placeholder="Nueva contraseña" minlength="8" required>
-                      <input type="password" id="confirm-new-password" name="confirm_new_password" class="form-control" placeholder="Confirmar nueva contraseña" minlength="8" required>
-                      <button class="btn btn-lg btn-primary btn-block" type="submit">Cambiar Contraseña</button>
+                      <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current password" required autofocus>
+                      <input type="password" id="new-password" name="new_password" class="form-control" placeholder="New password" minlength="8" required>
+                      <input type="password" id="confirm-new-password" name="confirm_new_password" class="form-control" placeholder="Confirm new password" minlength="8" required>
+                      <button class="btn btn-lg btn-primary btn-block" type="submit">Change password</button>
                     </form>
                   </div>
                 </div>
@@ -106,15 +106,15 @@
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingTwo">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Cambiar email
+                    Change e-mail
                   </button>
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form class="form-signin" action="/change_email" method="post">
-                      <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Contraseña actual" required autofocus>
-                      <input type="email" id="new-email" name="new_email" class="form-control" placeholder="Nuevo email" required>                 
-                      <button class="btn btn-lg btn-primary btn-block" type="submit">Cambiar Email</button>
+                      <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current password" required autofocus>
+                      <input type="email" id="new-email" name="new_email" class="form-control" placeholder="New e-mail" required>                 
+                      <button class="btn btn-lg btn-primary btn-block" type="submit">Change e-mail</button>
                     </form>
                   </div>
                 </div>
@@ -123,14 +123,14 @@
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingThree">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Eliminar cuenta
+                    Delete account
                   </button>
                 </h2>
                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                   <div class="accordion-body">
                     <form class="form-signin" action="/remove_account" method="post">
-                      <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Contraseña actual" required autofocus>
-                      <button class="btn btn-lg btn-danger btn-block" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setPasswordToConfirm()">Eliminar Cuenta</button>
+                      <input type="password" id="current-password" name="current_password" class="form-control" placeholder="Current password" required autofocus>
+                      <button class="btn btn-lg btn-danger btn-block" type="button" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal" onclick="setPasswordToConfirm()">Delete account</button>
                     </form>
                   </div>
                 </div>
@@ -148,17 +148,17 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="confirmDeleteLabel">Confirmar eliminación</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <h5 class="modal-title" id="confirmDeleteLabel">Confirm deletion</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            ¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.
+            Are you sure you want to delete your account? This action cannot be undone.
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <form action="/remove_account" method="post" id="confirmDeleteForm">
               <input type="hidden" name="current_password" id="confirm-password">
-              <button type="submit" class="btn btn-danger">Eliminar cuenta</button>
+              <button type="submit" class="btn btn-danger">Delete account</button>
             </form>
           </div>
         </div>

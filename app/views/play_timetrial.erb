@@ -2,7 +2,10 @@
 <html>
 
 <head>
-  <title>Modo Competitivo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play timetrial</title>
+  <link rel="stylesheet" href="/play.css">
   <script>
     window.onload = function () {
       // Duración de partida
@@ -43,21 +46,144 @@
 </head>
 
 <body>
-  <h1>Pregunta</h1>
-  <p><%= @question.description %></p>
-
-  <form action="/timetrial/submit_answer" method="post">
-    <% @question.options.each do |option| %>
-      <input type="radio" name="answer" value="<%= option.id %>" />
-      <%= option.description %><br>
+  <div class="container mt-5">
+    <div class="title-container">
+      <h5>Timetrial Mode</h5>
+    </div>
+    <% if session[:error] == 'wrong_answer' %>
+      <% error_messages = [
+          "Incorrect answer. Try again!",
+          "Oops! That's not quite right. Try again!",
+          "Not quite! Give it another shot!",
+          "Wrong answer. Keep trying!",
+          "That's not it! Try again!"
+        ]
+      %>
+      <div class="error-message"><%= error_messages.sample %></div>
+    <% elsif session[:success] == 'correct_answer' %>
+      <% success_messages = [
+          "Great job! Keep it up!",
+          "Well done! Keep going!",
+          "Awesome! Keep it up!",
+          "Fantastic! Keep going!",
+          "Wonderful! Keep it up!"
+        ]
+      %>
+      <div class="success-message"><%= success_messages.sample %></div>
     <% end %>
-    <button type="submit">Responder</button>
-  </form>
+ 
+    <div class="content-container">
+      <p class="content-text display-6"><%= @question.description %></p>
+    </div>
+    <form action="/timetrial/submit_answer" method="post" onsubmit="submit-button.disabled = true; return true;">
+      <div class="options-container">
+        <% @question.options.each do |option| %>
+          <button type="button" class="option-btn" data-value="<%= option.id %>"><%= option.description %></button>
+        <% end %>
+      </div>
+      <input type="hidden" name="answer" id="selected-answer">
+      
+      <div class="button-container">
+        <input id="submit-button" name="submit-button" class="btn btn-primary btn-play" type="submit" value="Check answer" disabled>
+        <div class="d-flex justify-content-center align-items-center"> </div>
+        <button class="btn btn-danger btn-play" type="button" onclick="showGoBackModal(); clearSessionStorage();">Go back</button>
+      </div>
+    </form>
+    <div class="points-container mt-4">
+      <p>Points: <%= @points %></p>
+      <p>Streak: <%= @streak %></p>
+      <p><strong>Remaining time: </strong> <span id="timer"></span> seconds</p>
+    </div>
+    
+  </div>
 
-  <p>Puntos: <%= @points %></p>
-  <p>Racha: <%= @streak %></p>
+  <!-- Modal for go back confirmation -->
+  <div id="goBackModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="icon-box">
+            <i class="material-icons">&#xE5CD;</i>
+          </div>				
+          <h4 class="modal-title w-100">Confirmation</h4>	
+        </div>
+        <div class="modal-body">
+          <p class="text-center">Are you sure you want to go back to the dashboard?</p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button class="btn btn-danger" onclick="window.location.href='/';">Yes, go back</button>
+          <button class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <p><strong>Tiempo restante:</strong> <span id="timer"></span> segundos</p>
+  <script>
+
+    // Removes previous error/success messages
+    <%= session[:error] = nil %>
+    <%= session[:success] = nil %>
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const modalShown = sessionStorage.getItem('modalShown');
+      if (modalShown === 'true') {
+        const myModal = new bootstrap.Modal(document.getElementById('myModal'));
+        myModal.show();
+      }
+
+      // Retrieve and set the selected answer if it exists
+      const selectedAnswer = sessionStorage.getItem('selectedAnswer');
+      if (selectedAnswer) {
+        document.getElementById('selected-answer').value = selectedAnswer;
+        toggleSubmitButton();
+      }
+    });
+
+    function showModalAndSetFlag() {
+      const myModal = new bootstrap.Modal(document.getElementById('myModal'));
+      myModal.show();
+      sessionStorage.setItem('modalShown', 'true');
+    }
+
+    function clearSessionStorage() {
+      sessionStorage.removeItem('modalShown');
+      sessionStorage.removeItem('selectedAnswer');
+    }
+
+    document.querySelectorAll('.option-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('selected-answer').value = this.getAttribute('data-value');
+        toggleSubmitButton();
+        // Store the selected answer in sessionStorage
+        sessionStorage.setItem('selectedAnswer', this.getAttribute('data-value'));
+      });
+    });
+
+    function toggleSubmitButton() {
+      const selectedAnswer = document.getElementById('selected-answer').value;
+      const submitButton = document.getElementById('submit-button');
+      submitButton.disabled = !selectedAnswer;
+    }
+
+    function showGoBackModal() {
+      const goBackModal = new bootstrap.Modal(document.getElementById('goBackModal'));
+      goBackModal.show();
+    }
+
+    // Function to disable button and uncheck option after form submission
+    document.getElementById('lesson-form').addEventListener('submit', function() {
+      const submitButton = document.getElementById('submit-button');
+      submitButton.disabled = true; // Disable the submit button
+      // Uncheck the selected option
+      document.querySelectorAll('.option-btn').forEach(button => {
+        button.classList.remove('selected');
+      });
+      // Clear the selected answer from sessionStorage
+      sessionStorage.removeItem('selectedAnswer');
+    });
+  </script>
 
 </body>
 

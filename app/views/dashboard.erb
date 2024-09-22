@@ -72,12 +72,12 @@
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Modo Contrarreloj
+                    Timetrial Mode
                 </button>
                 <ul class="dropdown-menu">
                     <li>
                         <form action="/timetrial/start_game" method="get">
-                            <button type="submit" class="dropdown-item">Jugar</button>
+                            <button type="submit" class="dropdown-item">Play</button>
                         </form>
                     </li>
                     <li>
@@ -91,7 +91,7 @@
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Modo Aprendizaje
+                    Learning mode
                 </button>
                 <ul class="dropdown-menu">
                     <% @lessons.reverse.each do |lesson| %>
@@ -158,18 +158,3 @@
 </body>
 
 </html>
-
-
-<!-------Centered Buttons----------
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div>
-            <form action="/timetrial" method="get">
-                <button type="submit" class="btn btn-primary">Modo Contrarreloj</button>
-            </form>
-            <form action="/learning" method="get">
-                <button type="submit" class="btn btn-primary">Modo Aprendizaje</button>
-            </form>
-            
-        </div>
-    </div>
-----> 

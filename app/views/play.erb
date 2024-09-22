@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jugar <%= @lesson.name %></title>
+  <title>Play <%= @lesson.name %></title>
   <link type="text/css" rel="stylesheet" href="play.css">
 </head>
 <body>
@@ -55,26 +55,6 @@
     </form>
   </div>
 
-  <!-- Modal for when no lives remaining -->
-  <div id="myModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered modal-confirm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="icon-box">
-            <i class="material-icons">&#xE5CD;</i>
-          </div>				
-          <h4 class="modal-title w-100">You lost</h4>	
-        </div>
-        <div class="modal-body">
-          <p class="text-center">You ran out of lives, but don't worry, you will get more later!</p>
-        </div>
-        <div class="modal-footer justify-content-center">
-        <button class="btn btn-danger" onclick="window.location.href='/';clearSessionStorage();">Go to the dashboard</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Modal for go back confirmation -->
   <div id="goBackModal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-dialog-centered modal-confirm">
@@ -98,70 +78,70 @@
 
   <script>
 
-  // Removes previous error/success messages
-  <%= session[:error] = nil %>
-  <%= session[:success] = nil %>
+    // Removes previous error/success messages
+    <%= session[:error] = nil %>
+    <%= session[:success] = nil %>
 
-  document.addEventListener('DOMContentLoaded', (event) => {
-    const modalShown = sessionStorage.getItem('modalShown');
-    if (modalShown === 'true') {
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const modalShown = sessionStorage.getItem('modalShown');
+      if (modalShown === 'true') {
+        const myModal = new bootstrap.Modal(document.getElementById('myModal'));
+        myModal.show();
+      }
+
+      // Retrieve and set the selected answer if it exists
+      const selectedAnswer = sessionStorage.getItem('selectedAnswer');
+      if (selectedAnswer) {
+        document.getElementById('selected-answer').value = selectedAnswer;
+        toggleSubmitButton();
+      }
+    });
+
+    function showModalAndSetFlag() {
       const myModal = new bootstrap.Modal(document.getElementById('myModal'));
       myModal.show();
+      sessionStorage.setItem('modalShown', 'true');
     }
 
-    // Retrieve and set the selected answer if it exists
-    const selectedAnswer = sessionStorage.getItem('selectedAnswer');
-    if (selectedAnswer) {
-      document.getElementById('selected-answer').value = selectedAnswer;
-      toggleSubmitButton();
+    function clearSessionStorage() {
+      sessionStorage.removeItem('modalShown');
+      sessionStorage.removeItem('selectedAnswer');
     }
-  });
 
-  function showModalAndSetFlag() {
-    const myModal = new bootstrap.Modal(document.getElementById('myModal'));
-    myModal.show();
-    sessionStorage.setItem('modalShown', 'true');
-  }
-
-  function clearSessionStorage() {
-    sessionStorage.removeItem('modalShown');
-    sessionStorage.removeItem('selectedAnswer');
-  }
-
-  document.querySelectorAll('.option-btn').forEach(button => {
-    button.addEventListener('click', function() {
-      document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
-      this.classList.add('selected');
-      document.getElementById('selected-answer').value = this.getAttribute('data-value');
-      toggleSubmitButton();
-      // Store the selected answer in sessionStorage
-      sessionStorage.setItem('selectedAnswer', this.getAttribute('data-value'));
-    });
-  });
-
-  function toggleSubmitButton() {
-    const selectedAnswer = document.getElementById('selected-answer').value;
-    const submitButton = document.getElementById('submit-button');
-    submitButton.disabled = !selectedAnswer;
-  }
-
-  function showGoBackModal() {
-    const goBackModal = new bootstrap.Modal(document.getElementById('goBackModal'));
-    goBackModal.show();
-  }
-
-  // Function to disable button and uncheck option after form submission
-  document.getElementById('lesson-form').addEventListener('submit', function() {
-    const submitButton = document.getElementById('submit-button');
-    submitButton.disabled = true; // Disable the submit button
-    // Uncheck the selected option
     document.querySelectorAll('.option-btn').forEach(button => {
-      button.classList.remove('selected');
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById('selected-answer').value = this.getAttribute('data-value');
+        toggleSubmitButton();
+        // Store the selected answer in sessionStorage
+        sessionStorage.setItem('selectedAnswer', this.getAttribute('data-value'));
+      });
     });
-    // Clear the selected answer from sessionStorage
-    sessionStorage.removeItem('selectedAnswer');
-  });
-</script>
+
+    function toggleSubmitButton() {
+      const selectedAnswer = document.getElementById('selected-answer').value;
+      const submitButton = document.getElementById('submit-button');
+      submitButton.disabled = !selectedAnswer;
+    }
+
+    function showGoBackModal() {
+      const goBackModal = new bootstrap.Modal(document.getElementById('goBackModal'));
+      goBackModal.show();
+    }
+
+    // Function to disable button and uncheck option after form submission
+    document.getElementById('lesson-form').addEventListener('submit', function() {
+      const submitButton = document.getElementById('submit-button');
+      submitButton.disabled = true; // Disable the submit button
+      // Uncheck the selected option
+      document.querySelectorAll('.option-btn').forEach(button => {
+        button.classList.remove('selected');
+      });
+      // Clear the selected answer from sessionStorage
+      sessionStorage.removeItem('selectedAnswer');
+    });
+  </script>
 
 </body>
 </html>
