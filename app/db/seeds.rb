@@ -717,7 +717,6 @@ ActiveRecord::Base.transaction do
   user.update!(
     password: 'password',
     email: 'usuario@example.com',
-    remaining_life_points: 3,
     progress_id: progress.id
   )
 end

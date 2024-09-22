@@ -3,12 +3,6 @@ class User < ActiveRecord::Base
   belongs_to :progress
   has_secure_password
 
-  def subtract_life_point
-    self.remaining_life_points -= 1
-    self.lives_last_updated = Time.now
-    save
-  end
-
   def change_password(current_password, new_password, confirm_new_password)
     if authenticate(current_password) && new_password == confirm_new_password
       self.password = new_password

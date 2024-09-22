@@ -25,14 +25,6 @@ class App < Sinatra::Application
       # La ruta está protegida y no hay sesión activa.
       redirect '/login'
     end
-    
-    if session[:username]
-      user = User.find_by(username: session[:username])
-      if user && user.remaining_life_points < 3 && user.lives_last_updated <= REFILL_TIME.second.ago
-          user.update(remaining_life_points: [user.remaining_life_points + 1, 3].min, lives_last_updated: Time.now)
-      end
-    end
-
   end
 
   get '/' do

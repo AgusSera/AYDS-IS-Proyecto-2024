@@ -346,12 +346,6 @@ RSpec.describe '../app.rb' do
       # Check if the response indicates that the lesson is locked
       expect(last_response.body).to include('locked')
     end
-    
-    describe '#subtract_life_point' do
-      it 'decreases remaining_life_points by 1' do
-        expect { @user.subtract_life_point }.to change { @user.reload.remaining_life_points }.by(-1)
-      end
-    end
 
   end
 
@@ -599,53 +593,6 @@ RSpec.describe '../app.rb' do
 
   end
 
-  ##############                             ##############
-  ##############        HEARTS REFILL        ##############
-  ##############                             ##############
-
-  context 'refill hearts' do
-    before(:each) do
-      # Set up the user with less than 3 life points and an old lives_last_updated time
-      progress = Progress.create(
-        last_completed_lesson: 0,
-        current_lesson: 1,
-        numberOfCorrectAnswers: 0.0,
-        numberOfIncorrectAnswers: 0.0,
-        progressLevel: "Beginner",
-        correct_answered_questions: '[]'
-      )
-        
-      @user = User.create(
-        username: 'newuser123',
-        password: 'newpassword123',
-        email: 'newuser123@example.com',
-        remaining_life_points: 2,
-        lives_last_updated: 10.minutes.ago,
-        progress: progress
-      )
-      # Simulate a login by setting the session
-      post '/login', username: 'newuser123', password: 'newpassword123'
-      follow_redirect! # Follow the redirect to trigger the before filter
-    end
-    
-    after(:each) do
-      # Clean up the database
-      User.find_by(username: 'newuser123')&.destroy
-    end
-  
-    it 'refills life points if they are below 3 and enough time has passed' do
-      @user.reload
-      expect(@user.remaining_life_points).to eq(3)
-      expect(@user.lives_last_updated).to be_within(1.second).of(Time.now)
-    end
-  
-    it 'does not exceed the maximum of 3 life points' do
-      @user.reload
-      expect(@user.remaining_life_points).to eq(3)
-    end
-  end
-  
-
   ##############                                ##############
   ##############        ACCOUNT DELETION        ##############
   ##############                                ##############
@@ -679,9 +626,6 @@ RSpec.describe '../app.rb' do
       expect(last_response.body).to include('coding') 
     end
   end
-  
-  
-  
 
   context 'when the user does not exist' do
     before do
