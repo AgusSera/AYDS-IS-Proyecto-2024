@@ -405,6 +405,18 @@ RSpec.describe '../app.rb' do
       expect(progress.reload.correct_answered_questions).to eq([])
     end
 
+    it 'updates points and streak if new values are higher' do
+      progress.act(6, 4)
+
+      expect(progress.points).to eq(6)
+      expect(progress.streak).to eq(4)
+
+      progress.act(5, 2)
+
+      expect(progress.points).to eq(6)
+      expect(progress.streak).to eq(4)
+    end
+
   end
 
 
@@ -529,7 +541,7 @@ RSpec.describe '../app.rb' do
     it 'finalizes the game and resets the session variables' do
       get '/end_game_time', { 'rack.session' => { streak: 6, points: 0} }
       expect(last_response).to be_ok
-      expect(last_response.body).to include('Game over!') # Ajusta según el contenido de tu vista
+      expect(last_response.body).to include('Game over!')
     end
 
     it "select correct answer" do
@@ -542,7 +554,7 @@ RSpec.describe '../app.rb' do
   end
 
   ##############                             ##############
-  ##############        PROGRESS PAGE        ##############
+  ##############        PROFILE PAGE         ##############
   ##############                             ##############
 
   context "profile page" do

@@ -10,6 +10,9 @@ class Progress < ActiveRecord::Base
   }
 
   def act(new_points, new_streak)
+    new_points ||= 0
+    new_streak ||= 0
+
     if new_points > self.points
       self.points = new_points
     end
