@@ -504,6 +504,43 @@ RSpec.describe '../app.rb' do
     end
   end
 
+  ##############                                        ##############
+  ##############          TIME TRIAL GAME MODE          ##############
+  ##############                                        ##############
+
+  context "play game" do
+    before(:each) do
+      @progress = Progress.create!
+      @user = User.create(username: 'new_user', password: 'password', email: 'new@example.com', progress_id: @progress.id)
+      post '/login', username: 'new_user', password: 'password'
+    end
+
+    after(:each) do
+      User.find_by(username: 'new_user')&.destroy
+      @progress.destroy
+    end
+
+    it "initializes the game session" do
+      get '/timetrial/start_game'
+      expect(last_response).to be_redirect
+      follow_redirect!
+    end
+
+    it 'finalizes the game and resets the session variables' do
+      get '/end_game_time', { 'rack.session' => { streak: 6, points: 0} }
+      expect(last_response).to be_ok
+      expect(last_response.body).to include('Game over!') # Ajusta según el contenido de tu vista
+    end
+
+    it "select correct answer" do
+      post '/timetrial/submit_answer', { answer: 121 }, { 'rack.session' => { streak: 6, points: 0, answered_questions: [] } }
+    end
+
+    it "select wrong answer" do
+      post '/timetrial/submit_answer', answer:122
+    end
+  end
+
   ##############                             ##############
   ##############        PROGRESS PAGE        ##############
   ##############                             ##############
