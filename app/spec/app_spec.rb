@@ -54,13 +54,6 @@ RSpec.describe '../app.rb' do
       expect(last_request.path).to eq('/login')
     end
 
-    it "redirects to login page when accessing settings page while not logged in" do
-      get '/settings'
-      expect(last_response).to be_redirect
-      follow_redirect!
-      expect(last_request.path).to eq('/login')
-    end
-
     it "redirects to login page when accessing ranking page while not logged in" do
       get '/ranking'
       expect(last_response).to be_redirect
@@ -133,11 +126,6 @@ RSpec.describe '../app.rb' do
       
       it "displays the ranking page" do
         get '/ranking'
-        expect(last_response).to be_ok
-      end
-
-      it "displays the settings page" do
-        get '/settings'
         expect(last_response).to be_ok
       end
       
@@ -520,21 +508,22 @@ RSpec.describe '../app.rb' do
   ##############        PROGRESS PAGE        ##############
   ##############                             ##############
 
-  context "user progress page" do
+  context "profile page" do
 
     before(:each) do
       @progress = Progress.create!
       @user = User.create(username: 'new_user', password: 'password', email: 'new@example.com', progress_id: @progress.id)
-      post '/login', username: 'new_user', password: 'password'  
+      post '/login', username: 'new_user', password: 'password'
     end
 
     after(:each) do
       User.find_by(username: 'new_user')&.destroy
+      @progress.destroy
     end
 
-    it "view progress" do
-      get '/progress'
-      expect(last_response.body).to include('Progress Details')
+    it "view profile" do
+      get '/profile'
+      expect(last_response.body).to include('Información Personal')
     end
 
   end
@@ -546,12 +535,14 @@ RSpec.describe '../app.rb' do
   context "change password" do
 
     before(:each) do
-      @user = User.create(username: 'new_user', password: 'password', email: 'new@example.com')
-      post '/login', username: 'new_user', password: 'password'  
+      @progress = Progress.create!
+      @user = User.create(username: 'new_user', password: 'password', email: 'new@example.com', progress_id: @progress.id)
+      post '/login', username: 'new_user', password: 'password'
     end
 
     after(:each) do
       User.find_by(username: 'new_user')&.destroy
+      @progress.destroy
     end
 
     it "password changed successfully" do
@@ -573,12 +564,14 @@ RSpec.describe '../app.rb' do
   context "change email" do
 
     before(:each) do
-      @user = User.create(username: 'new_user', password: 'password', email: 'email@example.com')
-      post '/login', username: 'new_user', password: 'password'  
+      @progress = Progress.create!
+      @user = User.create(username: 'new_user', password: 'password', email: 'new@example.com', progress_id: @progress.id)
+      post '/login', username: 'new_user', password: 'password'
     end
 
     after(:each) do
       User.find_by(username: 'new_user')&.destroy
+      @progress.destroy
     end
 
     it "email changed successfully" do
@@ -599,14 +592,14 @@ RSpec.describe '../app.rb' do
 
   context 'when the user exists' do
     before(:each) do
-      @user = User.create(username: 'new_user', password: 'password', email: 'email@example.com')
+      @progress = Progress.create!
+      @user = User.create(username: 'new_user', password: 'password', email: 'new@example.com', progress_id: @progress.id)
       post '/login', username: 'new_user', password: 'password'
     end
-  
+
     after(:each) do
-      # Clean up the database
       User.find_by(username: 'new_user')&.destroy
-      post '/logout'
+      @progress.destroy
     end
   
     it 'renders the settings page with an error message for incorrect password' do

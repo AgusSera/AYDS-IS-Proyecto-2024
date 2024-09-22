@@ -27,6 +27,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     puts "Resetting database..."
     system('ruby spec/db_reset.rb')
+    load './db/seeds.rb'
     puts "Database reset complete."
   end
 
