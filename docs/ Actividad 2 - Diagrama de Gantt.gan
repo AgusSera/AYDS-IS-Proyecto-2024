@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2024-09-11" view-index="0" gantt-divider-location="608" resource-divider-location="300" version="3.3.3311" locale="es_ES">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="397" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="101" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="109" order="2"/>
+        <field id="tpd15" name="Notas" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="true"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="1" uid="7a51b39b12884fcf8d92061bbcf12d4d" name="Elaborar sistema de puntuación y rachas para modo competitivo" meeting="false" start="2024-09-15" duration="4" complete="0" expand="true">
+            <depend id="3" type="2" difference="6" hardness="Strong"/>
+            <depend id="4" type="2" difference="1" hardness="Strong"/>
+            <depend id="10" type="2" difference="2" hardness="Strong"/>
+        </task>
+        <task id="2" uid="b1d0e594d8614fcf97a04561459f66b6" name="Implementar sistema contrarreloj al modo competitivo" meeting="false" start="2024-09-14" duration="5" complete="0" expand="true">
+            <depend id="10" type="2" difference="2" hardness="Strong"/>
+        </task>
+        <task id="9" uid="744fd75c39d34762bf1a61b84d4e94ce" name="Agregar pool de preguntas para modo competitivo" meeting="false" start="2024-09-13" duration="3" complete="0" expand="true"/>
+        <task id="11" uid="fc39913b8c654a0fb3d129eb2b02bc1c" name="Eliminar sistema de vidas modo aprendizaje" meeting="false" start="2024-09-19" duration="4" complete="0" expand="true"/>
+        <task id="12" uid="a41c436e433b45a28517118e2fbb0db9" name="Modificar dashboard para modo competitivo" meeting="false" start="2024-09-18" duration="9" complete="0" expand="true"/>
+        <task id="10" uid="c50e508406bf4da9aff5f20de198d851" name="Diseñar visitas modo competitivo" meeting="false" start="2024-09-21" duration="6" complete="0" expand="true"/>
+        <task id="0" uid="7e40d66fd1f149bb9ba86bd977bafff1" name="Cambiar progreso de usuario" meeting="false" start="2024-09-13" duration="9" complete="0" expand="true"/>
+        <task id="3" uid="3aabe3367b7943138f40670c6f6600a1" name="Modificar ranking de usuarios para modo competitivo" meeting="false" start="2024-09-25" duration="4" complete="0" expand="true"/>
+        <task id="4" uid="02646f7aa3154f328db8e14b045e4021" name="Editar perfil de usuario" meeting="false" start="2024-09-20" duration="3" complete="0" expand="true"/>
+        <task id="5" uid="69f946f54a6e47cfad5f37063d5d8e42" name="Encriptar contraseña" meeting="false" start="2024-09-19" duration="3" complete="0" expand="true"/>
+        <task id="6" uid="8b70b061db79418d8b696b12a6151a22" name="Añadir tutoriales para cada modo de juego" meeting="false" start="2024-09-25" duration="3" complete="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
