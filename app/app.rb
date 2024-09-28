@@ -171,6 +171,15 @@ class App < Sinatra::Application
   end
 
   get '/dashboard' do
+    welcome_messages = [
+      "Choose: learn something new or test your speed in time trial mode. The challenge starts now!",
+      "Learning mode or time trial: every choice brings you closer to becoming a better coder. Let’s go!",
+      "Ready for the challenge? Learn at your own pace or race against the clock. Choose and start!",
+      "Learning or time trial mode? Your coding adventure begins now!"
+    ]
+  
+    @welcome_message = welcome_messages.sample
+    
     @user = User.find_by(username: session[:username])
     @lessons = Lesson.all
     erb :dashboard

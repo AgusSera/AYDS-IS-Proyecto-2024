@@ -1,13 +1,39 @@
+html, body {
+  height: 100%; /* Asegúrate de que ocupen el 100% de la altura */
+  margin: 0; /* Elimina el margen por defecto */
+}
+
+
 body {
   font-family: 'Fira Code', monospace;
   line-height: 1.7;
   background: url('./images/background4.png') no-repeat center center fixed;
   background-size: cover;
   backdrop-filter: blur(10px); /* Difuminado al fondo */
+  overflow: hidden;
+  height: 100%; /* Asegúrate de que ocupen el 100% de la altura */
+  margin: 0; /* Elimina el margen por defecto */
 }
 
 h1, h2, h3, h4, h5, h6, .display-4 {
   color: white;
+}
+
+.welcome {
+  margin-top: 100px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  height: 300px; 
+  text-align: center;
+  color: white;
+}
+.welcome h1 {
+  margin-bottom: 20px !important; 
+}
+
+.welcome h3 {
+  margin-top: 10px !important; 
 }
 
 p, a {
@@ -35,10 +61,11 @@ p, a {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
-  margin: 0 auto; 
-  text-align: center; 
+  min-height: 15vh; 
+  margin-top: -30px; 
+  text-align: center;
 }
+
 
 .btn-group {
   display: inline-flex;
@@ -48,7 +75,7 @@ p, a {
 }
 
 .btn-group .btn {
-  font-size: 1.25rem; 
+  font-size: 1.75rem; 
   padding: 15px 30px; 
   margin: 2px 0;
 }

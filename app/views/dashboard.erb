@@ -67,12 +67,17 @@
             </div>
         </nav>
     </section>
+    <div class="welcome">
+        <h1>Welcome, <%= @user.username %>!</h1>
+        <h3><%= @welcome_message %></h3>
+    </div>
+
     <!-- Dropdown for Modo Contrarreloj -->
     <div class="btn-group-container">
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Timetrial Mode
+                    ⏰ Timetrial Mode
                 </button>
                 <ul class="dropdown-menu">
                     <li>
@@ -91,7 +96,7 @@
         <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Learning mode
+                    📖 Learning mode
                 </button>
                 <ul class="dropdown-menu">
                     <% @lessons.reverse.each do |lesson| %>

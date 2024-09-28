@@ -510,15 +510,6 @@ lessons_data = [
           ]
         },
         {
-          description: "What is the output of the following code? print(type('Hello'))",
-          options: [
-            { description: "<class 'str'>", value: true },
-            { description: "<class 'int'>", value: false },
-            { description: "<class 'float'>", value: false },
-            { description: "<class 'bool'>", value: false }
-          ]
-        },
-        {
           description: "Which of the following is a logical operator in Python?",
           options: [
             { description: "and", value: true },
