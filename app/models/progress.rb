@@ -25,7 +25,6 @@ class Progress < ActiveRecord::Base
 
   def correct_answer(question_id)
     self.correct_answered_questions = correct_answered_questions << question_id
-    self.numberOfCorrectAnswers += 1
     save
   end
 
@@ -35,22 +34,6 @@ class Progress < ActiveRecord::Base
     self.correct_answered_questions = []
     self.progressLevel = calculate_progress_level
     save
-  end
-
-  def increase_number_of_correct_answers
-    self.numberOfCorrectAnswers += 1
-    save
-  end
-
-  def increase_number_of_incorrect_answers
-    self.numberOfIncorrectAnswers += 1
-    save
-  end
-
-  def calculate_success_rate
-    total_attempts = self.numberOfCorrectAnswers + self.numberOfIncorrectAnswers
-    return 0 if total_attempts.zero? # Evitar división por cero
-    (self.numberOfCorrectAnswers.to_f / total_attempts) * 100
   end
 
   def correct_answered_questions
