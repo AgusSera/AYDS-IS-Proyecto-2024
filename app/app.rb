@@ -35,7 +35,7 @@ class App < Sinatra::Application
     end
   end
 
-  #Fixea dirección del css para el browser cuando se juega 
+  # Fixea dirección del css para el browser cuando se juega 
   get '/lesson/:id/play.css' do
     redirect '/play.css'
   end
@@ -235,61 +235,63 @@ class App < Sinatra::Application
     session[:points] = 0
     session[:answered_questions] = []
     session[:game_started_at] = Time.now.to_i
+    session[:max_streak] = 0
     redirect '/timetrial/play'
   end
-
+  
   get '/timetrial/play' do
-
     @points = session[:points]
     @streak = session[:streak]
-
-    if session[:current_question_id] == nil
+  
+    if session[:current_question_id].nil?
       timetrial_questions = Question.where(lesson_id: nil)
       unanswered_questions = timetrial_questions.where.not(id: session[:answered_questions])
       session[:current_question_id] = unanswered_questions.sample.id
     end
-
+  
     @question = Question.find(session[:current_question_id])
-
+  
     erb :play_timetrial
   end
-
+  
   post '/timetrial/submit_answer' do
     selected_option_id = params[:answer]
     option = Option.find(selected_option_id)
-
+  
     if option.value
       session[:streak] += 1
       session[:answered_questions] << option.question.id
-      session[:points]+=1
+      session[:points] += 1
+  
+      session[:max_streak] = session[:streak] if session[:streak] > session[:max_streak]
+  
       if session[:streak] > 5
-        session[:points]+=1
+        session[:points] += 1
       end
     else
       session[:streak] = 0
     end
-
+  
     session[:current_question_id] = nil
-
+  
     redirect '/timetrial/play'
   end
-
+  
   get '/end_game_time' do
     @user = User.find_by(username: session[:username])
     progress = @user.progress
   
-    progress.act(session[:points], session[:streak])
+    progress.act(session[:points], session[:max_streak])
     
-    # Para mostrar los puntos obtenidos en el end_game_time
     @points = session[:points]
-    @streak = session[:streak]
+    @streak = session[:max_streak]
   
     session[:streak] = 0
     session[:points] = 0
     session[:answered_questions] = []
+    session[:max_streak] = 0
   
     erb :end_game_time
   end
-  
 
 end
