@@ -6,21 +6,22 @@ body {
     height: 100vh;
     background: url('./images/background2.jpg') no-repeat center center fixed;
     background-size: cover;
-    backdrop-filter: blur(10px); /* Aplica un difuminado al fondo */
+    backdrop-filter: blur(10px); 
 }
 
 .form-control::placeholder {
-    color: #a2a7b6; /* Adjust the color as needed */
+    color: #a2a7b6; 
 }
 
 .form-signin {
+    position: relative;
     width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
-    background: #212529; /* Fondo blanco con opacidad */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    background: #212529; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .form-signin .form-control {
@@ -45,7 +46,7 @@ body {
 }
 
 .form-signin button {
-    margin-top: 70px; /* Aumentar espacio superior al botón */
+    margin-top: 70px; 
 }
 
 .btn-block {
@@ -62,6 +63,19 @@ body {
 
 .form-signin p {
     color: white;
-    margin-top: 20px; /* Añadir espacio superior al texto de registro */
-    font-size: 14px; /* Ajustar el tamaño de fuente del texto de registro */
+    margin-top: 20px; 
+    font-size: 14px; 
+}
+
+.back-button {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    font-size: 50px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
 }
