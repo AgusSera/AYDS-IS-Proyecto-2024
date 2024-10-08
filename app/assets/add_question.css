@@ -1,0 +1,36 @@
+body {
+  font-family: 'Fira Code', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #212529;
+  margin: 0;
+  position: relative;
+}
+
+.content {
+  width: 90%;
+  max-width: 1300px;
+  padding: 30px;
+  background: #212529;
+  color: white;
+  position: relative;
+}
+
+#lesson-select {
+      display: none;
+}
+
+h1 {
+  color: white;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 48px;
+  color: white;
+  text-decoration: none;
+}
