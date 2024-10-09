@@ -7,6 +7,7 @@ set :database_file, './config/database.yml'
 set :public_folder, 'assets'
 
 require './models/user'
+require './models/admin'
 require './models/question'
 require './models/option'
 require './models/lesson'

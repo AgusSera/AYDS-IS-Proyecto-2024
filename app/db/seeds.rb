@@ -1,4 +1,5 @@
 require_relative '../models/user'
+require_relative '../models/admin'
 require_relative '../models/option'
 require_relative '../models/question'
 require_relative '../models/lesson'
@@ -701,13 +702,21 @@ end
 # Crear usuario de ejemplo
 ActiveRecord::Base.transaction do
 
-  progress = Progress.create(current_lesson: 1)
-  
+  userProgress = Progress.create(current_lesson: 1)
+  adminProgress = Progress.create(current_lesson: 1)
+
   user = User.find_or_initialize_by(username: 'usuario')
-  
+  admin = Admin.find_or_initialize_by(username: 'admin')
+
   user.update!(
     password: 'password',
     email: 'usuario@example.com',
-    progress_id: progress.id
+    progress_id: userProgress.id
+  )
+
+  admin.update!(
+    password: 'password',
+    email: 'admin@example.com',
+    progress_id: adminProgress.id
   )
 end

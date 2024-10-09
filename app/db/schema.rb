@@ -30,8 +30,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
   create_table "progresses", force: :cascade do |t|
     t.integer "last_completed_lesson", default: 0, null: false
     t.integer "current_lesson", default: 1, null: false
-    t.float "numberOfCorrectAnswers", default: 0.0, null: false
-    t.float "numberOfIncorrectAnswers", default: 0.0, null: false
     t.string "progressLevel", default: "Beginner", null: false
     t.text "correct_answered_questions", default: "[]"
     t.integer "points", default: 0, null: false
@@ -49,13 +47,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "type", default: "User", null: false
     t.string "username", null: false
-    t.string "email"
-    t.string "password_digest"
+    t.string "email", null: false
+    t.string "password_digest", null: false
     t.integer "progress_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["progress_id"], name: "index_users_on_progress_id"
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "options", "questions"
