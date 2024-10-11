@@ -162,16 +162,20 @@ class App < Sinatra::Application
   
     if option.value
       user.progress.correct_answer(question_id)
-      
       question = option.question
       question.increment!(:correct_answers_count)
       session[:success] = 'correct_answer'
+
     else
+      question = option.question
+      question.increment!(:incorrect_answers_count)
       session[:error] = 'wrong_answer'
+
     end
-  
     redirect "/lesson/#{params[:id]}/play"
+
   end
+  
   
 
   get '/dashboard' do
@@ -262,7 +266,7 @@ class App < Sinatra::Application
     selected_option_id = params[:answer]
     option = Option.find(selected_option_id)
     question = option.question  
-  
+
     if option.value
       
       question.increment!(:correct_answers_count)
@@ -270,21 +274,23 @@ class App < Sinatra::Application
       session[:streak] += 1
       session[:answered_questions] << option.question.id
       session[:points] += 1
-  
+
       session[:max_streak] = session[:streak] if session[:streak] > session[:max_streak]
-  
+
       if session[:streak] > 5
         session[:points] += 1
       end
     else
+      
+      question.increment!(:incorrect_answers_count)
+
       session[:streak] = 0
     end
-  
-    session[:current_question_id] = nil  
+
+    session[:current_question_id] = nil 
     redirect '/timetrial/play'
   end
-  
-  
+
   get '/end_game_time' do
     @user = User.find_by(username: session[:username])
     progress = @user.progress
