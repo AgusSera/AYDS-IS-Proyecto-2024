@@ -153,22 +153,26 @@ class App < Sinatra::Application
   post '/lesson/:id/submit_answer' do
     lesson = Lesson.find(params[:id])
     user = User.find_by(username: session[:username])
-
+  
     option = Option.find_by(id: params[:answer].to_i)
     question_id = option.question.id
-
+  
     session[:success] = nil
     session[:error] = nil
-
+  
     if option.value
       user.progress.correct_answer(question_id)
+      
+      question = option.question
+      question.increment!(:correct_answers_count)
       session[:success] = 'correct_answer'
     else
       session[:error] = 'wrong_answer'
     end
-
+  
     redirect "/lesson/#{params[:id]}/play"
   end
+  
 
   get '/dashboard' do
     welcome_messages = [
@@ -257,8 +261,12 @@ class App < Sinatra::Application
   post '/timetrial/submit_answer' do
     selected_option_id = params[:answer]
     option = Option.find(selected_option_id)
+    question = option.question  
   
     if option.value
+      
+      question.increment!(:correct_answers_count)
+      
       session[:streak] += 1
       session[:answered_questions] << option.question.id
       session[:points] += 1
@@ -272,10 +280,10 @@ class App < Sinatra::Application
       session[:streak] = 0
     end
   
-    session[:current_question_id] = nil
-  
+    session[:current_question_id] = nil  
     redirect '/timetrial/play'
   end
+  
   
   get '/end_game_time' do
     @user = User.find_by(username: session[:username])
