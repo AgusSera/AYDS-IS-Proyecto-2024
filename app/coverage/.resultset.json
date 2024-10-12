@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/app.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/app.rb": {
         "lines": [
           1,
           1,
@@ -241,10 +241,10 @@
           1,
           1,
           1,
+          1,
           null,
           null,
           1,
-          null,
           1,
           1,
           null,
@@ -267,6 +267,9 @@
           1,
           1,
           1,
+          null,
+          1,
+          null,
           1,
           1,
           null,
@@ -285,27 +288,26 @@
           null,
           1,
           null,
-          null,
           1,
           1,
           null,
           1,
           1,
           1,
-          null,
           1,
           null,
+          1,
           null,
           null,
           null
         ]
       },
-      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/helpers.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/helpers.rb": {
         "lines": [
           1,
           1,
           1,
-          47,
+          52,
           null,
           1,
           1,
@@ -314,7 +316,7 @@
           null
         ]
       },
-      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/user.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/user.rb": {
         "lines": [
           1,
           null,
@@ -341,7 +343,7 @@
           null
         ]
       },
-      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/question.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/question.rb": {
         "lines": [
           1,
           null,
@@ -351,7 +353,7 @@
           null
         ]
       },
-      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/option.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/option.rb": {
         "lines": [
           1,
           null,
@@ -359,7 +361,7 @@
           null
         ]
       },
-      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/lesson.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/lesson.rb": {
         "lines": [
           1,
           null,
@@ -367,7 +369,7 @@
           null
         ]
       },
-      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/models/progress.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/models/progress.rb": {
         "lines": [
           1,
           null,
@@ -397,7 +399,6 @@
           1,
           1,
           1,
-          1,
           null,
           null,
           1,
@@ -406,22 +407,6 @@
           5,
           5,
           5,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          4,
-          4,
-          1,
           null,
           null,
           1,
@@ -429,7 +414,7 @@
           null,
           null,
           1,
-          9,
+          14,
           null,
           null,
           1,
@@ -442,7 +427,7 @@
           null
         ]
       },
-      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/spec/app_spec.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/spec/app_spec.rb": {
         "lines": [
           1,
           1,
@@ -828,7 +813,7 @@
           null,
           null,
           null,
-          1,
+          6,
           null,
           1,
           null,
@@ -862,34 +847,6 @@
           1,
           1,
           null,
-          null,
-          null,
-          null,
-          null,
-          1,
-          null,
-          1,
-          1,
-          4,
-          null,
-          null,
-          null,
-          1,
-          1,
-          4,
-          null,
-          null,
-          null,
-          10,
-          null,
-          1,
-          1,
-          1,
-          null,
-          null,
-          1,
-          1,
-          1,
           null,
           null,
           null,
@@ -1133,7 +1090,7 @@
           null
         ]
       },
-      "/home/agussera/Escritorio/AYDS-IS-Proyecto-2024/app/db/seeds.rb": {
+      "C:/Users/Usuario/Desktop/Licenciatura en Ciencias de la Computación/Tercer año/Ingeniería de Software/AYDS-IS-Proyecto-2024/app/db/seeds.rb": {
         "lines": [
           1,
           1,
@@ -1851,6 +1808,6 @@
         ]
       }
     },
-    "timestamp": 1727561800
+    "timestamp": 1728748222
   }
 }

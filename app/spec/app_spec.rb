@@ -419,34 +419,6 @@ RSpec.describe '../app.rb' do
 
   end
 
-
-  let(:progress) { Progress.create(numberOfCorrectAnswers: 0) }
-
-  describe '#increase_number_of_correct_answers' do
-    it 'increases numberOfCorrectAnswers by 1' do
-      expect { progress.increase_number_of_correct_answers }.to change { progress.reload.numberOfCorrectAnswers }.by(1)
-    end
-  end
-
-  describe '#increase_number_of_incorrect_answers' do
-    it 'increases numberOfIncorrectAnswers by 1' do
-      expect { progress.increase_number_of_incorrect_answers }.to change { progress.reload.numberOfIncorrectAnswers }.by(1)
-    end
-  end
-
-  let(:progress) { Progress.create(numberOfCorrectAnswers: 7, numberOfIncorrectAnswers: 3) }
-
-  describe '#calculate_success_rate' do
-    it 'calculates the correct success rate' do
-      expect(progress.calculate_success_rate).to eq(70.0)
-    end
-
-    it 'returns 0 if there are no attempts' do
-      progress.update(numberOfCorrectAnswers: 0, numberOfIncorrectAnswers: 0)
-      expect(progress.calculate_success_rate).to eq(0.0)
-    end
-  end
-
   ##############                        ##############
   ##############          GAME          ##############
   ##############                        ##############
@@ -545,7 +517,7 @@ RSpec.describe '../app.rb' do
     end
 
     it "select correct answer" do
-      post '/timetrial/submit_answer', { answer: 121 }, { 'rack.session' => { streak: 6, points: 0, answered_questions: [] } }
+      post '/timetrial/submit_answer', { answer: 121 }, { 'rack.session' => { streak: 6, max_streak: 0, points: 0, answered_questions: [] } }
     end
 
     it "select wrong answer" do
@@ -572,7 +544,7 @@ RSpec.describe '../app.rb' do
 
     it "view profile" do
       get '/profile'
-      expect(last_response.body).to include('Información Personal')
+      expect(last_response.body).to include('Personal information')
     end
 
   end
