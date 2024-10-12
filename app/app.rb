@@ -295,4 +295,16 @@ class App < Sinatra::Application
     erb :end_game_time
   end
 
+  get '/admin_panel' do
+    authorize_admin!
+    erb :admin_panel
+  end
+
+  get '/admin_panel/top_incorrect_questions' do
+    authorize_admin!
+  end
+
+  get '/admin_panel/top_correct_questions' do
+    authorize_admin!
+  end
 end
