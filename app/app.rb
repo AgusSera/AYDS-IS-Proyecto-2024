@@ -308,4 +308,23 @@ class App < Sinatra::Application
     erb :end_game_time
   end
 
+  get '/admin_panel/top_questions' do
+    # Obtén los parámetros n y m del formulario
+    @n = params[:n].to_i
+    @m = params[:m].to_i
+
+    # Si no se proporciona n o m, establece valores predeterminados
+    @n = 5 if @n <= 0
+    @m = 5 if @m <= 0
+
+    # Obtén las preguntas más respondidas incorrectamente
+    @top_incorrect_questions = Question.order(incorrect_answers_count: :desc).limit(@n)
+
+    # Obtén las preguntas más respondidas correctamente
+    @top_correct_questions = Question.order(correct_answers_count: :desc).limit(@m)
+
+    # Renderiza la vista con las preguntas
+    erb :top_questions
+  end
+  
 end

@@ -30,8 +30,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
   create_table "progresses", force: :cascade do |t|
     t.integer "last_completed_lesson", default: 0, null: false
     t.integer "current_lesson", default: 1, null: false
-    t.float "numberOfCorrectAnswers", default: 0.0, null: false
-    t.float "numberOfIncorrectAnswers", default: 0.0, null: false
     t.string "progressLevel", default: "Beginner", null: false
     t.text "correct_answered_questions", default: "[]"
     t.integer "points", default: 0, null: false
@@ -43,8 +41,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
   create_table "questions", force: :cascade do |t|
     t.string "description"
     t.integer "lesson_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "correct_answers_count", default: 0
+    t.integer "incorrect_answers_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "index_questions_on_lesson_id"
   end
 
