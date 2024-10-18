@@ -303,6 +303,22 @@ class App < Sinatra::Application
     erb :end_game_time
   end
 
+  get '/admin_panel/top_questions' do
+    
+    @n = params[:n].to_i
+    @m = params[:m].to_i
+    
+    @n = 5 if @n <= 0
+    @m = 5 if @m <= 0
+    
+    @top_incorrect_questions = Question.order(incorrect_answers_count: :desc).limit(@n)
+    
+    @top_correct_questions = Question.order(correct_answers_count: :desc).limit(@m)
+    
+    erb :top_questions
+  end
+  
+
   get '/admin_panel' do
     authorize_admin!
     erb :admin_panel

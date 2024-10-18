@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Preguntas Más Respondidas</title>
+    <link rel="stylesheet" href="/path/to/your/styles.css">
+</head>
+<body>
+    <h1>Top Preguntas Más Respondidas</h1>
+    <!-- Formulario para seleccionar la cantidad de preguntas correctas e incorrectas -->
+    <form action="top_questions" method="get">
+        <label for="n">Número de preguntas incorrectas a mostrar:</label>
+        <input type="number" name="n" id="n" min="1" value="<%= @n || 5 %>">
+        
+        <label for="m">Número de preguntas correctas a mostrar:</label>
+        <input type="number" name="m" id="m" min="1" value="<%= @m || 5 %>">
+        
+        <button type="submit" action="top_questions" method="get">Actualizar Listas</button>
+    </form>
+    <h2>Preguntas Más Respondidas Correctamente</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Respuestas Correctas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if @top_correct_questions.any? %>
+                <% @top_correct_questions.each_with_index do |question, index| %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= question.id %></td>
+                        <td><%= question.correct_answers_count %></td>
+                    </tr>
+                <% end %>
+            <% else %>
+                <tr>
+                    <td colspan="3">No hay preguntas disponibles.</td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <h2>Preguntas Más Respondidas Incorrectamente</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Respuestas Incorrectas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if @top_incorrect_questions.any? %>
+                <% @top_incorrect_questions.each_with_index do |question, index| %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= question.id %></td>
+                        <td><%= question.incorrect_answers_count %></td>
+                    </tr>
+                <% end %>
+            <% else %>
+                <tr>
+                    <td colspan="3">No hay preguntas disponibles.</td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</body>
+</html>
