@@ -167,6 +167,8 @@ class App < Sinatra::Application
       user.progress.correct_answer(question_id)
       session[:success] = 'correct_answer'
     else
+      question = option.question
+      question.increment!(:incorrect_answers_count)
       session[:error] = 'wrong_answer'
     end
 
@@ -275,6 +277,7 @@ class App < Sinatra::Application
         session[:points] += 1
       end
     else
+      question.increment!(:incorrect_answers_count)
       session[:streak] = 0
     end
   
