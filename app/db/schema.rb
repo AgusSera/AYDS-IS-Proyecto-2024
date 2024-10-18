@@ -41,6 +41,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_16_004929) do
   create_table "questions", force: :cascade do |t|
     t.string "description"
     t.integer "lesson_id"
+    t.integer "correct_answers_count", default: 0
+    t.integer "incorrect_answers_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["lesson_id"], name: "index_questions_on_lesson_id"
