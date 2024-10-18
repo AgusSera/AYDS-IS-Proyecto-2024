@@ -299,4 +299,24 @@ class App < Sinatra::Application
     authorize_admin!
     erb :admin_panel
   end
+
+  get '/add_questions' do
+    authorize_admin!
+    @lessons = Lesson.all
+    erb :add_question
+  end
+
+  post '/add_questions' do
+    @lessons = Lesson.all
+    if Question.exists?(description: params['question_description'])
+      erb :add_question, locals: { error_message: "The question already exists" }
+    else
+      new_question = Question.create(description: params['question_description'],lesson_id: params['lesson_id'])
+      (1..4).each do |i|
+        is_correct = (params['correct_option'] == i.to_s)
+        Option.create(description: params["option_description_#{i}"],value: is_correct,question_id: new_question.id)
+      end
+      erb :add_question, locals: { success_message: "Question created successfully" }
+    end
+  end
 end
