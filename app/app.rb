@@ -16,7 +16,7 @@ require './models/progress'
 class App < Sinatra::Application
 
   # Lista de rutas protegidas
-  protected_routes = ['/dashboard', '/settings', '/profile', %r{/lesson/.*}, '/lesson_completed', '/progress', '/ranking', '/remove_account', '/reset_progress', '/change_email', '/change_password']
+  protected_routes = ['/dashboard', '/settings', '/profile', %r{/lesson/.*}, '/lesson_completed', '/progress', '/ranking', '/remove_account', '/reset_progress', '/change_email', '/change_password', '/admin_panel']
 
   # Tiempo para refill (en segundos)
   REFILL_TIME = 30
@@ -295,4 +295,8 @@ class App < Sinatra::Application
     erb :end_game_time
   end
 
+  get '/admin_panel' do
+    authorize_admin!
+    erb :admin_panel
+  end
 end

@@ -711,12 +711,12 @@ ActiveRecord::Base.transaction do
   user.update!(
     password: 'password',
     email: 'usuario@example.com',
-    progress_id: userProgress.id
+    progress: userProgress
   )
 
   admin.update!(
     password: 'password',
     email: 'admin@example.com',
-    progress_id: adminProgress.id
+    progress: adminProgress
   )
 end
