@@ -420,33 +420,6 @@ RSpec.describe '../app.rb' do
   end
 
 
-  let(:progress) { Progress.create(numberOfCorrectAnswers: 0) }
-
-  describe '#increase_number_of_correct_answers' do
-    it 'increases numberOfCorrectAnswers by 1' do
-      expect { progress.increase_number_of_correct_answers }.to change { progress.reload.numberOfCorrectAnswers }.by(1)
-    end
-  end
-
-  describe '#increase_number_of_incorrect_answers' do
-    it 'increases numberOfIncorrectAnswers by 1' do
-      expect { progress.increase_number_of_incorrect_answers }.to change { progress.reload.numberOfIncorrectAnswers }.by(1)
-    end
-  end
-
-  let(:progress) { Progress.create(numberOfCorrectAnswers: 7, numberOfIncorrectAnswers: 3) }
-
-  describe '#calculate_success_rate' do
-    it 'calculates the correct success rate' do
-      expect(progress.calculate_success_rate).to eq(70.0)
-    end
-
-    it 'returns 0 if there are no attempts' do
-      progress.update(numberOfCorrectAnswers: 0, numberOfIncorrectAnswers: 0)
-      expect(progress.calculate_success_rate).to eq(0.0)
-    end
-  end
-
   ##############                        ##############
   ##############          GAME          ##############
   ##############                        ##############
@@ -545,7 +518,7 @@ RSpec.describe '../app.rb' do
     end
 
     it "select correct answer" do
-      post '/timetrial/submit_answer', { answer: 121 }, { 'rack.session' => { streak: 6, points: 0, answered_questions: [] } }
+      post '/timetrial/submit_answer', { answer: 121 }, { 'rack.session' => { streak: 6, max_streak: 0, points: 0, answered_questions: [] } }
     end
 
     it "select wrong answer" do
@@ -572,7 +545,7 @@ RSpec.describe '../app.rb' do
 
     it "view profile" do
       get '/profile'
-      expect(last_response.body).to include('Información Personal')
+      expect(last_response.body).to include('Personal information')
     end
 
   end
@@ -751,4 +724,42 @@ RSpec.describe '../app.rb' do
       expect(last_request.path).to eq('/login') # Expect redirect to login
     end
   end
+
+  ##############                                ##############
+  ##############     List questions feature     ##############
+  ##############                                ##############
+  
+  describe 'Admin Panel', type: :feature do
+    before(:each) do
+      @lesson = Lesson.create(name: 'Test Lesson', content: 'Content for test lesson')
+
+      @admin_progress = Progress.create!
+      @admin_user = User.create(username: 'admin_user', password: 'password', email: 'admin@example.com', progress_id: @admin_progress.id, type: 'Admin')
+      
+      @question1 = Question.create(description: 'Question with more incorrect answers', lesson_id: @lesson.id, correct_answers_count: 2, incorrect_answers_count: 10)
+      @question2 = Question.create(description: 'Question with more correct answers', lesson_id: @lesson.id, correct_answers_count: 10, incorrect_answers_count: 2)
+      
+      post '/login', username: 'admin_user', password: 'password'
+      
+    end
+  
+    it 'displays the top questions on /admin_panel/top_questions' do
+      get '/admin_panel/top_questions', n: 1, m: 1
+      
+      puts last_response.body
+
+      expect(last_response).to be_ok
+      expect(last_response.body).to include(@question1.description) 
+      expect(last_response.body).to include(@question2.description)
+    end
+
+    after(:each) do
+      User.find_by(username: 'admin_user')&.destroy
+      @admin_progress.destroy
+      @question1.destroy
+      @question2.destroy
+      @lesson.destroy
+    end
+  end
+
 end

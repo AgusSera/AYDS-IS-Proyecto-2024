@@ -314,6 +314,10 @@ class App < Sinatra::Application
     @top_incorrect_questions = Question.order(incorrect_answers_count: :desc).limit(@n)
     
     @top_correct_questions = Question.order(correct_answers_count: :desc).limit(@m)
+
+    puts @top_incorrect_questions.inspect # Para ver qué preguntas se están recuperando
+    puts @top_correct_questions.inspect # Para ver qué preguntas se están recuperando
+
     
     erb :top_questions
   end

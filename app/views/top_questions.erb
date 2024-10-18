@@ -32,6 +32,7 @@
                 <th>#</th>
                 <th>ID</th>
                 <th>Count</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +42,7 @@
                         <td><%= index + 1 %></td>
                         <td><%= question.id %></td>
                         <td><%= question.correct_answers_count %></td>
+                        <td><%= question.description %></td>
                     </tr>
                 <% end %>
             <% else %>
@@ -58,6 +60,8 @@
                 <th>#</th>
                 <th>ID</th>
                 <th>Count</th>
+                <th>Description</th>
+
             </tr>
         </thead>
         <tbody>
@@ -67,6 +71,7 @@
                         <td><%= index + 1 %></td>
                         <td><%= question.id %></td>
                         <td><%= question.incorrect_answers_count %></td>
+                        <td><%= question.description %></td>
                     </tr>
                 <% end %>
             <% else %>
