@@ -16,7 +16,7 @@ require './models/progress'
 class App < Sinatra::Application
 
   # Lista de rutas protegidas
-  protected_routes = ['/dashboard', '/settings', '/profile', %r{/lesson/.*}, '/lesson_completed', '/progress', '/ranking', '/remove_account', '/reset_progress', '/change_email', '/change_password', '/admin_panel']
+  protected_routes = ['/dashboard', '/settings', '/profile', %r{/lesson/.*}, '/lesson_completed', '/progress', '/ranking', '/remove_account', '/reset_progress', '/change_email', '/change_password', %r{/admin-panel/.*}]
 
   # Tiempo para refill (en segundos)
   REFILL_TIME = 30
@@ -300,13 +300,13 @@ class App < Sinatra::Application
     erb :admin_panel
   end
 
-  get '/add_questions' do
+  get '/admin_panel/add_questions' do
     authorize_admin!
     @lessons = Lesson.all
     erb :add_question
   end
 
-  post '/add_questions' do
+  post '/admin_panel/add_questions' do
     @lessons = Lesson.all
     if Question.exists?(description: params['question_description'])
       erb :add_question, locals: { error_message: "The question already exists" }
