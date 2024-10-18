@@ -162,6 +162,8 @@ class App < Sinatra::Application
     session[:error] = nil
 
     if option.value
+      question = option.question
+      question.increment!(:correct_answers_count)
       user.progress.correct_answer(question_id)
       session[:success] = 'correct_answer'
     else
@@ -258,8 +260,11 @@ class App < Sinatra::Application
   post '/timetrial/submit_answer' do
     selected_option_id = params[:answer]
     option = Option.find(selected_option_id)
+    question = option.question
   
     if option.value
+        
+      question.increment!(:correct_answers_count)
       session[:streak] += 1
       session[:answered_questions] << option.question.id
       session[:points] += 1
