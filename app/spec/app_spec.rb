@@ -751,4 +751,51 @@ RSpec.describe '../app.rb' do
       expect(last_request.path).to eq('/login') # Expect redirect to login
     end
   end
+
+  ##############                                    ##############
+  ##############        FORM TO ADD QUESTION        ##############
+  ##############                                    ##############
+
+  context 'Form to Add Question' do
+    before do
+      @lesson = Lesson.create(name: 'Lesson 1')
+      @existing_question = Question.create(description: 'What do Boolean values represent in Python?', lesson_id: @lesson.id)
+    end
+
+    it 'accesses the question form' do
+      get '/add_questions'
+      expect(last_response).to be_ok
+      expect(last_response.body).to include("Form to Add Question")
+    end
+
+    it 'shows an error if the question already exists' do
+      post '/add_questions', question_description: @existing_question.description, lesson_id: @lesson.id
+      expect(last_response).to be_ok
+      expect(last_response.body).to include("The question already exists")
+      expect(Question.where(description: @existing_question.description).count).to eq(1)
+    end
+
+    it 'creates a new question successfully' do
+      post '/add_questions', {
+        question_description: 'What is the result of 3 == 4 in Python?',
+        lesson_id: @lesson.id,
+        correct_option: '3',
+        option_description_1: 'True',
+        option_description_2: 'None',
+        option_description_3: 'False',
+        option_description_4: 'Error'
+      }
+
+      expect(last_response).to be_ok
+      expect(last_response.body).to include("Question created successfully")
+
+      new_question = Question.find_by(description: 'What is the result of 3 == 4 in Python?')
+      expect(new_question).not_to be_nil
+
+      options = Option.where(question_id: new_question.id)
+      expect(options.count).to eq(4)
+      expect(options.find_by(description: 'False').value).to be true
+      expect(options.find_by(description: 'True').value).to be false
+    end
+  end
 end
