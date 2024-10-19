@@ -162,9 +162,13 @@ class App < Sinatra::Application
     session[:error] = nil
 
     if option.value
+      question = option.question
+      question.increment!(:correct_answers_count)
       user.progress.correct_answer(question_id)
       session[:success] = 'correct_answer'
     else
+      question = option.question
+      question.increment!(:incorrect_answers_count)
       session[:error] = 'wrong_answer'
     end
 
@@ -258,8 +262,11 @@ class App < Sinatra::Application
   post '/timetrial/submit_answer' do
     selected_option_id = params[:answer]
     option = Option.find(selected_option_id)
+    question = option.question
   
     if option.value
+        
+      question.increment!(:correct_answers_count)
       session[:streak] += 1
       session[:answered_questions] << option.question.id
       session[:points] += 1
@@ -270,6 +277,7 @@ class App < Sinatra::Application
         session[:points] += 1
       end
     else
+      question.increment!(:incorrect_answers_count)
       session[:streak] = 0
     end
   
@@ -294,6 +302,26 @@ class App < Sinatra::Application
   
     erb :end_game_time
   end
+
+  get '/admin_panel/top_questions' do
+    
+    @n = params[:n].to_i
+    @m = params[:m].to_i
+    
+    @n = 5 if @n <= 0
+    @m = 5 if @m <= 0
+    
+    @top_incorrect_questions = Question.order(incorrect_answers_count: :desc).limit(@n)
+    
+    @top_correct_questions = Question.order(correct_answers_count: :desc).limit(@m)
+
+    puts @top_incorrect_questions.inspect # Para ver qué preguntas se están recuperando
+    puts @top_correct_questions.inspect # Para ver qué preguntas se están recuperando
+
+    
+    erb :top_questions
+  end
+  
 
   get '/admin_panel' do
     authorize_admin!
