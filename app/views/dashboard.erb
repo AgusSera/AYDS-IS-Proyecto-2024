@@ -37,7 +37,7 @@
                             </form>
                         </li>
                         <li class="nav-item d-none d-lg-block">
-                            <form action="/profile" method="get">
+                            <form action="/user/profile" method="get">
                                 <button type="submit" class="btn btn-dark border-0 me-2">
                                     <i class="bi bi-person"></i>
                                 </button>
@@ -97,7 +97,7 @@
                 </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <form action="/timetrial/start_game" method="get">
+                        <form action="/timetrial" method="get">
                             <button type="submit" class="dropdown-item">Play</button>
                         </form>
                     </li>
@@ -118,7 +118,7 @@
                     <% @lessons.reverse.each do |lesson| %>
                         <% if lesson.id <= @user.progress.current_lesson %>
                             <li class="dropdown-item">
-                                <a href="/lesson/<%= lesson.id %>">
+                                <a href="/learning/lesson/<%= lesson.id %>">
                                     <%= lesson.name %>
                                 </a>
                             </li>

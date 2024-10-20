@@ -16,10 +16,7 @@ require './models/progress'
 class App < Sinatra::Application
 
   # Lista de rutas protegidas
-  protected_routes = ['/dashboard', '/settings', '/profile', %r{/lesson/.*}, '/lesson_completed', '/progress', '/ranking', '/remove_account', '/reset_progress', '/change_email', '/change_password', %r{/admin-panel/.*}]
-
-  # Tiempo para refill (en segundos)
-  REFILL_TIME = 30
+  protected_routes = ['/dashboard', %r{/user/.*}, %r{/learning/.*}, '/ranking', %r{/admin-panel/.*}, %r{/timetrial/.*}]
 
   before do
     if protected_routes.any? { |route| route === request.path_info } && session[:username].nil?
@@ -34,11 +31,6 @@ class App < Sinatra::Application
     else
       erb :menu
     end
-  end
-
-  # Fixea dirección del css para el browser cuando se juega 
-  get '/lesson/:id/play.css' do
-    redirect '/play.css'
   end
   
   get '/login' do
@@ -106,7 +98,7 @@ class App < Sinatra::Application
     end
   end
 
-  get '/lesson/:id' do
+  get '/learning/lesson/:id' do
     max_lesson_id = Lesson.maximum(:id)
     @lesson = Lesson.find_by(id: params[:id])
     
@@ -117,7 +109,7 @@ class App < Sinatra::Application
     end
   end
 
-  get '/lesson/:id/play' do
+  get '/learning/lesson/:id/play' do
     @lesson = Lesson.find(params[:id])
     @user = User.find_by(username: session[:username])
     progress = @user.progress
@@ -132,7 +124,7 @@ class App < Sinatra::Application
       if unanswered_questions.empty?
         progress.advance_to_next_lesson
         session[:completed_user_id] = @user.id
-        redirect "/lesson_completed"
+        redirect "/learning/lesson_completed"
       else
         @question = unanswered_questions.sample
         erb :play
@@ -140,7 +132,7 @@ class App < Sinatra::Application
     end
   end
 
-  get '/lesson_completed' do
+  get '/learning/lesson_completed' do
     if session[:completed_user_id]
       @user = User.find(session[:completed_user_id])
       session[:success] = nil
@@ -151,7 +143,7 @@ class App < Sinatra::Application
     end
   end
 
-  post '/lesson/:id/submit_answer' do
+  post '/learning/lesson/:id/submit_answer' do
     lesson = Lesson.find(params[:id])
     user = User.find_by(username: session[:username])
 
@@ -172,7 +164,7 @@ class App < Sinatra::Application
       session[:error] = 'wrong_answer'
     end
 
-    redirect "/lesson/#{params[:id]}/play"
+    redirect "/learning/lesson/#{params[:id]}/play"
   end
 
   get '/dashboard' do
@@ -190,13 +182,13 @@ class App < Sinatra::Application
     erb :dashboard
   end
   
-  get '/profile' do
+  get '/user/profile' do
     @user = User.find_by(username: session[:username])
     @progress = @user.progress
     erb :profile
   end
 
-  post '/change_password' do
+  post '/user/change_password' do
     @user = User.find_by(username: session[:username])
     @progress = @user.progress
     if @user.change_password(params[:current_password], params[:new_password], params[:confirm_new_password])
@@ -206,7 +198,7 @@ class App < Sinatra::Application
     end
   end
 
-  post '/change_email' do
+  post '/user/change_email' do
     @user = User.find_by(username: session[:username])
     @progress = @user.progress
     if @user.change_email(params[:new_email], params[:current_password])
@@ -216,7 +208,7 @@ class App < Sinatra::Application
     end
   end
 
-  post '/remove_account' do
+  post '/user/remove_account' do
     @user = User.find_by(username: session[:username])
     @progress = @user.progress
     
@@ -235,7 +227,7 @@ class App < Sinatra::Application
     erb :ranking
   end
 
-  get '/timetrial/start_game' do
+  get '/timetrial' do
     session[:streak] = 0
     session[:points] = 0
     session[:answered_questions] = []
@@ -286,7 +278,7 @@ class App < Sinatra::Application
     redirect '/timetrial/play'
   end
   
-  get '/end_game_time' do
+  get '/timetrial/end_game' do
     @user = User.find_by(username: session[:username])
     progress = @user.progress
   

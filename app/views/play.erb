@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Play <%= @lesson.name %></title>
-  <link type="text/css" rel="stylesheet" href="play.css">
+  <link type="text/css" rel="stylesheet" href="/play.css">
 </head>
 <body>
   <div class="container mt-5">
@@ -37,7 +37,7 @@
     <div class="content-container">
       <p class="content-text display-6"><%= @question.description %></p>
     </div>
-    <form id="lesson-form" action="/lesson/<%= @lesson.id %>/submit_answer" method="post" onsubmit="submit-button.disabled = true; return true;">
+    <form id="lesson-form" action="/learning/lesson/<%= @lesson.id %>/submit_answer" method="post" onsubmit="submit-button.disabled = true; return true;">
       <div class="options-container">
         <% @question.options.each do |option| %>
           <button type="button" class="option-btn" data-value="<%= option.id %>"><%= option.description %></button>
