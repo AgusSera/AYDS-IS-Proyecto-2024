@@ -149,12 +149,8 @@ p, a {
 .popup-close {
   float: right;
   cursor: pointer;
-  font-size: 20px;
-  color: #aaa;
-}
-
-.popup-close:hover {
-  color: #000;
+  font-size: 48px;
+  color: white;
 }
 
 .popup-overlay {

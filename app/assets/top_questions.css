@@ -15,6 +15,19 @@ h2 {
     margin-top: 2rem;
 }
 
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 48px;
+  color: white;
+  text-decoration: none;
+}
+
+.close-btn:hover {
+  text-decoration: none;
+  color: white;
+}
 
 form {
     background-color: #f8f9fa;
