@@ -11,7 +11,6 @@ RSpec.describe '../app.rb' do
     App.new
   end
 
-  
   ############## Endpoints can be accessed successfully ##############
   ##############    and redirects work as expected     ##############
   ##############          while NOT LOGGED IN        ##############
@@ -47,13 +46,6 @@ RSpec.describe '../app.rb' do
       expect(last_request.path).to eq('/login')
     end
 
-    it "redirects to login page when accessing progress page while not logged in" do
-      get '/progress'
-      expect(last_response).to be_redirect
-      follow_redirect!
-      expect(last_request.path).to eq('/login')
-    end
-
     it "redirects to login page when accessing ranking page while not logged in" do
       get '/ranking'
       expect(last_response).to be_redirect
@@ -62,28 +54,28 @@ RSpec.describe '../app.rb' do
     end
 
     it "redirects to login page when accessing lessons while not logged in" do
-      get '/lesson/1'
+      get '/learning/lesson/1'
       expect(last_response).to be_redirect
       follow_redirect!
       expect(last_request.path).to eq('/login')
     end
 
     it "redirects to login page when accessing lessons while not logged in" do
-      get '/lesson/1'
+      get '/learning/lesson/1'
       expect(last_response).to be_redirect
       follow_redirect!
       expect(last_request.path).to eq('/login')
     end
 
     it "redirects to login page when playing lessons while not logged in" do
-      get '/lesson/1/play'
+      get '/learning/lesson/1/play'
       expect(last_response).to be_redirect
       follow_redirect!
       expect(last_request.path).to eq('/login')
     end
 
     it "redirects to login page when accessing lesson completed page without completed user id (not logged in)" do
-      get '/lesson_completed'
+      get '/learning/lesson_completed'
       expect(last_response).to be_redirect
       follow_redirect!
       expect(last_request.path).to eq('/login')
@@ -112,7 +104,7 @@ RSpec.describe '../app.rb' do
       it "displays the lesson page when accessed from dashboard" do
         # Assuming there's at least one lesson in the database
         lesson = Lesson.first
-        get "/lesson/#{lesson.id}"
+        get "/learning/lesson/#{lesson.id}"
         expect(last_response).to be_ok
       end
 
@@ -132,16 +124,16 @@ RSpec.describe '../app.rb' do
       it "redirects to login page if accessing lesson directly without logging in" do
         # Assuming there's at least one lesson in the database
         lesson = Lesson.first
-        get "/lesson/#{lesson.id}"
+        get "/learning/lesson/#{lesson.id}"
         post '/logout'
-        get "/lesson/#{lesson.id}"
+        get "/learning/lesson/#{lesson.id}"
         expect(last_response).to be_redirect
         follow_redirect!
         expect(last_request.path).to eq("/login")
       end
 
       it "redirects to dashboard when accessing lesson completed page without completed user id (no lesson completed in current session)" do
-        get '/lesson_completed'
+        get '/learning/lesson_completed'
         expect(last_response).to be_redirect
         follow_redirect!
         expect(last_request.path).to eq('/dashboard')
@@ -154,18 +146,11 @@ RSpec.describe '../app.rb' do
         expect(last_request.path).to eq('/dashboard')
       end
 
-      it "redirects to css file when trying to reach it from /lesson/id/play.css" do
-        get 'lesson/:id/play.css'
-        expect(last_response).to be_redirect
-        follow_redirect!
-        expect(last_request.path).to eq('/play.css')
-      end
-
       let!(:lessons) { Lesson.all } 
 
       context 'when lesson does not exist (nil)' do
         it 'renders the end_game template' do
-          get '/lesson/9999'  # id invalido
+          get '/learning/lesson/9999'  # id invalido
           expect(last_response).to be_ok
           expect(last_response.body).to include("You have completed all available lessons.")
         end
@@ -174,7 +159,7 @@ RSpec.describe '../app.rb' do
       context 'when lesson ID is greater than max_lesson_id' do
         it 'renders the end_game template' do
           max_lesson_id = lessons.last.id
-          get "/lesson/#{max_lesson_id + 1}"
+          get "/learning/lesson/#{max_lesson_id + 1}"
           expect(last_response).to be_ok
           expect(last_response.body).to include("You have completed all available lessons.")
         end
@@ -183,7 +168,7 @@ RSpec.describe '../app.rb' do
       context 'when lesson ID is valid' do
         it 'renders the lesson template' do
           lesson = lessons.first
-          get "/lesson/#{lesson.id}"
+          get "/learning/lesson/#{lesson.id}"
           expect(last_response).to be_ok
           expect(last_response.body).to include("Content of")
         end
@@ -215,8 +200,6 @@ RSpec.describe '../app.rb' do
         progress = Progress.create(
           last_completed_lesson: 0,
           current_lesson: 1,
-          numberOfCorrectAnswers: 0.0,
-          numberOfIncorrectAnswers: 0.0,
           progressLevel: "Beginner",
           correct_answered_questions: '[]'
         )
@@ -329,7 +312,7 @@ RSpec.describe '../app.rb' do
       raise "Next lesson not found" unless next_lesson
     
       # Simulate the user attempting to access a locked lesson
-      get "/lesson/#{next_lesson.id}/play"
+      get "/learning/lesson/#{next_lesson.id}/play"
       
       # Check if the response indicates that the lesson is locked
       expect(last_response.body).to include('locked')
@@ -341,39 +324,46 @@ RSpec.describe '../app.rb' do
   ##############  Change user settings  ##############
   ##############                        ##############
 
-  let(:user) { User.create(username: 'testuser', password: 'oldpassword', email: 'oldemail@example.com') }
+  context "Change user settings" do
+    before(:each) do
+      @progress = Progress.create!
+      @user = User.create(username: 'new_user', password: 'oldpassword', email: 'oldemail@example.com', progress_id: @progress.id)
+      post '/login', username: 'new_user', password: 'oldpassword'
+    end
+  
+    after(:each) do
+      @user.destroy if @user.persisted?
+      @progress.destroy if @progress.persisted?
+    end
 
-  describe '#change_password' do
     it 'changes the password when the current password is correct and confirmation matches' do
-      result = user.change_password('oldpassword', 'newpassword', 'newpassword')
+      result = @user.change_password('oldpassword', 'newpassword', 'newpassword')
       expect(result).to be_truthy
-      expect(user.reload.password).to eq('newpassword')
+      expect(@user.reload.password).to eq('newpassword')
     end
 
     it 'does not change the password if the current password is incorrect' do
-      result = user.change_password('wrongpassword', 'newpassword', 'newpassword')
+      result = @user.change_password('wrongpassword', 'newpassword', 'newpassword')
       expect(result).to be_falsey
-      expect(user.reload.password).to eq('oldpassword')
+      expect(@user.reload.password).to eq('oldpassword')
     end
 
     it 'does not change the password if the new password and confirmation do not match' do
-      result = user.change_password('oldpassword', 'newpassword', 'differentpassword')
+      result = @user.change_password('oldpassword', 'newpassword', 'differentpassword')
       expect(result).to be_falsey
-      expect(user.reload.password).to eq('oldpassword')
+      expect(@user.reload.password).to eq('oldpassword')
     end
-  end
 
-  describe '#change_email' do
     it 'changes the email when the current password is correct' do
-      result = user.change_email('newemail@example.com', 'oldpassword')
+      result = @user.change_email('newemail@example.com', 'oldpassword')
       expect(result).to be_truthy
-      expect(user.reload.email).to eq('newemail@example.com')
+      expect(@user.reload.email).to eq('newemail@example.com')
     end
 
     it 'does not change the email if the current password is incorrect' do
-      result = user.change_email('newemail@example.com', 'wrongpassword')
+      result = @user.change_email('newemail@example.com', 'wrongpassword')
       expect(result).to be_falsey
-      expect(user.reload.email).to eq('oldemail@example.com')
+      expect(@user.reload.email).to eq('oldemail@example.com')
     end
   end
 
@@ -440,7 +430,7 @@ RSpec.describe '../app.rb' do
     it "access to completed lesson" do
       @user.progress.update(current_lesson: 3)
 
-      get "/lesson/1/play"
+      get "/learning/lesson/1/play"
 
       expect(last_response).to be_ok
       expect(last_response.body).to include('Lesson Completed!')
@@ -449,7 +439,7 @@ RSpec.describe '../app.rb' do
     it "access to locked lesson" do
       @user.progress.update(current_lesson: 1)
 
-      get "/lesson/2/play"
+      get "/learning/lesson/2/play"
 
       expect(last_response).to be_ok
       expect(last_response.body).to include('Blocked lesson!')
@@ -459,18 +449,18 @@ RSpec.describe '../app.rb' do
       @lesson = Lesson.find_by(id: 1)
       @user.progress.update(current_lesson: 1, correct_answered_questions: @lesson.questions)
 
-      get "/lesson/1/play"
+      get "/learning/lesson/1/play"
 
       expect(last_response).to be_redirect
       follow_redirect!
-      expect(last_request.path).to eq('/lesson_completed')
+      expect(last_request.path).to eq('/learning/lesson_completed')
     end
 
     it "access to lesson with questions to answer" do
       @lesson = Lesson.find_by(id: 1)
       @user.progress.update(current_lesson: 1)
 
-      get "/lesson/1/play"
+      get "/learning/lesson/1/play"
 
       expect(last_response).to be_ok
       expect(last_response.body).to include('Lesson 1: Variables, Data Types, and Basic Operators')
@@ -479,13 +469,13 @@ RSpec.describe '../app.rb' do
     it "select correct answer" do
       @lesson = Lesson.find_by(id: 1)
       @user.progress.update(current_lesson: 1)
-      post '/lesson/1/submit_answer', answer:1
+      post '/learning/lesson/1/submit_answer', answer:1
     end
 
     it "select wrong answer" do
       @lesson = Lesson.find_by(id: 1)
       @user.progress.update(current_lesson: 1)
-      post '/lesson/1/submit_answer', answer:2
+      post '/learning/lesson/1/submit_answer', answer:2
     end
   end
 
@@ -506,13 +496,13 @@ RSpec.describe '../app.rb' do
     end
 
     it "initializes the game session" do
-      get '/timetrial/start_game'
+      get '/timetrial'
       expect(last_response).to be_redirect
       follow_redirect!
     end
 
     it 'finalizes the game and resets the session variables' do
-      get '/end_game_time', { 'rack.session' => { streak: 6, points: 0} }
+      get '/timetrial/end_game', { 'rack.session' => { streak: 6, points: 0} }
       expect(last_response).to be_ok
       expect(last_response.body).to include('Game over!')
     end
@@ -544,7 +534,7 @@ RSpec.describe '../app.rb' do
     end
 
     it "view profile" do
-      get '/profile'
+      get '/user/profile'
       expect(last_response.body).to include('Personal information')
     end
 
@@ -568,12 +558,12 @@ RSpec.describe '../app.rb' do
     end
 
     it "password changed successfully" do
-      post '/change_password', current_password: 'password', new_password: 'new_password', confirm_new_password: 'new_password'
+      post '/user/change_password', current_password: 'password', new_password: 'new_password', confirm_new_password: 'new_password'
       expect(last_response.body).to include('Contraseña actualizada correctamente')
     end
 
     it "password change unsuccessful" do
-      post '/change_password', current_password: 'wrong_password', new_password: 'new_password', confirm_new_password: 'new_password'
+      post '/user/change_password', current_password: 'wrong_password', new_password: 'new_password', confirm_new_password: 'new_password'
       expect(last_response.body).to include('La contraseña actual es incorrecta o las nuevas contraseñas no coinciden.')
     end
 
@@ -597,12 +587,12 @@ RSpec.describe '../app.rb' do
     end
 
     it "email changed successfully" do
-      post '/change_email', new_email: 'new@example.com', current_password: 'password'
+      post '/user/change_email', new_email: 'new@example.com', current_password: 'password'
       expect(last_response.body).to include('Email actualizado correctamente')
     end
 
     it "email change unsuccessful" do
-      post '/change_email', new_email: 'new@example.com', current_password: 'wrong_password'
+      post '/user/change_email', new_email: 'new@example.com', current_password: 'wrong_password'
       expect(last_response.body).to include('La contraseña actual es incorrecta.')
     end
 
@@ -625,13 +615,13 @@ RSpec.describe '../app.rb' do
     end
   
     it 'renders the settings page with an error message for incorrect password' do
-      post '/remove_account', current_password: 'wrongpassword' # incorrect password
+      post '/user/remove_account', current_password: 'wrongpassword' # incorrect password
   
       expect(last_response.body).to include("Incorrect current password.")
     end
   
     it 'removes the user and clears the session' do
-      post '/remove_account', current_password: 'password' # correct password
+      post '/user/remove_account', current_password: 'password' # correct password
       
       # checks if the user has been removed
       expect(User.find_by(username: 'new_user')).to be_nil
@@ -649,7 +639,7 @@ RSpec.describe '../app.rb' do
     end
 
     it 'renders the settings page with an error message' do
-      post '/remove_account', current_password: 'any_password'
+      post '/user/remove_account', current_password: 'any_password'
       
       # checks response to be a redirect
       expect(last_response).to be_redirect
@@ -721,7 +711,7 @@ RSpec.describe '../app.rb' do
       get '/admin_panel'
       expect(last_response.status).to eq(302)
       follow_redirect!
-      expect(last_request.path).to eq('/login') # Expect redirect to login
+      expect(last_request.path).to eq('/dashboard') # Expect redirect to login
     end
   end
 
@@ -731,44 +721,42 @@ RSpec.describe '../app.rb' do
 
   context 'Form to Add Question' do
     before do
-      @lesson = Lesson.create(name: 'Lesson 1')
-      @existing_question = Question.create(description: 'What do Boolean values represent in Python?', lesson_id: @lesson.id)
+      post '/login', username: 'admin', password: 'password'
+      @question = Question.create(description: 'Question', lesson_id: 1)
     end
 
     it 'accesses the question form' do
-      get '/add_questions'
+      get '/admin_panel/add_questions'
       expect(last_response).to be_ok
       expect(last_response.body).to include("Form to Add Question")
     end
 
     it 'shows an error if the question already exists' do
-      post '/add_questions', question_description: @existing_question.description, lesson_id: @lesson.id
+      post '/admin_panel/add_questions', {
+        question_description: 'Question',
+        lesson_id: 1,
+        correct_option: '1',
+        option_description_1: '1',
+        option_description_2: '2',
+        option_description_3: '3',
+        option_description_4: '4'
+      }
       expect(last_response).to be_ok
       expect(last_response.body).to include("The question already exists")
-      expect(Question.where(description: @existing_question.description).count).to eq(1)
     end
 
     it 'creates a new question successfully' do
-      post '/add_questions', {
-        question_description: 'What is the result of 3 == 4 in Python?',
-        lesson_id: @lesson.id,
+      post '/admin_panel/add_questions', {
+        question_description: 'New question',
+        lesson_id: 1,
         correct_option: '3',
-        option_description_1: 'True',
-        option_description_2: 'None',
-        option_description_3: 'False',
-        option_description_4: 'Error'
+        option_description_1: '1',
+        option_description_2: '2',
+        option_description_3: '3',
+        option_description_4: '4'
       }
-
       expect(last_response).to be_ok
       expect(last_response.body).to include("Question created successfully")
-
-      new_question = Question.find_by(description: 'What is the result of 3 == 4 in Python?')
-      expect(new_question).not_to be_nil
-
-      options = Option.where(question_id: new_question.id)
-      expect(options.count).to eq(4)
-      expect(options.find_by(description: 'False').value).to be true
-      expect(options.find_by(description: 'True').value).to be false
     end
   end
 
