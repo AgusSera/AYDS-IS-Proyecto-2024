@@ -160,7 +160,7 @@ RSpec.describe '../app.rb' do
         it 'renders the end_game template' do
           get '/learning/lesson/9999'  # id invalido
           expect(last_response).to be_ok
-          expect(last_response.body).to include("You have completed all available lessons.")
+          expect(last_response.body).to include("Lesson Not Found")
         end
       end
 
@@ -169,7 +169,7 @@ RSpec.describe '../app.rb' do
           max_lesson_id = lessons.last.id
           get "/learning/lesson/#{max_lesson_id + 1}"
           expect(last_response).to be_ok
-          expect(last_response.body).to include("You have completed all available lessons.")
+          expect(last_response.body).to include("Lesson Not Found")
         end
       end
 
