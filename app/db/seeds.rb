@@ -1,4 +1,5 @@
 require_relative '../models/user'
+require_relative '../models/admin'
 require_relative '../models/option'
 require_relative '../models/question'
 require_relative '../models/lesson'
@@ -458,237 +459,228 @@ lessons_data = [
         ]
       }
     ]
-  },
-  
-  # Preguntas para el modo competitivo
+  }
+]
+
+# Preguntas para el modo competitivo
+questions_timetrial = [
   {
-    no_lesson: true, 
-      questions: [
-        {
-          description: "Which of the following is a valid variable name in Python?",
-          options: [
-            { description: "_variable", value: true },
-            { description: "2variable", value: false },
-            { description: "variable-name", value: false },
-            { description: "variable.name", value: false }
-          ]
-        },
-        {
-          description: "What is the result of the following code? x = 5 + 3 * 2",
-          options: [
-            { description: "11", value: true },
-            { description: "16", value: false },
-            { description: "10", value: false },
-            { description: "13", value: false }
-          ]
-        },
-        {
-          description: "Which of the following is NOT a built-in data type in Python?",
-          options: [
-            { description: "List", value: false },
-            { description: "Dictionary", value: false },
-            { description: "Array", value: true },
-            { description: "Tuple", value: false }
-          ]
-        },
-        {
-          description: "What is the result of the following operation in Python? 10 % 3",
-          options: [
-            { description: "1", value: true },
-            { description: "3", value: false },
-            { description: "0", value: false },
-            { description: "10", value: false }
-          ]
-        },
-        {
-          description: "Which of the following keywords is used to define a function in Python?",
-          options: [
-            { description: "function", value: false },
-            { description: "def", value: true },
-            { description: "func", value: false },
-            { description: "define", value: false }
-          ]
-        },
-        {
-          description: "Which of the following is a logical operator in Python?",
-          options: [
-            { description: "and", value: true },
-            { description: "+", value: false },
-            { description: "*", value: false },
-            { description: "=", value: false }
-          ]
-        },
-        {
-          description: "What does the expression 3 == 3 evaluate to in Python?",
-          options: [
-            { description: "True", value: true },
-            { description: "False", value: false },
-            { description: "None", value: false },
-            { description: "Error", value: false }
-          ]
-        },
-        {
-          description: "What will be the result of this code? print(10 // 3)",
-          options: [
-            { description: "3", value: true },
-            { description: "3.33", value: false },
-            { description: "3.0", value: false },
-            { description: "4", value: false }
-          ]
-        },
-        {
-          description: "What does the following expression return in Python? len([1, 2, 3, 4])",
-          options: [
-            { description: "4", value: true },
-            { description: "3", value: false },
-            { description: "5", value: false },
-            { description: "Error", value: false }
-          ]
-        },
-        {
-          description: "What is the correct syntax for a while loop in Python?",
-          options: [
-            { description: "while (condition):", value: true },
-            { description: "while condition do:", value: false },
-            { description: "while {condition}:", value: false },
-            { description: "while condition:", value: false }
-          ]
-        },
-        {
-          description: "What will be the result of the following code? for i in range(1, 4): print(i)",
-          options: [
-            { description: "1 2 3", value: true },
-            { description: "0 1 2 3", value: false },
-            { description: "2 3 4", value: false },
-            { description: "Error", value: false }
-          ]
-        },
-        {
-          description: "Which of the following statements will exit a loop in Python?",
-          options: [
-            { description: "continue", value: false },
-            { description: "pass", value: false },
-            { description: "break", value: true },
-            { description: "stop", value: false }
-          ]
-        },
-        {
-          description: "What is the output of the following code? for i in range(4): if i == 2: break print(i)",
-          options: [
-            { description: "0 1", value: true },
-            { description: "0 1 2", value: false },
-            { description: "0 1 2 3", value: false },
-            { description: "No output", value: false }
-          ]
-        },
-        {
-          description: "What will happen if the condition in a while loop is never false?",
-          options: [
-            { description: "The loop will run infinitely.", value: true },
-            { description: "The loop will run once.", value: false },
-            { description: "The program will crash.", value: false },
-            { description: "An error will occur.", value: false }
-          ]
-        },
-        {
-          description: "What is the difference between the 'continue' and 'break' keywords in Python?",
-          options: [
-            { description: "'continue' skips the current iteration, 'break' exits the loop.", value: true },
-            { description: "'break' skips the current iteration, 'continue' exits the loop.", value: false },
-            { description: "Both are used to exit the loop.", value: false },
-            { description: "There is no difference between them.", value: false }
-          ]
-        },
-        {
-          description: "What is the output of this code? if 10 > 5: print('Ten is greater than five') else: print('Five is greater')",
-          options: [
-            { description: "Ten is greater than five", value: true },
-            { description: "Five is greater", value: false },
-            { description: "No output", value: false },
-            { description: "Error", value: false }
-          ]
-        },
-        {
-          description: "Which of the following keywords is used to skip the rest of the code in the current iteration of a loop?",
-          options: [
-            { description: "continue", value: true },
-            { description: "break", value: false },
-            { description: "pass", value: false },
-            { description: "exit", value: false }
-          ]
-        },
-        {
-          description: "How can we specify a default value for a parameter in a Python function?",
-          options: [
-            { description: "def my_func(param=default_value):", value: true },
-            { description: "def my_func(default_value param):", value: false },
-            { description: "def my_func(param=):", value: false },
-            { description: "def my_func(default=param):", value: false }
-          ]
-        },
-        {
-          description: "How can you import only specific functions from a module in Python?",
-          options: [
-            { description: "from module import function", value: true },
-            { description: "include function from module", value: false },
-            { description: "require module.function", value: false },
-            { description: "import function from module", value: false }
-          ]
-        },
-        {
-          description: "What will happen if a function with no return statement is called?",
-          options: [
-            { description: "The function will return 'None'.", value: true },
-            { description: "The function will cause an error.", value: false },
-            { description: "The function will return the value 'False'.", value: false },
-            { description: "The function will return the last computed value.", value: false }
-          ]
-        },
-        {
-          description: "Which keyword allows importing all functions and variables from a module?",
-          options: [
-            { description: "from module import *", value: true },
-            { description: "import all from module", value: false },
-            { description: "require module.all", value: false },
-            { description: "include module", value: false }
-          ]
-        },
-        {
-          description: "What is the difference between parameters and arguments in Python functions?",
-          options: [
-            { description: "Parameters are variables in the function definition, arguments are the actual values passed.", value: true },
-            { description: "Parameters and arguments are the same.", value: false },
-            { description: "Arguments define the function, parameters are passed to the function.", value: false },
-            { description: "Arguments are declared in the function, parameters are passed.", value: false }
-          ]
-        },
-        {
-          description: "What does the 'global' keyword do inside a function in Python?",
-          options: [
-            { description: "It allows a function to modify a global variable.", value: true },
-            { description: "It imports global modules automatically.", value: false },
-            { description: "It restricts a function to use local variables only.", value: false },
-            { description: "It creates a global scope inside the function.", value: false }
-          ]
-        }
-      ]
+    description: "Which of the following is a valid variable name in Python?",
+    options: [
+      { description: "_variable", value: true },
+      { description: "2variable", value: false },
+      { description: "variable-name", value: false },
+      { description: "variable.name", value: false }
+    ]
+  },
+  {
+    description: "What is the result of the following code? x = 5 + 3 * 2",
+    options: [
+      { description: "11", value: true },
+      { description: "16", value: false },
+      { description: "10", value: false },
+      { description: "13", value: false }
+    ]
+  },
+  {
+    description: "Which of the following is NOT a built-in data type in Python?",
+    options: [
+      { description: "List", value: false },
+      { description: "Dictionary", value: false },
+      { description: "Array", value: true },
+      { description: "Tuple", value: false }
+    ]
+  },
+  {
+    description: "What is the result of the following operation in Python? 10 % 3",
+    options: [
+      { description: "1", value: true },
+      { description: "3", value: false },
+      { description: "0", value: false },
+      { description: "10", value: false }
+    ]
+  },
+  {
+    description: "Which of the following keywords is used to define a function in Python?",
+    options: [
+      { description: "function", value: false },
+      { description: "def", value: true },
+      { description: "func", value: false },
+      { description: "define", value: false }
+    ]
+  },
+  {
+    description: "Which of the following is a logical operator in Python?",
+    options: [
+      { description: "and", value: true },
+      { description: "+", value: false },
+      { description: "*", value: false },
+      { description: "=", value: false }
+    ]
+  },
+  {
+    description: "What does the expression 3 == 3 evaluate to in Python?",
+    options: [
+      { description: "True", value: true },
+      { description: "False", value: false },
+      { description: "None", value: false },
+      { description: "Error", value: false }
+    ]
+  },
+  {
+    description: "What will be the result of this code? print(10 // 3)",
+    options: [
+      { description: "3", value: true },
+      { description: "3.33", value: false },
+      { description: "3.0", value: false },
+      { description: "4", value: false }
+    ]
+  },
+  {
+    description: "What does the following expression return in Python? len([1, 2, 3, 4])",
+    options: [
+      { description: "4", value: true },
+      { description: "3", value: false },
+      { description: "5", value: false },
+      { description: "Error", value: false }
+    ]
+  },
+  {
+    description: "What is the correct syntax for a while loop in Python?",
+    options: [
+      { description: "while (condition):", value: true },
+      { description: "while condition do:", value: false },
+      { description: "while {condition}:", value: false },
+      { description: "while condition:", value: false }
+    ]
+  },
+  {
+    description: "What will be the result of the following code? for i in range(1, 4): print(i)",
+    options: [
+      { description: "1 2 3", value: true },
+      { description: "0 1 2 3", value: false },
+      { description: "2 3 4", value: false },
+      { description: "Error", value: false }
+    ]
+  },
+  {
+    description: "Which of the following statements will exit a loop in Python?",
+    options: [
+      { description: "continue", value: false },
+      { description: "pass", value: false },
+      { description: "break", value: true },
+      { description: "stop", value: false }
+    ]
+  },
+  {
+    description: "What is the output of the following code? for i in range(4): if i == 2: break print(i)",
+    options: [
+      { description: "0 1", value: true },
+      { description: "0 1 2", value: false },
+      { description: "0 1 2 3", value: false },
+      { description: "No output", value: false }
+    ]
+  },
+  {
+    description: "What will happen if the condition in a while loop is never false?",
+    options: [
+      { description: "The loop will run infinitely.", value: true },
+      { description: "The loop will run once.", value: false },
+      { description: "The program will crash.", value: false },
+      { description: "An error will occur.", value: false }
+    ]
+  },
+  {
+    description: "What is the difference between the 'continue' and 'break' keywords in Python?",
+    options: [
+      { description: "'continue' skips the current iteration, 'break' exits the loop.", value: true },
+      { description: "'break' skips the current iteration, 'continue' exits the loop.", value: false },
+      { description: "Both are used to exit the loop.", value: false },
+      { description: "There is no difference between them.", value: false }
+    ]
+  },
+  {
+    description: "What is the output of this code? if 10 > 5: print('Ten is greater than five') else: print('Five is greater')",
+    options: [
+      { description: "Ten is greater than five", value: true },
+      { description: "Five is greater", value: false },
+      { description: "No output", value: false },
+      { description: "Error", value: false }
+    ]
+  },
+  {
+    description: "Which of the following keywords is used to skip the rest of the code in the current iteration of a loop?",
+    options: [
+      { description: "continue", value: true },
+      { description: "break", value: false },
+      { description: "pass", value: false },
+      { description: "exit", value: false }
+    ]
+  },
+  {
+    description: "How can we specify a default value for a parameter in a Python function?",
+    options: [
+      { description: "def my_func(param=default_value):", value: true },
+      { description: "def my_func(default_value param):", value: false },
+      { description: "def my_func(param=):", value: false },
+      { description: "def my_func(default=param):", value: false }
+    ]
+  },
+  {
+    description: "How can you import only specific functions from a module in Python?",
+    options: [
+      { description: "from module import function", value: true },
+      { description: "include function from module", value: false },
+      { description: "require module.function", value: false },
+      { description: "import function from module", value: false }
+    ]
+  },
+  {
+    description: "What will happen if a function with no return statement is called?",
+    options: [
+      { description: "The function will return 'None'.", value: true },
+      { description: "The function will cause an error.", value: false },
+      { description: "The function will return the value 'False'.", value: false },
+      { description: "The function will return the last computed value.", value: false }
+    ]
+  },
+  {
+    description: "Which keyword allows importing all functions and variables from a module?",
+    options: [
+      { description: "from module import *", value: true },
+      { description: "import all from module", value: false },
+      { description: "require module.all", value: false },
+      { description: "include module", value: false }
+    ]
+  },
+  {
+    description: "What is the difference between parameters and arguments in Python functions?",
+    options: [
+      { description: "Parameters are variables in the function definition, arguments are the actual values passed.", value: true },
+      { description: "Parameters and arguments are the same.", value: false },
+      { description: "Arguments define the function, parameters are passed to the function.", value: false },
+      { description: "Arguments are declared in the function, parameters are passed.", value: false }
+    ]
+  },
+  {
+    description: "What does the 'global' keyword do inside a function in Python?",
+    options: [
+      { description: "It allows a function to modify a global variable.", value: true },
+      { description: "It imports global modules automatically.", value: false },
+      { description: "It restricts a function to use local variables only.", value: false },
+      { description: "It creates a global scope inside the function.", value: false }
+    ]
   }
 ]
 
 # Crear lecciones, preguntas y opciones
 lessons_data.each do |lesson_data|
-
   lesson = Lesson.find_or_create_by(name: lesson_data[:name]) do |l|
-
     l.content = lesson_data[:content]
-
   end
 
   lesson_data[:questions].each do |question_data|
-
-    lesson_id = lesson_data[:no_lesson] ? nil : lesson.id
-
-    question = Question.find_or_create_by(description: question_data[:description], lesson_id: lesson_id)
+    question = Question.find_or_create_by(description: question_data[:description], lesson_id: lesson.id)
 
     question_data[:options].each do |option_data|
       Option.find_or_create_by(description: option_data[:description], question_id: question.id) do |option|
@@ -698,16 +690,34 @@ lessons_data.each do |lesson_data|
   end
 end
 
+#Crear Preguntas modo Contrarreloj
+questions_timetrial.each do |question_data|
+  question = Question.find_or_create_by(description: question_data[:description], lesson_id: nil)
+  question_data[:options].each do |option_data|
+    Option.find_or_create_by(description: option_data[:description], question_id: question.id) do |option|
+      option.value = option_data[:value]
+    end
+  end
+end
+
 # Crear usuario de ejemplo
 ActiveRecord::Base.transaction do
 
-  progress = Progress.create(current_lesson: 1)
-  
+  userProgress = Progress.create(current_lesson: 1)
+  adminProgress = Progress.create(current_lesson: 1)
+
   user = User.find_or_initialize_by(username: 'usuario')
-  
+  admin = Admin.find_or_initialize_by(username: 'admin')
+
   user.update!(
     password: 'password',
     email: 'usuario@example.com',
-    progress_id: progress.id
+    progress: userProgress
+  )
+
+  admin.update!(
+    password: 'password',
+    email: 'admin@example.com',
+    progress: adminProgress
   )
 end

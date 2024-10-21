@@ -16,7 +16,7 @@
             <h1 class="h1">Content of <%= @lesson.name %></h1>
         </div>
         <div class="button-container mb-5">
-            <form action="/lesson/<%= @lesson.id %>/play" method="get">
+            <form action="/learning/lesson/<%= @lesson.id %>/play" method="get">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-play"></i> Play </button>
             </form>
             <form action="/" method="get">
