@@ -16,7 +16,7 @@ require './models/progress'
 class App < Sinatra::Application
 
   # Lista de rutas protegidas
-  protected_routes = ['/dashboard', %r{/user/.*}, %r{/learning/.*}, '/ranking', %r{/admin-panel/.*}, %r{/timetrial/.*}]
+  protected_routes = ['/dashboard', %r{/user/.*}, %r{/learning/.*}, '/ranking', %r{/admin_panel/?.*}, %r{/timetrial/.*}]
 
   before do
     if protected_routes.any? { |route| route === request.path_info } && session[:username].nil?
