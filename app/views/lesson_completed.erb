@@ -10,15 +10,11 @@
   <div class="container">
     <h1>Lesson Completed!</h1>
     <p>Congratulations, you have finished this lesson.</p>
-    <p>You can continue to the next lesson or go back to the dashboard.</p>
     <div class="button-container">
-            <form action="/learning/lesson/<%= @user.progress.current_lesson %>" method="get">
-                <button type="submit" class="btn btn-primary play-button" id="play-button"> Next lesson </button>
-            </form>
-            <form action="/" method="get">
-                <button type="submit" class="btn btn-secondary" id="go-back"> Go Back </button>
-            </form>
-        </div>
+      <form action="/" method="get">
+        <button type="submit" class="btn btn-secondary" id="go-back"> Go Back </button>
+      </form>
+    </div>
   </div>
 </body>
 </html>
