@@ -332,39 +332,46 @@ RSpec.describe '../app.rb' do
   ##############  Change user settings  ##############
   ##############                        ##############
 
-  let(:user) { User.create(username: 'testuser', password: 'oldpassword', email: 'oldemail@example.com') }
+  context "Change user settings" do
+    before(:each) do
+      @progress = Progress.create!
+      @user = User.create(username: 'new_user', password: 'oldpassword', email: 'oldemail@example.com', progress_id: @progress.id)
+      post '/login', username: 'new_user', password: 'oldpassword'
+    end
+  
+    after(:each) do
+      @user.destroy if @user.persisted?
+      @progress.destroy if @progress.persisted?
+    end
 
-  describe '#change_password' do
     it 'changes the password when the current password is correct and confirmation matches' do
-      result = user.change_password('oldpassword', 'newpassword', 'newpassword')
+      result = @user.change_password('oldpassword', 'newpassword', 'newpassword')
       expect(result).to be_truthy
-      expect(user.reload.password).to eq('newpassword')
+      expect(@user.reload.password).to eq('newpassword')
     end
 
     it 'does not change the password if the current password is incorrect' do
-      result = user.change_password('wrongpassword', 'newpassword', 'newpassword')
+      result = @user.change_password('wrongpassword', 'newpassword', 'newpassword')
       expect(result).to be_falsey
-      expect(user.reload.password).to eq('oldpassword')
+      expect(@user.reload.password).to eq('oldpassword')
     end
 
     it 'does not change the password if the new password and confirmation do not match' do
-      result = user.change_password('oldpassword', 'newpassword', 'differentpassword')
+      result = @user.change_password('oldpassword', 'newpassword', 'differentpassword')
       expect(result).to be_falsey
-      expect(user.reload.password).to eq('oldpassword')
+      expect(@user.reload.password).to eq('oldpassword')
     end
-  end
 
-  describe '#change_email' do
     it 'changes the email when the current password is correct' do
-      result = user.change_email('newemail@example.com', 'oldpassword')
+      result = @user.change_email('newemail@example.com', 'oldpassword')
       expect(result).to be_truthy
-      expect(user.reload.email).to eq('newemail@example.com')
+      expect(@user.reload.email).to eq('newemail@example.com')
     end
 
     it 'does not change the email if the current password is incorrect' do
-      result = user.change_email('newemail@example.com', 'wrongpassword')
+      result = @user.change_email('newemail@example.com', 'wrongpassword')
       expect(result).to be_falsey
-      expect(user.reload.email).to eq('oldemail@example.com')
+      expect(@user.reload.email).to eq('oldemail@example.com')
     end
   end
 
