@@ -99,26 +99,39 @@ class App < Sinatra::Application
   end
 
   get '/learning/lesson/:id' do
+    @user = User.find_by(username: session[:username])
+    progress = @user.progress
+
+    lesson_id = params[:id].to_i
     max_lesson_id = Lesson.maximum(:id)
-    @lesson = Lesson.find_by(id: params[:id])
-    
-    if @lesson.nil? || @lesson.id > max_lesson_id
-      erb :end_game_learn
+
+    case
+    when lesson_id > max_lesson_id || lesson_id <= 0
+      erb :lesson_not_found
+    when lesson_id > progress.current_lesson
+      erb :lesson_locked
     else
+      @lesson = Lesson.find_by(id: lesson_id)
       erb :lesson
     end
   end
 
   get '/learning/lesson/:id/play' do
-    @lesson = Lesson.find(params[:id])
     @user = User.find_by(username: session[:username])
     progress = @user.progress
-  
-    if @lesson.id < progress.current_lesson
+
+    max_lesson_id = Lesson.maximum(:id)
+    lesson_id = params[:id].to_i
+
+    case
+    when lesson_id > max_lesson_id || lesson_id <= 0
+      erb :lesson_not_found
+    when lesson_id < progress.current_lesson
       erb :lesson_completed
-    elsif @lesson.id > progress.current_lesson
+    when lesson_id > progress.current_lesson
       erb :lesson_locked
-    elsif @lesson.id == progress.current_lesson
+    else
+      @lesson = Lesson.find(params[:id])
       unanswered_questions = @lesson.questions.where.not(id: progress.correct_answered_questions)
   
       if unanswered_questions.empty?
@@ -297,7 +310,7 @@ class App < Sinatra::Application
   end
 
   get '/admin_panel/top_questions' do
-    
+    authorize_admin!
     @n = params[:n].to_i
     @m = params[:m].to_i
     
@@ -308,10 +321,6 @@ class App < Sinatra::Application
     
     @top_correct_questions = Question.order(correct_answers_count: :desc).limit(@m)
 
-    puts @top_incorrect_questions.inspect # Para ver qué preguntas se están recuperando
-    puts @top_correct_questions.inspect # Para ver qué preguntas se están recuperando
-
-    
     erb :top_questions
   end
   
