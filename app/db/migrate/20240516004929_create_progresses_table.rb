@@ -5,8 +5,8 @@ class CreateProgressesTable < ActiveRecord::Migration[7.1]
     create_table :progresses do |t|
       t.integer :last_completed_lesson, null: false, default: 0
       t.integer :current_lesson, null: false, default: 1
-      t.string :progressLevel, null: false, default: "Beginner"
-      t.text    "correct_answered_questions", default: '[]'
+      t.string :progressLevel, null: false, default: 'Beginner'
+      t.text    'correct_answered_questions', default: '[]'
       t.integer :points, null: false, default: 0
       t.integer :streak, null: false, default: 0
 
@@ -15,4 +15,3 @@ class CreateProgressesTable < ActiveRecord::Migration[7.1]
     end
   end
 end
-

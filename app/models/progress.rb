@@ -4,22 +4,18 @@ class Progress < ActiveRecord::Base
 
   # Define los niveles de progreso
   PROGRESS_LEVELS = {
-    1 => "Junior",
-    2 => "Semi-Senior",
-    3 => "Senior"
+    1 => 'Junior',
+    2 => 'Semi-Senior',
+    3 => 'Senior'
   }
 
   def act(new_points, new_streak)
     new_points ||= 0
     new_streak ||= 0
 
-    if new_points > self.points
-      self.points = new_points
-    end
+    self.points = new_points if new_points > points
 
-    if new_streak > self.streak
-      self.streak = new_streak
-    end
+    self.streak = new_streak if new_streak > streak
     save
   end
 
@@ -48,7 +44,6 @@ class Progress < ActiveRecord::Base
 
   # Método privado para calcular el nivel de progreso
   def calculate_progress_level
-    PROGRESS_LEVELS[self.last_completed_lesson] || "Beginner"
+    PROGRESS_LEVELS[self.last_completed_lesson] || 'Beginner'
   end
 end
-

@@ -6,7 +6,7 @@ class CreateOptionsTable < ActiveRecord::Migration[7.1]
       # OJO!
       t.boolean :value
       t.string :description
-      t.references :question, foreign_key: true      
+      t.references :question, foreign_key: true
 
       t.datetime :created_at
       t.datetime :updated_at
