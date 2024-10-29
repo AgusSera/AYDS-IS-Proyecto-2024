@@ -629,7 +629,7 @@ questions_timetrial = [
     ]
   },
   {
-    description: 'Which of this keywords is used to skip the rest of the code in the current iteration of a loop?',
+    description: 'Which of the following keywords is used to skip the rest of the code in the current iteration of a loop?',
     options: [
       { description: 'continue', value: true },
       { description: 'break', value: false },
