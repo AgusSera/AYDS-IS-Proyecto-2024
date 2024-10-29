@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV['APP_ENV'] = 'test'
 require 'rspec'
 require 'rack/test'
@@ -10,7 +12,6 @@ RSpec.describe '../app.rb' do
   def app
     App.new
   end
-
 
   ############## Endpoints can be accessed successfully ##############
   ##############    and redirects work as expected     ##############
@@ -122,7 +123,6 @@ RSpec.describe '../app.rb' do
       follow_redirect!
       expect(last_request.path).to eq('/login')
     end
-
 
     it 'displays the ranking page' do
       get '/ranking'
@@ -382,7 +382,6 @@ RSpec.describe '../app.rb' do
     end
   end
 
-
   ##############                        ##############
   ##############        Progress        ##############
   ##############                        ##############
@@ -421,7 +420,6 @@ RSpec.describe '../app.rb' do
       expect(progress.streak).to eq(4)
     end
   end
-
 
   ##############                        ##############
   ##############          GAME          ##############

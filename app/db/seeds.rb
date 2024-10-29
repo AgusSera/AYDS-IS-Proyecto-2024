@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../models/user'
 require_relative '../models/admin'
 require_relative '../models/option'
@@ -8,18 +10,19 @@ require_relative '../models/progress'
 lessons_data = [
   {
     name: 'Lesson 1: Variables, Data Types, and Basic Operators',
-    content: 'In this lesson, we will learn about variables, data types, and basic operators. These concepts are fundamental to start your programming journey. Each concept will be explained using Python.
+    content: 'In this lesson, we will learn about variables, data types, and basic operators.
     <hr>
     ### Variables
-    A variable is a space in memory used to store data that can change during the execution of the program. In Python, it is not necessary to declare the type of a variable before using it. You simply assign a value to a variable using the equal sign (=).
+   A variable is a memory space used to store data that can change during program execution.
+   In Python, you don’t need to declare the variable type before using it; simply assign a value with the equal (=).
     ```# Example of variable declaration
     name = "John"
     age = 25
-    is_student = True```
-    In the example above, we have declared three variables: name, age, and is_student, and assigned values of different types to them.
+    ```
+    In this example, we have declared three variables: name and age. And assigned values of different types to them.
     <hr>
     ### Data Types
-    Python has several built-in data types that can be used for different purposes. Some of the most common data types are:
+    Python has several built-in data types. Some of the most common data types are:
     • Integers (int): Whole numbers, like 10, -3, 0.
     • Floating-point numbers (float): Numbers with decimals, like 3.14, -2.5, 0.0.
     • Strings (str): Sequences of characters, like "Hello", "Python".
@@ -165,7 +168,7 @@ lessons_data = [
   },
   {
     name: 'Lesson 2: Control Structures and Loops',
-    content: 'In this lesson, we will learn about control structures and loops in Python. Control structures allow us to control the flow of execution of a program, while loops allow us to repeat certain actions.
+    content: 'In this lesson, we will learn about control structures and loops in Python.
     <hr>
     ## Control Structures
     #### If-Else
@@ -195,7 +198,7 @@ lessons_data = [
 
     ## Loops
     #### For Loop
-    The for loop is used to iterate over a sequence (such as a list, tuple, or range) and execute a block of code for each element in the sequence.
+    The for loop is used to iterate over a sequence and execute a block of code for each element in the sequence.
     ```# Example of if-elif-else statement
     grade = 75
 
@@ -218,7 +221,7 @@ lessons_data = [
         counter += 1```
     <hr>
 
-    With these control structures and loops, you can control the flow of execution of your program and perform repetitive tasks efficiently in Python. Practice writing and executing code to familiarize yourself with these fundamental programming concepts!',
+    With these control structures and loops, you can control the flow of execution of your program in Python!',
     questions: [
       {
         description: 'What is the correct structure for an if contidional in Python?',
@@ -260,14 +263,20 @@ lessons_data = [
         description: 'What is the main difference between a "while" and a "for" loop in Python?',
         options: [
           {
-            description: '"while" is used to iterate for as long as the condition holds true, while "for" is utilized to iterate over a sequence of elements.', value: true
-          },
-          { description: '"while" y "for" are synonyms and both can be used indistinctively.', value: false },
-          {
-            description: '"for" is utilized for infinite loops and "while" is utilized for loops with a finite number of iterations.', value: false
+            description: '"while" iterates as long as the condition is true, "for" iterates over a sequence of items.',
+            value: true
           },
           {
-            description: '"for" is only used to iterate over the elements of a list, meanwhile a "while" structure is utilized for other kinds of data structures.', value: false
+            description: '"while" and "for" are synonyms and both can be used indistinctively.',
+            value: false
+          },
+          {
+            description: '"for" is used for infinite loops, "while" is for loops with a finite number of iterations.',
+            value: false
+          },
+          {
+            description: '"for" is only used to iterate over a list, while "while" is used for other data structures.',
+            value: false
           }
         ]
       },
@@ -290,7 +299,7 @@ lessons_data = [
         ]
       },
       {
-        description: 'What is the output of the following code? counter = 3 while counter < 3: print(counter) counter += 1',
+        description: 'What is the output of this code? counter = 3 while counter < 3: print(counter) counter += 1',
         options: [
           { description: '0 1 2', value: false },
           { description: '1 2 3', value: false },
@@ -299,10 +308,10 @@ lessons_data = [
         ]
       },
       {
-        description: 'What will be the output of this code? if 5 > 3: print("Five is greater") else: print("Three is greater")',
+        description: 'What will be the output of this code? if 5 > 3: print("Nice") else: print("Great")',
         options: [
-          { description: 'Five is greater', value: true },
-          { description: 'Three is greater', value: false },
+          { description: 'Nice', value: true },
+          { description: 'Great', value: false },
           { description: 'Error', value: false },
           { description: 'No output', value: false }
         ]
@@ -312,7 +321,7 @@ lessons_data = [
         options: [
           { description: 'Stops the loop entirely.', value: false },
           {
-            description: 'Skips the rest of the code inside the loop for the current iteration and moves to the next iteration.', value: true
+            description: 'Skips the rest of the code inside the loop and moves to the next iteration.', value: true
           },
           { description: 'Restarts the loop from the beginning.', value: false },
           { description: 'Exits the current function.', value: false }
@@ -322,11 +331,12 @@ lessons_data = [
   },
   {
     name: 'Lesson 3: Functions and Modules',
-    content: 'In this lesson, we will delve into the concepts of functions and modules in Python. Functions allow us to encapsulate a set of instructions into a reusable block of code, while modules enable us to organize related functions and variables into separate files for better code organization and reusability.
+    content: 'In this lesson, we will delve into the concepts of functions and modules in Python.
     <hr>
     ## Functions
     #### Defining Functions
-    A function in Python is defined using the def keyword, followed by the function name and parentheses containing any parameters the function requires. The function body is then indented.
+    A function in Python is defined with the def keyword, followed by the function name and parentheses for parameters.
+    The body of the function is indented.
     ```# Example of defining a function
     def greet(name):
         """This function greets the user."""
@@ -346,7 +356,8 @@ lessons_data = [
     <hr>
     ## Modules
     #### Creating Modules
-    A module is a file containing Python code. It can define functions, classes, and variables. To create a module, simply save your Python code in a file with a .py extension.
+    A module is a file containing Python code. It can define functions, classes, and variables.
+    To create a module, simply save your Python code in a file with a .py extension.
     ```# Example of a module saved as mymodule.py
 
     def greet(name):
@@ -374,7 +385,7 @@ lessons_data = [
 
     m.greet("Dave")```
     <hr>
-    With functions and modules, you can write organized and reusable code in Python. Practice defining functions, creating modules, and importing them to understand these fundamental concepts better!',
+    With functions and modules, you can write organized and reusable code in Python.',
     questions: [
       {
         description: 'How can we define a function in Python?',
@@ -609,16 +620,16 @@ questions_timetrial = [
     ]
   },
   {
-    description: "What is the output of this code? if 10 > 5: print('Ten is greater than five') else: print('Five is greater')",
+    description: "What is the output of this code? if 10 > 5: print('Nice') else: print('Great')",
     options: [
-      { description: 'Ten is greater than five', value: true },
-      { description: 'Five is greater', value: false },
+      { description: 'Nice', value: true },
+      { description: 'Great', value: false },
       { description: 'No output', value: false },
       { description: 'Error', value: false }
     ]
   },
   {
-    description: 'Which of the following keywords is used to skip the rest of the code in the current iteration of a loop?',
+    description: 'Which of this keywords is used to skip the rest of the code in the current iteration of a loop?',
     options: [
       { description: 'continue', value: true },
       { description: 'break', value: false },

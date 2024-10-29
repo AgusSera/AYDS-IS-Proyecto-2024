@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'sinatra/activerecord'
 require_relative 'helpers'
@@ -47,7 +49,7 @@ class App < Sinatra::Application
 
     user = User.find_by(username: username)
 
-    if user && user.authenticate(password)
+    if user&.authenticate(password)
       session[:username] = user.username
       redirect '/dashboard'
     else
@@ -223,7 +225,7 @@ class App < Sinatra::Application
     @user = User.find_by(username: session[:username])
     @progress = @user.progress
 
-    if @user && @user.authenticate(params[:current_password])
+    if @user&.authenticate(params[:current_password])
       @user.destroy
       session.clear
       redirect '/'
@@ -319,7 +321,6 @@ class App < Sinatra::Application
 
     erb :top_questions
   end
-
 
   get '/admin_panel' do
     authorize_admin!

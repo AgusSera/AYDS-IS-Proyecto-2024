@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Progress < ActiveRecord::Base
   # relacion 1 a 1 con Progress en la tabla Progress
   has_one :user
@@ -7,7 +9,7 @@ class Progress < ActiveRecord::Base
     1 => 'Junior',
     2 => 'Semi-Senior',
     3 => 'Senior'
-  }
+  }.freeze
 
   def act(new_points, new_streak)
     new_points ||= 0

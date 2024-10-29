@@ -1,5 +1,15 @@
-# OK!
+# frozen_string_literal: true
 
+# Migration to create the users table. This table stores user information,
+# including the user's type, username, email, and password_digest for authentication.
+# Fields:
+# - type: Specifies the type of user, defaults to 'User'. It can be Admin or User
+# - username: Stores the unique username of the user
+# - email: Stores the unique email address of the user
+# - password_digest: Stores the password hash for secure authentication
+# - progress_id: References the user's progress, with a foreign key constraint
+# Indexes:
+# - Adds unique indexes on username and email to prevent duplicates
 class CreateUsersTable < ActiveRecord::Migration[7.1]
   def change
     create_table :users do |t|
