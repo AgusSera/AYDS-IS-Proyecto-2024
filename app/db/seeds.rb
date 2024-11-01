@@ -723,8 +723,8 @@ end
 
 # Crear usuario de ejemplo
 ActiveRecord::Base.transaction do
-  userProgress = Progress.create(current_lesson: 1)
-  adminProgress = Progress.create(current_lesson: 1)
+  user_progress = Progress.create(current_lesson: 1)
+  admin_progress = Progress.create(current_lesson: 1)
 
   user = User.find_or_initialize_by(username: 'usuario')
   admin = Admin.find_or_initialize_by(username: 'admin')
@@ -732,12 +732,12 @@ ActiveRecord::Base.transaction do
   user.update!(
     password: 'password',
     email: 'usuario@example.com',
-    progress: userProgress
+    progress: user_progress
   )
 
   admin.update!(
     password: 'password',
     email: 'admin@example.com',
-    progress: adminProgress
+    progress: admin_progress
   )
 end

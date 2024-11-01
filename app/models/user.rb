@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# User model
 class User < ActiveRecord::Base
   # CF de la relacion 1 a 1 con Progress en la tabla Progress
   belongs_to :progress

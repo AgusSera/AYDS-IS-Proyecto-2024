@@ -770,10 +770,10 @@ RSpec.describe '../app.rb' do
         question_description: 'What is the result of 3 == 4 in Python?',
         lesson_id: @lesson.id,
         correct_option: '3',
-        option_description_1: 'True',
-        option_description_2: 'None',
-        option_description_3: 'False',
-        option_description_4: 'Error'
+        option_description1: 'True',
+        option_description2: 'None',
+        option_description3: 'False',
+        option_description4: 'Error'
       }
 
       expect(last_response).to be_ok

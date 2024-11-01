@@ -20,8 +20,9 @@ class App < Sinatra::Application
   protected_routes = ['/dashboard', %r{/user/.*}, %r{/learning/.*}, '/ranking', %r{/admin_panel/?.*}, %r{/timetrial/.*}]
 
   before do
-    if protected_routes.any? { |route| route === request.path_info } && session[:username].nil?
-      # La ruta está protegida y no hay sesión activa.
+    if protected_routes.any? do |route|
+      route.is_a?(String) ? (request.path_info == route) : route.match(request.path_info)
+    end && session[:username].nil?
       redirect '/login'
     end
   end
@@ -165,13 +166,12 @@ class App < Sinatra::Application
     session[:success] = nil
     session[:error] = nil
 
+    question = option.question
     if option.value
-      question = option.question
       question.increment!(:correct_answers_count)
       user.progress.correct_answer(question_id)
       session[:success] = 'correct_answer'
     else
-      question = option.question
       question.increment!(:incorrect_answers_count)
       session[:error] = 'wrong_answer'
     end
@@ -341,7 +341,7 @@ class App < Sinatra::Application
       new_question = Question.create(description: params['question_description'], lesson_id: params['lesson_id'])
       (1..4).each do |i|
         is_correct = (params['correct_option'] == i.to_s)
-        Option.create(description: params["option_description_#{i}"], value: is_correct, question_id: new_question.id)
+        Option.create(description: params["option_description#{i}"], value: is_correct, question_id: new_question.id)
       end
       erb :add_question, locals: { success_message: 'Question created successfully' }
     end
