@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-helpers do
+# Helpers module provides utility methods for the application.
+module Helpers
   def current_user
     @current_user ||= User.find_by(username: session[:username])
   end

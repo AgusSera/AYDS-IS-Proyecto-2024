@@ -808,8 +808,6 @@ RSpec.describe '../app.rb' do
     it 'displays the top questions on /admin_panel/top_questions' do
       get '/admin_panel/top_questions', n: 1, m: 1
 
-      puts last_response.body
-
       expect(last_response).to be_ok
       expect(last_response.body).to include(@question1.description)
       expect(last_response.body).to include(@question2.description)
