@@ -12,7 +12,7 @@ class Progress < ActiveRecord::Base
     3 => 'Senior'
   }.freeze
 
-  def act(new_points, new_streak)
+  def update_progress(new_points, new_streak)
     new_points ||= 0
     new_streak ||= 0
 

@@ -8,6 +8,14 @@
 </head>
 <body>
   <div class="container">
+    <% if session[:success] %>
+      <% session.delete(:success) %>
+    <% end %>
+
+    <% if session[:error] %>
+      <% session.delete(:error) %>
+    <% end %>
+
     <h1>Lesson Completed!</h1>
     <p>Congratulations, you have finished this lesson.</p>
     <div class="button-container">

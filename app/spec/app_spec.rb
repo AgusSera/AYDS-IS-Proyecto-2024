@@ -140,13 +140,6 @@ RSpec.describe '../app.rb' do
       expect(last_request.path).to eq('/login')
     end
 
-    it 'redirects to dashboard when accessing lesson completed page without completed user id (no lesson completed in current session)' do
-      get '/learning/lesson_completed'
-      expect(last_response).to be_redirect
-      follow_redirect!
-      expect(last_request.path).to eq('/dashboard')
-    end
-
     it 'redirects to dashboard when trying to reach the main page' do
       get '/'
       expect(last_response).to be_redirect
@@ -409,12 +402,12 @@ RSpec.describe '../app.rb' do
     end
 
     it 'updates points and streak if new values are higher' do
-      progress.act(6, 4)
+      progress.update_progress(6, 4)
 
       expect(progress.points).to eq(6)
       expect(progress.streak).to eq(4)
 
-      progress.act(5, 2)
+      progress.update_progress(5, 2)
 
       expect(progress.points).to eq(6)
       expect(progress.streak).to eq(4)
@@ -462,17 +455,6 @@ RSpec.describe '../app.rb' do
 
       expect(last_response).to be_ok
       expect(last_response.body).to include('Lesson Not Found')
-    end
-
-    it 'access to lesson with no questions to answer' do
-      @lesson = Lesson.find_by(id: 1)
-      @user.progress.update(current_lesson: 1, correct_answered_questions: @lesson.questions)
-
-      get '/learning/lesson/1/play'
-
-      expect(last_response).to be_redirect
-      follow_redirect!
-      expect(last_request.path).to eq('/learning/lesson_completed')
     end
 
     it 'access to lesson with questions to answer' do

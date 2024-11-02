@@ -37,11 +37,8 @@ class AdminController < Sinatra::Base
 
   get '/admin_panel/top_questions' do
     authorize_admin!
-    @n = params[:n].to_i
-    @m = params[:m].to_i
-
-    @n = 5 if @n <= 0
-    @m = 5 if @m <= 0
+    @n = (params[:n].to_i.positive? ? params[:n].to_i : 5)
+    @m = (params[:m].to_i.positive? ? params[:m].to_i : 5)
 
     @top_incorrect_questions = Question.order(incorrect_answers_count: :desc).limit(@n)
 

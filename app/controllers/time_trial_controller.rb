@@ -11,11 +11,8 @@ class TimeTrialController < Sinatra::Base
   set :views, File.expand_path('../views', __dir__)
 
   get '/timetrial' do
-    session[:streak] = 0
-    session[:points] = 0
-    session[:answered_questions] = []
+    reset_game_session
     session[:game_started_at] = Time.now.to_i
-    session[:max_streak] = 0
     redirect '/timetrial/play'
   end
 
@@ -27,6 +24,12 @@ class TimeTrialController < Sinatra::Base
       timetrial_questions = Question.where(lesson_id: nil)
       unanswered_questions = timetrial_questions.where.not(id: session[:answered_questions])
       session[:current_question_id] = unanswered_questions.sample.id
+      if unanswered_questions.exists?
+        session[:current_question_id] = unanswered_questions.sample.id
+      else
+        # No hay preguntas por responder
+        redirect '/timetrial/end_game'
+      end
     end
 
     @question = Question.find(session[:current_question_id])
@@ -61,19 +64,23 @@ class TimeTrialController < Sinatra::Base
   end
 
   get '/timetrial/end_game' do
-    @user = User.find_by(username: session[:username])
+    @user = current_user
     progress = @user.progress
 
-    progress.act(session[:points], session[:max_streak])
+    progress.update_progress(session[:points], session[:max_streak])
 
     @points = session[:points]
     @streak = session[:max_streak]
 
+    reset_game_session
+
+    erb :end_game_time
+  end
+
+  def reset_game_session
     session[:streak] = 0
     session[:points] = 0
     session[:answered_questions] = []
     session[:max_streak] = 0
-
-    erb :end_game_time
   end
 end

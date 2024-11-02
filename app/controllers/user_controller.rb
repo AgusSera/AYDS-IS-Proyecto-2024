@@ -11,13 +11,13 @@ class UserController < Sinatra::Base
   set :views, File.expand_path('../views', __dir__)
 
   get '/user/profile' do
-    @user = User.find_by(username: session[:username])
+    @user = current_user
     @progress = @user.progress
     erb :profile
   end
 
   post '/user/change_password' do
-    @user = User.find_by(username: session[:username])
+    @user = current_user
     @progress = @user.progress
     if @user.change_password(params[:current_password], params[:new_password], params[:confirm_new_password])
       erb :profile, locals: { success_message: 'Contraseña actualizada correctamente' }
@@ -28,7 +28,7 @@ class UserController < Sinatra::Base
   end
 
   post '/user/change_email' do
-    @user = User.find_by(username: session[:username])
+    @user = current_user
     @progress = @user.progress
     if @user.change_email(params[:new_email], params[:current_password])
       erb :profile, locals: { success_message: 'Email actualizado correctamente' }
@@ -38,7 +38,7 @@ class UserController < Sinatra::Base
   end
 
   post '/user/remove_account' do
-    @user = User.find_by(username: session[:username])
+    @user = current_user
     @progress = @user.progress
 
     if @user&.authenticate(params[:current_password])
@@ -51,8 +51,8 @@ class UserController < Sinatra::Base
   end
 
   get '/ranking' do
-    @ranking_usuarios = obtener_ranking_usuarios
-    @current_user = User.find_by(username: session[:username]) if session[:username]
+    @ranking_usuarios = Progress.order(points: :desc, streak: :desc).limit(5)
+    current_user
     erb :ranking
   end
 end

@@ -11,7 +11,7 @@ class LearningController < Sinatra::Base
   set :views, File.expand_path('../views', __dir__)
 
   get '/learning/lesson/:id' do
-    @user = User.find_by(username: session[:username])
+    @user = current_user
     progress = @user.progress
 
     lesson_id = params[:id].to_i
@@ -28,7 +28,7 @@ class LearningController < Sinatra::Base
   end
 
   get '/learning/lesson/:id/play' do
-    @user = User.find_by(username: session[:username])
+    @user = current_user
     progress = @user.progress
 
     max_lesson_id = Lesson.maximum(:id)
@@ -46,23 +46,11 @@ class LearningController < Sinatra::Base
 
       if unanswered_questions.empty?
         progress.advance_to_next_lesson
-        session[:completed_user_id] = @user.id
-        redirect '/learning/lesson_completed'
+        erb :lesson_completed
       else
         @question = unanswered_questions.sample
         erb :play
       end
-    end
-  end
-
-  get '/learning/lesson_completed' do
-    if session[:completed_user_id]
-      @user = User.find(session[:completed_user_id])
-      session[:success] = nil
-      session[:error] = nil
-      erb :lesson_completed
-    else
-      redirect '/dashboard'
     end
   end
 
