@@ -22,4 +22,14 @@ RSpec.describe 'Change user email' do
     expect(@user.change_email('new@example.com', 'wrong')).to be_falsey
     expect(@user.reload.email).to eq('old@example.com')
   end
+
+  it 'email changed successfully' do
+    post '/user/change_email', new_email: 'new@example.com', current_password: 'password'
+    expect(last_response.body).to include('Email actualizado correctamente')
+  end
+
+  it 'email change unsuccessful' do
+    post '/user/change_email', new_email: 'new@example.com', current_password: 'wrong_password'
+    expect(last_response.body).to include('La contraseña actual es incorrecta.')
+  end
 end

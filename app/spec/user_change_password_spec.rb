@@ -27,4 +27,16 @@ RSpec.describe 'Change user password' do
     expect(@user.change_password('oldpassword', 'newpassword', 'newpassword2')).to be_falsey
     expect(@user.reload.password).to eq('oldpassword')
   end
+
+  it 'password changed successfully' do
+    post '/user/change_password', current_password: 'oldpassword', new_password: 'new_password',
+                                  confirm_new_password: 'new_password'
+    expect(last_response.body).to include('Contraseña actualizada correctamente')
+  end
+
+  it 'password change unsuccessful' do
+    post '/user/change_password', current_password: 'wrong_password', new_password: 'new_password',
+                                  confirm_new_password: 'new_password'
+    expect(last_response.body).to include('La contraseña actual es incorrecta o las nuevas contraseñas no coinciden.')
+  end
 end
