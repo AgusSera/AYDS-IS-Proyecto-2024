@@ -23,7 +23,6 @@ class TimeTrialController < Sinatra::Base
     if session[:current_question_id].nil?
       timetrial_questions = Question.where(lesson_id: nil)
       unanswered_questions = timetrial_questions.where.not(id: session[:answered_questions])
-      session[:current_question_id] = unanswered_questions.sample.id
       if unanswered_questions.exists?
         session[:current_question_id] = unanswered_questions.sample.id
       else

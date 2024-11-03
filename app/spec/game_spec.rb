@@ -61,5 +61,13 @@ RSpec.describe 'Game' do
       @user.progress.update(current_lesson: 1)
       post '/learning/lesson/1/submit_answer', answer: 2
     end
+
+    it 'displays lesson completed when all questions are answered correctly' do
+      @lesson = Lesson.find_by(id: 1)
+      @user.progress.update(current_lesson: 1, correct_answered_questions: @lesson.questions)
+      get '/learning/lesson/1/play'
+      expect(last_response).to be_ok
+      expect(last_response.body).to include('Lesson Completed!')
+    end
   end
 end

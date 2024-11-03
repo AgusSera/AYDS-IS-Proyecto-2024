@@ -34,5 +34,12 @@ RSpec.describe 'Time Trial game mode' do
     it 'select wrong answer' do
       post '/timetrial/submit_answer', answer: 122
     end
+
+    it 'redirects to end_game when there are no unanswered questions' do
+      session_data = { answered_questions: Question.where(lesson_id: nil).pluck(:id) }
+      get '/timetrial/play', {}, 'rack.session' => session_data
+      expect(last_response).to be_redirect
+      expect(last_response.location).to include('/timetrial/end_game')
+    end
   end
 end
