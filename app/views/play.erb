@@ -22,6 +22,7 @@
         ]
       %>
       <div class="error-message"><%= error_messages.sample %></div>
+      <% session.delete(:error) %>
     <% elsif session[:success] == 'correct_answer' %>
       <% success_messages = [
           "Great job! Keep it up!",
@@ -32,8 +33,9 @@
         ]
       %>
       <div class="success-message"><%= success_messages.sample %></div>
+      <% session.delete(:success) %>
     <% end %>
- 
+
     <div class="content-container">
       <p class="content-text display-6"><%= @question.description %></p>
     </div>

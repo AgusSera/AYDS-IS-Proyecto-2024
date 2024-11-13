@@ -1,3 +1,5 @@
-class Admin < User # Modelo Admin hereda de User
-    # ...metodos propios de admin
+# frozen_string_literal: true
+
+class Admin < User
+  # ...metodos propios de admin
 end

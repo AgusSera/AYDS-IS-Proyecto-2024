@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+
+Metrics/BlockLength:
+  Max: 75

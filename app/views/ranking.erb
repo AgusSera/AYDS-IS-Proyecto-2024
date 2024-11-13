@@ -19,13 +19,15 @@
         </tr>
       </thead>
       <tbody>
-        <% @ranking_usuarios.first(5).each_with_index do |usuario, index| %>
-          <tr <%= "class='highlight'" if usuario.username == @current_user.username %>>
-            <td><%= index + 1 %></td>
-            <td><%= usuario.username %></td>
-            <td><%= usuario.progress.points %></td>
-            <td><%= usuario.progress.streak %></td>
-          </tr>
+        <% @ranking_usuarios.each_with_index do |progress, index| %>
+          <% if progress.user %>
+            <tr <%= "class='highlight'" if progress.user.username == @current_user.username %>>
+              <td><%= index + 1 %></td>
+              <td><%= progress.user.username %></td>
+              <td><%= progress.points %></td>
+              <td><%= progress.streak %></td>
+            </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>

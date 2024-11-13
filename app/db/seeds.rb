@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../models/user'
 require_relative '../models/admin'
 require_relative '../models/option'
@@ -8,18 +10,19 @@ require_relative '../models/progress'
 lessons_data = [
   {
     name: 'Lesson 1: Variables, Data Types, and Basic Operators',
-    content: 'In this lesson, we will learn about variables, data types, and basic operators. These concepts are fundamental to start your programming journey. Each concept will be explained using Python.
+    content: 'In this lesson, we will learn about variables, data types, and basic operators.
     <hr>
     ### Variables
-    A variable is a space in memory used to store data that can change during the execution of the program. In Python, it is not necessary to declare the type of a variable before using it. You simply assign a value to a variable using the equal sign (=).
+   A variable is a memory space used to store data that can change during program execution.
+   In Python, you don’t need to declare the variable type before using it; simply assign a value with the equal (=).
     ```# Example of variable declaration
     name = "John"
     age = 25
-    is_student = True```
-    In the example above, we have declared three variables: name, age, and is_student, and assigned values of different types to them.
+    ```
+    In this example, we have declared three variables: name and age. And assigned values of different types to them.
     <hr>
     ### Data Types
-    Python has several built-in data types that can be used for different purposes. Some of the most common data types are:
+    Python has several built-in data types. Some of the most common data types are:
     • Integers (int): Whole numbers, like 10, -3, 0.
     • Floating-point numbers (float): Numbers with decimals, like 3.14, -2.5, 0.0.
     • Strings (str): Sequences of characters, like "Hello", "Python".
@@ -117,62 +120,62 @@ lessons_data = [
         ]
       },
       {
-      "description": "What data type is the value 3.14 in Python?",
-      "options": [
-        { description: "Integer", "value": false },
-        { description: "Float", "value": true },
-        { description: "String", "value": false },
-        { description: "Boolean", "value": false }
-      ]
-      },
-      {
-        description: "Which of the following is a comparison operator in Python?",
-        options: [
-          { description: "=", "value": false },
-          { description: "==", "value": true },
-          { description: "+", "value": false },
-          { description: "*", "value": false }
+        "description": 'What data type is the value 3.14 in Python?',
+        "options": [
+          { description: 'Integer', "value": false },
+          { description: 'Float', "value": true },
+          { description: 'String', "value": false },
+          { description: 'Boolean', "value": false }
         ]
       },
       {
-        description: "What is the output of the following code? print(8 / 4)",
+        description: 'Which of the following is a comparison operator in Python?',
         options: [
-          { description: "2", "value": false },
-          { description: "2.0", "value": true },
-          { description: "4", "value": false },
-          { description: "4.0", "value": false }
+          { description: '=', "value": false },
+          { description: '==', "value": true },
+          { description: '+', "value": false },
+          { description: '*', "value": false }
         ]
       },
       {
-        description: "Which of the following statements will result in a value of False?",
+        description: 'What is the output of the following code? print(8 / 4)',
         options: [
-          { description: "5 > 3", "value": false },
-          { description: "10 == 10", "value": false },
-          { description: "7 <= 4", "value": true },
-          { description: "3 != 2", "value": false }
+          { description: '2', "value": false },
+          { description: '2.0', "value": true },
+          { description: '4', "value": false },
+          { description: '4.0', "value": false }
         ]
       },
       {
-        description: "What will be the result of the following code? result = not (True and False)",
+        description: 'Which of the following statements will result in a value of False?',
         options: [
-          { description: "True", "value": true },
-          { description: "False", "value": false },
-          { description: "None", "value": false },
-          { description: "Error", "value": false }
+          { description: '5 > 3', "value": false },
+          { description: '10 == 10', "value": false },
+          { description: '7 <= 4', "value": true },
+          { description: '3 != 2', "value": false }
+        ]
+      },
+      {
+        description: 'What will be the result of the following code? result = not (True and False)',
+        options: [
+          { description: 'True', "value": true },
+          { description: 'False', "value": false },
+          { description: 'None', "value": false },
+          { description: 'Error', "value": false }
         ]
       }
     ]
   },
   {
     name: 'Lesson 2: Control Structures and Loops',
-    content: 'In this lesson, we will learn about control structures and loops in Python. Control structures allow us to control the flow of execution of a program, while loops allow us to repeat certain actions.
+    content: 'In this lesson, we will learn about control structures and loops in Python.
     <hr>
     ## Control Structures
     #### If-Else
     The most basic control structure is the if-else statement, which allows us to make decisions based on conditions.
     ```# Example of if-else statement
     age = 18
-    
+
     if age >= 18:
         print("You are an adult")
     else:
@@ -182,7 +185,7 @@ lessons_data = [
     The elif keyword allows us to evaluate multiple conditions in a single if statement.
     ```# Example of if-elif-else statement
     grade = 75
-    
+
     if grade >= 90:
         print("Passed with an A")
     elif grade >= 80:
@@ -192,13 +195,13 @@ lessons_data = [
     else:
         print("Failed")```
     <hr>
-    
+
     ## Loops
     #### For Loop
-    The for loop is used to iterate over a sequence (such as a list, tuple, or range) and execute a block of code for each element in the sequence.
+    The for loop is used to iterate over a sequence and execute a block of code for each element in the sequence.
     ```# Example of if-elif-else statement
     grade = 75
-    
+
     if grade >= 90:
         print("Passed with an A")
     elif grade >= 80:
@@ -212,13 +215,13 @@ lessons_data = [
     The while loop is used to execute a block of code while a specified condition is true.
     ```# Example of while loop
     counter = 0
-    
+
     while counter < 5:
         print("Counter:", counter)
         counter += 1```
     <hr>
-    
-    With these control structures and loops, you can control the flow of execution of your program and perform repetitive tasks efficiently in Python. Practice writing and executing code to familiarize yourself with these fundamental programming concepts!',
+
+    With these control structures and loops, you can control the flow of execution of your program in Python!',
     questions: [
       {
         description: 'What is the correct structure for an if contidional in Python?',
@@ -259,10 +262,22 @@ lessons_data = [
       {
         description: 'What is the main difference between a "while" and a "for" loop in Python?',
         options: [
-          { description: '"while" is used to iterate for as long as the condition holds true, while "for" is utilized to iterate over a sequence of elements.', value: true },
-          { description: '"while" y "for" are synonyms and both can be used indistinctively.', value: false },
-          { description: '"for" is utilized for infinite loops and "while" is utilized for loops with a finite number of iterations.', value: false },
-          { description: '"for" is only used to iterate over the elements of a list, meanwhile a "while" structure is utilized for other kinds of data structures.', value: false }
+          {
+            description: '"while" iterates as long as the condition is true, "for" iterates over a sequence of items.',
+            value: true
+          },
+          {
+            description: '"while" and "for" are synonyms and both can be used indistinctively.',
+            value: false
+          },
+          {
+            description: '"for" is used for infinite loops, "while" is for loops with a finite number of iterations.',
+            value: false
+          },
+          {
+            description: '"for" is only used to iterate over a list, while "while" is used for other data structures.',
+            value: false
+          }
         ]
       },
       {
@@ -284,7 +299,7 @@ lessons_data = [
         ]
       },
       {
-        description: 'What is the output of the following code? counter = 3 while counter < 3: print(counter) counter += 1',
+        description: 'What is the output of this code? counter = 3 while counter < 3: print(counter) counter += 1',
         options: [
           { description: '0 1 2', value: false },
           { description: '1 2 3', value: false },
@@ -293,10 +308,10 @@ lessons_data = [
         ]
       },
       {
-        description: 'What will be the output of this code? if 5 > 3: print("Five is greater") else: print("Three is greater")',
+        description: 'What will be the output of this code? if 5 > 3: print("Nice") else: print("Great")',
         options: [
-          { description: 'Five is greater', value: true },
-          { description: 'Three is greater', value: false },
+          { description: 'Nice', value: true },
+          { description: 'Great', value: false },
           { description: 'Error', value: false },
           { description: 'No output', value: false }
         ]
@@ -305,7 +320,9 @@ lessons_data = [
         description: 'What does the "continue" keyword do in a loop in Python?',
         options: [
           { description: 'Stops the loop entirely.', value: false },
-          { description: 'Skips the rest of the code inside the loop for the current iteration and moves to the next iteration.', value: true },
+          {
+            description: 'Skips the rest of the code inside the loop and moves to the next iteration.', value: true
+          },
           { description: 'Restarts the loop from the beginning.', value: false },
           { description: 'Exits the current function.', value: false }
         ]
@@ -314,11 +331,12 @@ lessons_data = [
   },
   {
     name: 'Lesson 3: Functions and Modules',
-    content: 'In this lesson, we will delve into the concepts of functions and modules in Python. Functions allow us to encapsulate a set of instructions into a reusable block of code, while modules enable us to organize related functions and variables into separate files for better code organization and reusability.
+    content: 'In this lesson, we will delve into the concepts of functions and modules in Python.
     <hr>
     ## Functions
     #### Defining Functions
-    A function in Python is defined using the def keyword, followed by the function name and parentheses containing any parameters the function requires. The function body is then indented.
+    A function in Python is defined with the def keyword, followed by the function name and parentheses for parameters.
+    The body of the function is indented.
     ```# Example of defining a function
     def greet(name):
         """This function greets the user."""
@@ -338,9 +356,10 @@ lessons_data = [
     <hr>
     ## Modules
     #### Creating Modules
-    A module is a file containing Python code. It can define functions, classes, and variables. To create a module, simply save your Python code in a file with a .py extension.
+    A module is a file containing Python code. It can define functions, classes, and variables.
+    To create a module, simply save your Python code in a file with a .py extension.
     ```# Example of a module saved as mymodule.py
-    
+
     def greet(name):
         """This function greets the user."""
         print("Hello, " + name + "!")```
@@ -349,24 +368,24 @@ lessons_data = [
     To use functions or variables defined in a module, you need to import the module using the import keyword.
     ```# Example of importing a module
     import mymodule
-    
+
     mymodule.greet("Bob")```
     <br>
     #### Importing Specific Functions
     You can also import specific functions or variables from a module using the from keyword.
     ```# Example of importing a specific function from a module
     from mymodule import greet
-    
+
     greet("Charlie")```
     <br>
     #### Renaming Modules
     If the name of a module is long or conflicts with an existing name, you can rename it using the as keyword.
     ```# Example of renaming a module
     import mymodule as m
-    
+
     m.greet("Dave")```
     <hr>
-    With functions and modules, you can write organized and reusable code in Python. Practice defining functions, creating modules, and importing them to understand these fundamental concepts better!',
+    With functions and modules, you can write organized and reusable code in Python.',
     questions: [
       {
         description: 'How can we define a function in Python?',
@@ -414,25 +433,26 @@ lessons_data = [
         ]
       },
       {
-        description: "How do you call a function in Python?",
+        description: 'How do you call a function in Python?',
         options: [
-          { description: "By using parentheses () after the function name with any required arguments inside.", value: true },
-          { description: "By using square brackets [].", value: false },
-          { description: "By using the execute keyword.", value: false },
-          { description: "By using the call keyword.", value: false }
+          { description: 'By using parentheses () after the function name with any required arguments inside.',
+            value: true },
+          { description: 'By using square brackets [].', value: false },
+          { description: 'By using the execute keyword.', value: false },
+          { description: 'By using the call keyword.', value: false }
         ]
       },
       {
         description: "If a function in Python doesn't have a 'return' statement, what value does it default to?",
         options: [
           { description: "'None'", value: true },
-          { description: "The last calculated value within the function.", value: false },
-          { description: "A syntax error.", value: false },
+          { description: 'The last calculated value within the function.', value: false },
+          { description: 'A syntax error.', value: false },
           { description: "The value 'True'.", value: false }
         ]
       },
       {
-        description: "What keyword is used to indicate the end of a function definition in Python?",
+        description: 'What keyword is used to indicate the end of a function definition in Python?',
         options: [
           { description: "'end'", value: false },
           { description: "'finish'", value: false },
@@ -443,19 +463,19 @@ lessons_data = [
       {
         description: "How can you define a function that doesn't take any parameters in Python?",
         options: [
-          { description: "def my_function()", value: true },
-          { description: "def my_function(parameters)", value: false },
-          { description: "def my_function(parameters=None)", value: false },
-          { description: "def my_function(parameters=0)", value: false }
+          { description: 'def my_function()', value: true },
+          { description: 'def my_function(parameters)', value: false },
+          { description: 'def my_function(parameters=None)', value: false },
+          { description: 'def my_function(parameters=0)', value: false }
         ]
       },
       {
         description: "What is the purpose of the 'return' statement in a Python function?",
         options: [
-          { description: "To terminate the function and return control to the caller.", value: false },
-          { description: "To define the name of the function.", value: false },
-          { description: "To specify the input parameters of the function.", value: false },
-          { description: "To send back a value from the function to the caller.", value: true }
+          { description: 'To terminate the function and return control to the caller.', value: false },
+          { description: 'To define the name of the function.', value: false },
+          { description: 'To specify the input parameters of the function.', value: false },
+          { description: 'To send back a value from the function to the caller.', value: true }
         ]
       }
     ]
@@ -465,129 +485,129 @@ lessons_data = [
 # Preguntas para el modo competitivo
 questions_timetrial = [
   {
-    description: "Which of the following is a valid variable name in Python?",
+    description: 'Which of the following is a valid variable name in Python?',
     options: [
-      { description: "_variable", value: true },
-      { description: "2variable", value: false },
-      { description: "variable-name", value: false },
-      { description: "variable.name", value: false }
+      { description: '_variable', value: true },
+      { description: '2variable', value: false },
+      { description: 'variable-name', value: false },
+      { description: 'variable.name', value: false }
     ]
   },
   {
-    description: "What is the result of the following code? x = 5 + 3 * 2",
+    description: 'What is the result of the following code? x = 5 + 3 * 2',
     options: [
-      { description: "11", value: true },
-      { description: "16", value: false },
-      { description: "10", value: false },
-      { description: "13", value: false }
+      { description: '11', value: true },
+      { description: '16', value: false },
+      { description: '10', value: false },
+      { description: '13', value: false }
     ]
   },
   {
-    description: "Which of the following is NOT a built-in data type in Python?",
+    description: 'Which of the following is NOT a built-in data type in Python?',
     options: [
-      { description: "List", value: false },
-      { description: "Dictionary", value: false },
-      { description: "Array", value: true },
-      { description: "Tuple", value: false }
+      { description: 'List', value: false },
+      { description: 'Dictionary', value: false },
+      { description: 'Array', value: true },
+      { description: 'Tuple', value: false }
     ]
   },
   {
-    description: "What is the result of the following operation in Python? 10 % 3",
+    description: 'What is the result of the following operation in Python? 10 % 3',
     options: [
-      { description: "1", value: true },
-      { description: "3", value: false },
-      { description: "0", value: false },
-      { description: "10", value: false }
+      { description: '1', value: true },
+      { description: '3', value: false },
+      { description: '0', value: false },
+      { description: '10', value: false }
     ]
   },
   {
-    description: "Which of the following keywords is used to define a function in Python?",
+    description: 'Which of the following keywords is used to define a function in Python?',
     options: [
-      { description: "function", value: false },
-      { description: "def", value: true },
-      { description: "func", value: false },
-      { description: "define", value: false }
+      { description: 'function', value: false },
+      { description: 'def', value: true },
+      { description: 'func', value: false },
+      { description: 'define', value: false }
     ]
   },
   {
-    description: "Which of the following is a logical operator in Python?",
+    description: 'Which of the following is a logical operator in Python?',
     options: [
-      { description: "and", value: true },
-      { description: "+", value: false },
-      { description: "*", value: false },
-      { description: "=", value: false }
+      { description: 'and', value: true },
+      { description: '+', value: false },
+      { description: '*', value: false },
+      { description: '=', value: false }
     ]
   },
   {
-    description: "What does the expression 3 == 3 evaluate to in Python?",
+    description: 'What does the expression 3 == 3 evaluate to in Python?',
     options: [
-      { description: "True", value: true },
-      { description: "False", value: false },
-      { description: "None", value: false },
-      { description: "Error", value: false }
+      { description: 'True', value: true },
+      { description: 'False', value: false },
+      { description: 'None', value: false },
+      { description: 'Error', value: false }
     ]
   },
   {
-    description: "What will be the result of this code? print(10 // 3)",
+    description: 'What will be the result of this code? print(10 // 3)',
     options: [
-      { description: "3", value: true },
-      { description: "3.33", value: false },
-      { description: "3.0", value: false },
-      { description: "4", value: false }
+      { description: '3', value: true },
+      { description: '3.33', value: false },
+      { description: '3.0', value: false },
+      { description: '4', value: false }
     ]
   },
   {
-    description: "What does the following expression return in Python? len([1, 2, 3, 4])",
+    description: 'What does the following expression return in Python? len([1, 2, 3, 4])',
     options: [
-      { description: "4", value: true },
-      { description: "3", value: false },
-      { description: "5", value: false },
-      { description: "Error", value: false }
+      { description: '4', value: true },
+      { description: '3', value: false },
+      { description: '5', value: false },
+      { description: 'Error', value: false }
     ]
   },
   {
-    description: "What is the correct syntax for a while loop in Python?",
+    description: 'What is the correct syntax for a while loop in Python?',
     options: [
-      { description: "while (condition):", value: true },
-      { description: "while condition do:", value: false },
-      { description: "while {condition}:", value: false },
-      { description: "while condition:", value: false }
+      { description: 'while (condition):', value: true },
+      { description: 'while condition do:', value: false },
+      { description: 'while {condition}:', value: false },
+      { description: 'while condition:', value: false }
     ]
   },
   {
-    description: "What will be the result of the following code? for i in range(1, 4): print(i)",
+    description: 'What will be the result of the following code? for i in range(1, 4): print(i)',
     options: [
-      { description: "1 2 3", value: true },
-      { description: "0 1 2 3", value: false },
-      { description: "2 3 4", value: false },
-      { description: "Error", value: false }
+      { description: '1 2 3', value: true },
+      { description: '0 1 2 3', value: false },
+      { description: '2 3 4', value: false },
+      { description: 'Error', value: false }
     ]
   },
   {
-    description: "Which of the following statements will exit a loop in Python?",
+    description: 'Which of the following statements will exit a loop in Python?',
     options: [
-      { description: "continue", value: false },
-      { description: "pass", value: false },
-      { description: "break", value: true },
-      { description: "stop", value: false }
+      { description: 'continue', value: false },
+      { description: 'pass', value: false },
+      { description: 'break', value: true },
+      { description: 'stop', value: false }
     ]
   },
   {
-    description: "What is the output of the following code? for i in range(4): if i == 2: break print(i)",
+    description: 'What is the output of the following code? for i in range(4): if i == 2: break print(i)',
     options: [
-      { description: "0 1", value: true },
-      { description: "0 1 2", value: false },
-      { description: "0 1 2 3", value: false },
-      { description: "No output", value: false }
+      { description: '0 1', value: true },
+      { description: '0 1 2', value: false },
+      { description: '0 1 2 3', value: false },
+      { description: 'No output', value: false }
     ]
   },
   {
-    description: "What will happen if the condition in a while loop is never false?",
+    description: 'What will happen if the condition in a while loop is never false?',
     options: [
-      { description: "The loop will run infinitely.", value: true },
-      { description: "The loop will run once.", value: false },
-      { description: "The program will crash.", value: false },
-      { description: "An error will occur.", value: false }
+      { description: 'The loop will run infinitely.', value: true },
+      { description: 'The loop will run once.', value: false },
+      { description: 'The program will crash.', value: false },
+      { description: 'An error will occur.', value: false }
     ]
   },
   {
@@ -595,80 +615,81 @@ questions_timetrial = [
     options: [
       { description: "'continue' skips the current iteration, 'break' exits the loop.", value: true },
       { description: "'break' skips the current iteration, 'continue' exits the loop.", value: false },
-      { description: "Both are used to exit the loop.", value: false },
-      { description: "There is no difference between them.", value: false }
+      { description: 'Both are used to exit the loop.', value: false },
+      { description: 'There is no difference between them.', value: false }
     ]
   },
   {
-    description: "What is the output of this code? if 10 > 5: print('Ten is greater than five') else: print('Five is greater')",
+    description: "What is the output of this code? if 10 > 5: print('Nice') else: print('Great')",
     options: [
-      { description: "Ten is greater than five", value: true },
-      { description: "Five is greater", value: false },
-      { description: "No output", value: false },
-      { description: "Error", value: false }
+      { description: 'Nice', value: true },
+      { description: 'Great', value: false },
+      { description: 'No output', value: false },
+      { description: 'Error', value: false }
     ]
   },
   {
-    description: "Which of the following keywords is used to skip the rest of the code in the current iteration of a loop?",
+    description: 'Which keyword skips code in the current loop iteration?',
     options: [
-      { description: "continue", value: true },
-      { description: "break", value: false },
-      { description: "pass", value: false },
-      { description: "exit", value: false }
+      { description: 'continue', value: true },
+      { description: 'break', value: false },
+      { description: 'pass', value: false },
+      { description: 'exit', value: false }
     ]
   },
   {
-    description: "How can we specify a default value for a parameter in a Python function?",
+    description: 'How can we specify a default value for a parameter in a Python function?',
     options: [
-      { description: "def my_func(param=default_value):", value: true },
-      { description: "def my_func(default_value param):", value: false },
-      { description: "def my_func(param=):", value: false },
-      { description: "def my_func(default=param):", value: false }
+      { description: 'def my_func(param=default_value):', value: true },
+      { description: 'def my_func(default_value param):', value: false },
+      { description: 'def my_func(param=):', value: false },
+      { description: 'def my_func(default=param):', value: false }
     ]
   },
   {
-    description: "How can you import only specific functions from a module in Python?",
+    description: 'How can you import only specific functions from a module in Python?',
     options: [
-      { description: "from module import function", value: true },
-      { description: "include function from module", value: false },
-      { description: "require module.function", value: false },
-      { description: "import function from module", value: false }
+      { description: 'from module import function', value: true },
+      { description: 'include function from module', value: false },
+      { description: 'require module.function', value: false },
+      { description: 'import function from module', value: false }
     ]
   },
   {
-    description: "What will happen if a function with no return statement is called?",
+    description: 'What will happen if a function with no return statement is called?',
     options: [
       { description: "The function will return 'None'.", value: true },
-      { description: "The function will cause an error.", value: false },
+      { description: 'The function will cause an error.', value: false },
       { description: "The function will return the value 'False'.", value: false },
-      { description: "The function will return the last computed value.", value: false }
+      { description: 'The function will return the last computed value.', value: false }
     ]
   },
   {
-    description: "Which keyword allows importing all functions and variables from a module?",
+    description: 'Which keyword allows importing all functions and variables from a module?',
     options: [
-      { description: "from module import *", value: true },
-      { description: "import all from module", value: false },
-      { description: "require module.all", value: false },
-      { description: "include module", value: false }
+      { description: 'from module import *', value: true },
+      { description: 'import all from module', value: false },
+      { description: 'require module.all', value: false },
+      { description: 'include module', value: false }
     ]
   },
   {
-    description: "What is the difference between parameters and arguments in Python functions?",
+    description: 'What is the difference between parameters and arguments in Python functions?',
     options: [
-      { description: "Parameters are variables in the function definition, arguments are the actual values passed.", value: true },
-      { description: "Parameters and arguments are the same.", value: false },
-      { description: "Arguments define the function, parameters are passed to the function.", value: false },
-      { description: "Arguments are declared in the function, parameters are passed.", value: false }
+      { description: 'Parameters are variables in the function definition, arguments are the actual values passed.',
+        value: true },
+      { description: 'Parameters and arguments are the same.', value: false },
+      { description: 'Arguments define the function, parameters are passed to the function.', value: false },
+      { description: 'Arguments are declared in the function, parameters are passed.', value: false }
     ]
   },
   {
     description: "What does the 'global' keyword do inside a function in Python?",
     options: [
-      { description: "It allows a function to modify a global variable.", value: true },
-      { description: "It imports global modules automatically.", value: false },
-      { description: "It restricts a function to use local variables only.", value: false },
-      { description: "It creates a global scope inside the function.", value: false }
+      { description: 'It allows a function to modify a global variable.', value: true },
+      { description: 'It imports global modules automatically.', value: false },
+      { description: 'It restricts a function to use local variables only.', value: false },
+      { description: 'It creates a global scope inside the function.', value: false }
     ]
   }
 ]
@@ -690,7 +711,7 @@ lessons_data.each do |lesson_data|
   end
 end
 
-#Crear Preguntas modo Contrarreloj
+# Crear Preguntas modo Contrarreloj
 questions_timetrial.each do |question_data|
   question = Question.find_or_create_by(description: question_data[:description], lesson_id: nil)
   question_data[:options].each do |option_data|
@@ -702,9 +723,8 @@ end
 
 # Crear usuario de ejemplo
 ActiveRecord::Base.transaction do
-
-  userProgress = Progress.create(current_lesson: 1)
-  adminProgress = Progress.create(current_lesson: 1)
+  user_progress = Progress.create(current_lesson: 1)
+  admin_progress = Progress.create(current_lesson: 1)
 
   user = User.find_or_initialize_by(username: 'usuario')
   admin = Admin.find_or_initialize_by(username: 'admin')
@@ -712,12 +732,12 @@ ActiveRecord::Base.transaction do
   user.update!(
     password: 'password',
     email: 'usuario@example.com',
-    progress: userProgress
+    progress: user_progress
   )
 
   admin.update!(
     password: 'password',
     email: 'admin@example.com',
-    progress: adminProgress
+    progress: admin_progress
   )
 end
