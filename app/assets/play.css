@@ -191,3 +191,39 @@ body {
     background: #dd5757;
     outline: none;
   }
+
+  .points-and-timer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Espacio entre el cronómetro y los puntos/racha */
+    margin-top: 20px; /* Espacio desde el título */
+  }
+
+  #timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border: 5px solid #ced4da;
+    border-radius: 50%;
+    font-size: 2rem;
+    background-color: #495057;
+    color: white;
+  }
+
+  .points-and-streak {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ced4da;
+    font-size: 1rem;
+  }
+
+  .points-and-streak p {
+    margin: 5px 0;
+  }
+
+

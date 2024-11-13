@@ -18,12 +18,21 @@ body {
   position: relative;
 }
 
+.title {
+  margin-bottom: 25px;
+}
+
 #lesson-select {
       display: none;
 }
 
 h1 {
   color: white;
+}
+
+h3 {
+  color: white;
+  font-size: 18px;
 }
 
 .close-btn {
@@ -34,3 +43,4 @@ h1 {
   color: white;
   text-decoration: none;
 }
+

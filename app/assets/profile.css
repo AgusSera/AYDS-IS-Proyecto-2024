@@ -62,6 +62,7 @@ h1, h3 {
 }
 .list-group-item {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 .accordion-button {
   color: white;
@@ -75,7 +76,9 @@ h1, h3 {
 }
 
 .accordion-button:not(.collapsed) {
-  background-color: #212529;
+  background-color: white;
+  color: #212529;
+  font-weight: bold;
 }
 
 .accordion-body {

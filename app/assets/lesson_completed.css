@@ -5,6 +5,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #212529;
+    background-image: url(images/completed.jpg);
     color: white;
 }
 .button-container {
@@ -17,6 +18,7 @@ body {
     background-color: #394041;
     border-radius: 10px;
     padding: 20px;
+    background: rgba(33, 37, 41, 0.8);
 }
 .btn {
     margin-top: 20px;

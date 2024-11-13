@@ -7,7 +7,7 @@ html, body {
 body {
   font-family: 'Fira Code', monospace;
   line-height: 1.7;
-  background: url('./images/background4.png') no-repeat center center fixed;
+  background: url('./images/background2.jpg') no-repeat center center fixed;
   background-size: cover;
   backdrop-filter: blur(10px); /* Difuminado al fondo */
   overflow: hidden;
@@ -81,12 +81,28 @@ p, a {
 }
 
 .dropdown-menu {
+  width: 100%;
   text-align: center; 
 }
 
 .dropdown-item {
-  font-size: 1.2rem; 
-  padding: 10px 20px; 
+  width: 100%;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dropdown-item a:hover {
+  text-decoration: none;
+  color: #0d6efd;
 }
 
 .collapse {
@@ -126,7 +142,6 @@ p, a {
   cursor: pointer;
 }
 
-/* Popup styling */
 .popup {
   color: white;
   display: none;
@@ -139,6 +154,8 @@ p, a {
   border: 1px solid #ccc;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 100;
+  overflow: scroll;
+  height: 50rem;
 }
 
 .popup-body p {
