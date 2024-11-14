@@ -89,10 +89,15 @@
         <button class="btn btn-danger btn-play" type="button" onclick="showGoBackModal(); clearSessionStorage();">Go back</button>
       </div>
     </form>
-    <div class="points-container mt-4">
-      <p>Points: <%= @points %></p>
-      <p>Streak: <%= @streak %></p>
-      <p><strong>Remaining time: </strong> <span id="timer"></span> seconds</p>
+
+    <div class="points-and-timer-container">
+      <div class="points-and-streak">
+        <p>Streak: <%= @streak %></p>
+      </div>
+      <div id="timer"></div>
+      <div class="points-and-streak">
+        <p>Points: <%= @points %></p>
+      </div>
     </div>
     
   </div>

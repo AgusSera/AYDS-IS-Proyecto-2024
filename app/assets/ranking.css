@@ -6,12 +6,14 @@ body {
     height: 70vh;
     background-color: #212529;
     margin: 0;
+    background-image: url(images/ranking.jpg);
   }
   .content {
     width: 90%;
     max-width: 1300px;
     padding: 30px;
     background: #212529;
+    background: rgba(33, 37, 41, 0);
     color: white;
   }
   h1 {

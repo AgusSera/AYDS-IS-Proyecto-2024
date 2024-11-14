@@ -70,7 +70,7 @@ body {
 .back-button {
     position: absolute;
     top: 0px;
-    left: 20px;
+    right: 20px;
     font-size: 50px;
     background-color: transparent;
     border: none;

@@ -10,16 +10,16 @@
 <body>
   <div class="container mt-5">
     <a href="/admin_panel" class="close-btn" aria-label="Close">&times;</a>
-    <h1>Form to Add Question</h1>
+    <div class="title"><h1>Form to Add Question</h1></div>
     <form action="/admin_panel/add_questions" method="POST">
 
       <div class="mb-3">
-        <label for="question_description" class="form-label">Question</label>
+        <label for="question_description" class="form-label"><h3>Question</h3></label>
         <input type="text" class="form-control" id="question_description" name="question_description" placeholder="Write the question" required>
       </div>
 
       <div class="mb-3">
-        <label for="options" class="form-label">Options</label>
+        <label for="options" class="form-label"><h3>Options</h3></label>
         <div class="form-check">
           <input class="form-check-input" type="radio" name="correct_option" value="1" required>
           <input type="text" id="option-1" name="option_description1" class="form-control mb-2" placeholder="Option 1" required>
@@ -40,7 +40,7 @@
 
       <div class="form-check form-switch mb-3">
         <input class="form-check-input" type="checkbox" id="learningModeSwitch">
-        <label class="form-check-label" for="learningModeSwitch">Learning Mode</label>
+        <label class="form-check-label" for="learningModeSwitch"><h3>Learning Mode</h3></label>
       </div>
 
       <div class="mb-3" id="lesson-select">
